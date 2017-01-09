@@ -1,3 +1,3 @@
-FROM sonarqube:5.6.4-alpine
+FROM sonarqube:6.2-alpine
 
 ADD sonarqube_extensions /opt/sonarqube/extensions

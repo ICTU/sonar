@@ -1,11 +1,11 @@
-  sonarqube:
+  www:
     build: .
-    ports:
-      - "9000:9000"
     environment:
       - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
     links:
       - db
+    ports:
+      - "9000:9000"
 
   db:
     image: postgres
