@@ -3,7 +3,7 @@
     environment:
       - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
     volumes: 
-      - ./sonarqube_extensions:/opt/sonarqube/extensions
+      - ./plugins:/opt/sonarqube/extensions/plugins
     links:
       - db
     ports:
