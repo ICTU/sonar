@@ -1,4 +1,4 @@
-FROM sonarqube:5.6.4
+FROM sonarqube:5.6.6
 
 ADD ./plugins /tmp/plugins
 
