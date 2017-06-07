@@ -1,4 +1,6 @@
-FROM sonarqube:6.3.1
+FROM sonarqube:6.4-alpine
+
+RUN apk update && apk add bash unzip
 
 ADD ./plugins /tmp/plugins
 
