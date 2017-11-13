@@ -1,36 +1,56 @@
 # ICTU SonarQube Docker image
 A sonar image containing plugins and quality profiles used at ICTU
 
-## Building and running
+## Running from docker hub
+
+    docker run -it -p 9000:9000 ictu/sonar
+
+## Building and running locally
 
     docker build . -t ictusonar
     docker run -it -p 9000:9000 ictusonar
     browse to http://localhost:9000
 
+## Running with MySQL via a docker composition
+
+Use the following docker-compose file:
+
+    www:
+        image: ictu/sonar:6.6
+        environment:
+            - SONARQUBE_JDBC_USERNAME=sonar
+            - SONARQUBE_JDBC_PASSWORD=sonar-password
+            - "SONARQUBE_JDBC_URL=jdbc:mysql://db/sonar?useUnicode=true&amp;characterEncoding=utf8"
+        links:
+            - db
+    db:
+        image: mysql:5.6
+        environment:
+            - MYSQL_ROOT_PASSWORD=root-password
+            - MYSQL_DATABASE=sonar
+            - MYSQL_USER=sonar
+            - MYSQL_PASSWORD=sonar-password
+        volumes:
+            - /db/var/lib/mysql:/var/lib/mysql
+
 ## Adding plugins
 Add the url of the plugin to be installed to ```./plugins/plugin-list```
 
-## Quality profiles
+## Creating and modifying quality profiles
 
-### Naming convention
+Modify start-with-profile.sh and add a call such as
 
-    Profile name: ictu-(languagecode)-profile-(plugin version major.minor)
-    Profile backup file: (Profile name).xml
+    createProfile "ictu-cs-profile-6.5" "Sonar%20way" "cs" "csharpsquid:S104,csharpsquid:S134"
 
-    Example: ictu-cs-profile-6.5
-    (languagecode) = cs (the language codes are the SonarQube used language code, such as js, ts, cs, java, py, web)
-    (plugin version) = 2.5 (extracted via the admin page / installed plugins)
+The parameters are:
+- profile name
+- parent profile name
+- language
+- comma separated rules list (keys)
 
-### Adding quality profiles
+## ICTU quality profiles customizations
 
-Modify profiles/start-with-profile.sh and add a call such as 
-
-    uploadProfile "ictu-cs-profile-6.5" "Sonar%20way" "cs"
-
-
-### ICTU quality profiles customizations
-
-#### JAVA
+### JAVA
 
 Inherits from : Sonar way
 
@@ -40,7 +60,7 @@ Custom activated rules:
 - squid:S1067 - Expressions should not be too complex - CRITICAL
 - squid:S109 - Magic numbers should not be used	- MAJOR
 
-#### C#
+### C#
 
 Inherits from : Sonar way
 
@@ -51,7 +71,7 @@ Custom activated rules:
 - csharpsquid:S1067 - Expressions should not be too complex - CRITICAL
 - csharpsquid:S1541 - Methods and properties should not be too complex - CRITICAL
 
-#### Python
+### Python
 
 Inherits from : Sonar way
 
@@ -60,7 +80,7 @@ Custom activated rules:
 - python:S104 - Files should not have too many lines of code - MAJOR
 - python:S134 - Control flow statements "if", "for", "while", "try" and "with" should not be nested too deeply - CRITICAL
 
-#### JS
+### JS
 
 Inherits from : Sonar way Recommended (upper case r in Recommended)
 
@@ -70,7 +90,7 @@ Custom activated rules:
 - javascript:S1067 - Expressions should not be too complex - CRITICAL
 - javascript:S2228 - Console logging should not be used - MINOR
 
-#### TS
+### TS
 
 Inherits from : Sonar way recommended (lower case r in recommended)
 
@@ -79,7 +99,7 @@ Custom activated rules:
 - typescript:S109 - Magic numbers should not be used - MAJOR
 - typescript:S2228 - Console logging should not be used - MINOR
 
-#### Web
+### Web
 
 Inherits from : Sonar way
 
@@ -89,7 +109,7 @@ Custom activated rules:
 - Web:LongJavaScriptCheck - Javascript scriptlets should not have too many lines of code - MAJOR
 - Web:S1443 - "autocomplete" should be set to "off" on input elements of type "password" - BLOCKER
 
-#### VB
+### VB
 
 Inherits from : Sonar way
 
