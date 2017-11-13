@@ -70,4 +70,12 @@ createProfile "ictu-web-profile-2.5" "Sonar%20way" "web" "common-web:DuplicatedB
 curlAdmin -X POST "$BASE_URL/api/plugins/install?key=vbnet"
 curlAdmin -X POST "$BASE_URL/api/system/restart"
 
+# Wait for server to be up
+while [ -z "$PING" ]
+do
+    sleep 5
+    PING=`isUp`
+done
+createProfile "ictu-vb-profile-4.0" "Sonar%20way" "vbnet" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck,Web:S1443"
+
 wait
