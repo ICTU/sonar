@@ -9,12 +9,8 @@ RUN chmod +x /tmp/plugins/install-plugins.sh
 RUN ls /tmp/plugins -l
 RUN /tmp/plugins/install-plugins.sh
 
-ADD ./profiles /tmp/profiles
-RUN ls /tmp/profiles -l
-RUN mv /tmp/profiles/start-with-profile.sh /opt/sonarqube/start-with-profile.sh
-RUN ls /opt/sonarqube -l
-
 WORKDIR /opt/sonarqube
+COPY ./start-with-profile.sh .
 RUN chmod +x start-with-profile.sh
 
 CMD ["./start-with-profile.sh"]
