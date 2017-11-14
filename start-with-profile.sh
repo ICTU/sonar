@@ -77,10 +77,10 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-6.5" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
-createProfile "ictu-java-profile-4.14" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
-createProfile "ictu-py-profile-6.5" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134"
-createProfile "ictu-js-profile-3.2" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
+createProfile "ictu-cs-profile-6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
+createProfile "ictu-java-profile-4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
+createProfile "ictu-py-profile-1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134"
+createProfile "ictu-js-profile-3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
 createProfile "ictu-ts-profile-1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
 createProfile "ictu-web-profile-2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck,Web:S1443"
 
@@ -92,6 +92,6 @@ echo "Restarting Sonarqube after installing vb plugin"
 waitForSonarDown
 waitForSonarUp
 
-createProfile "ictu-vb-profile-4.0" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks,vbnet:S104,vbnet:S1067,vbnet:S134,vbnet:S1541"
+createProfile "ictu-vb-profile-4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks,vbnet:S104,vbnet:S1067,vbnet:S134,vbnet:S1541"
 
 wait
