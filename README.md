@@ -99,16 +99,6 @@ Custom activated rules:
 - typescript:S109 - Magic numbers should not be used - MAJOR
 - typescript:S2228 - Console logging should not be used - MINOR
 
-### Web
-
-Inherits from : Sonar way
-
-Custom activated rules:
-- common-web:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- Web:ComplexityCheck - Files should not be too complex - MAJOR
-- Web:LongJavaScriptCheck - Javascript scriptlets should not have too many lines of code - MAJOR
-- Web:S1443 - "autocomplete" should be set to "off" on input elements of type "password" - BLOCKER
-
 ### VB
 
 Inherits from : Sonar way
@@ -119,3 +109,12 @@ Custom activated rules:
 - vbnet:S1067 - Expressions should not be too complex
 - vbnet:S134 - Control flow statements "If", "For", "For Each", "Do", "While", "Select" and "Try" should not be nested too deeply
 - vbnet:S1541 - Functions, procedures and properties should not be too complex
+
+### Web
+
+Inherits from : Sonar way
+
+Custom activated rules:
+- common-web:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
+- Web:ComplexityCheck - Files should not be too complex - MAJOR
+- Web:LongJavaScriptCheck - Javascript scriptlets should not have too many lines of code - MAJOR

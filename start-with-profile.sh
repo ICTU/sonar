@@ -82,7 +82,7 @@ createProfile "ictu-java-profile-4.15" "Sonar%20way" "java" "squid:MethodCycloma
 createProfile "ictu-py-profile-1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134"
 createProfile "ictu-js-profile-3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
 createProfile "ictu-ts-profile-1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
-createProfile "ictu-web-profile-2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck,Web:S1443"
+createProfile "ictu-web-profile-2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
 
 # Manually install the vbnet plugin
 # Adding it to plugin-list is not working (causint SQ initilization error "There is already a quality profile with name 'Sonar way' for language 'vb'")
