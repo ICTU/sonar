@@ -84,14 +84,14 @@ createProfile "ictu-js-profile-3.3" "Sonar%20way%20Recommended" "js" "javascript
 createProfile "ictu-ts-profile-1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
 createProfile "ictu-web-profile-2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
 
-# Manually install the vbnet plugin
-# Adding it to plugin-list is not working (causint SQ initilization error "There is already a quality profile with name 'Sonar way' for language 'vb'")
-curlAdmin -X POST "$BASE_URL/api/plugins/install?key=vbnet"
-curlAdmin -X POST "$BASE_URL/api/system/restart"
-echo "Restarting Sonarqube after installing vb plugin"
-waitForSonarDown
-waitForSonarUp
-
-createProfile "ictu-vb-profile-4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks,vbnet:S104,vbnet:S1067,vbnet:S134,vbnet:S1541"
+# Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
+# # Manually install the vbnet plugin
+# # Adding it to plugin-list is not working (causint SQ initilization error "There is already a quality profile with name 'Sonar way' for language 'vb'")
+# curlAdmin -X POST "$BASE_URL/api/plugins/install?key=vbnet"
+# curlAdmin -X POST "$BASE_URL/api/system/restart"
+# echo "Restarting Sonarqube after installing vb plugin"
+# waitForSonarDown
+# waitForSonarUp
+# createProfile "ictu-vb-profile-4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks,vbnet:S104,vbnet:S1067,vbnet:S134,vbnet:S1541"
 
 wait

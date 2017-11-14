@@ -16,7 +16,7 @@ A sonar image containing plugins and quality profiles used at ICTU
 Use the following docker-compose file:
 
     www:
-        image: ictu/sonar:6.6
+        image: ictu/sonar:latest
         environment:
             - SONARQUBE_JDBC_USERNAME=sonar
             - SONARQUBE_JDBC_PASSWORD=sonar-password
@@ -33,8 +33,14 @@ Use the following docker-compose file:
         volumes:
             - /db/var/lib/mysql:/var/lib/mysql
 
+> Note: Change the passwords above to your own secret value
+
+> Note: The docker images are built automatically when the code is updated in GitHub. This behaviour is configured at: https://hub.docker.com/r/ictu/sonar/~/settings/automated-builds/
+
 ## Adding plugins
 Add the url of the plugin to be installed to ```./plugins/plugin-list```
+
+> Note: Starting with SonarQube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube. For this reason, the VB.Net plugin is not installed on this image.
 
 ## Creating and modifying quality profiles
 
