@@ -37,7 +37,7 @@ function createProfile {
 
     # retrieve profile key
     json=`curl $BASE_URL/api/qualityprofiles/search?qualityProfile=$profileName`
-    key=$(echo $json | grep -Eo '"key":"([-A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
+    key=$(echo $json | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
     echo "key=[$key]"
     
     # activate rules in new profile
