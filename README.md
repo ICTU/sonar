@@ -114,3 +114,8 @@ Custom activated rules:
 Inherits from : Sonar way
 
 Custom activated rules:
+- common-vbnet:DuplicatedBlocks - Source files should not have any duplicated blocks
+- vbnet:S104 - Files should not have too many lines of code
+- vbnet:S1067 - Expressions should not be too complex
+- vbnet:S134 - Control flow statements "If", "For", "For Each", "Do", "While", "Select" and "Try" should not be nested too deeply
+- vbnet:S1541 - Functions, procedures and properties should not be too complex
