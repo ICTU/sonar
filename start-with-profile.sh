@@ -10,6 +10,16 @@ function isUp {
     curl -s -u admin:admin -f "$BASE_URL/api/system/info"
 }
 
+# Check if the database is ready for connections
+function waitForDatabase {
+    until nc -z -v -w30 db 3306
+    do
+        echo "Waiting for database connection..."
+        # wait for 5 seconds before check again
+        sleep 5
+    done
+}
+
 # Wait until SonarQube is operational
 function waitForSonarUp {
     # Wait for server to be up
@@ -71,6 +81,8 @@ function createProfile {
 # Main
 ###########################################################################################################################
 BASE_URL=http://127.0.0.1:9000
+
+waitForDatabase
 
 # Start Sonar
 ./bin/run.sh &
