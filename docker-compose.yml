@@ -5,16 +5,16 @@ services:
       image: ictu/sonar:latest
       environment:
           - SONARQUBE_JDBC_USERNAME=sonar
-          - SONARQUBE_JDBC_PASSWORD=sonar-password
-          - "SONARQUBE_JDBC_URL=jdbc:mysql://db/sonar?useUnicode=true&amp;characterEncoding=utf8"
+          - SONARQUBE_JDBC_PASSWORD=sonar
+          - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
       links:
           - db
   db:
-      image: mysql:5.6
+      image: postgres:9
       environment:
-          - MYSQL_ROOT_PASSWORD=root-password
-          - MYSQL_DATABASE=sonar
-          - MYSQL_USER=sonar
-          - MYSQL_PASSWORD=sonar-password
+        - POSTGRES_USER=sonar
+        - POSTGRES_PASSWORD=sonar
       volumes:
-          - /db/var/lib/mysql:/var/lib/mysql
+        - /db/postgresql:/var/lib/postgresql
+        # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+        - /postgresql_data:/var/lib/postgresql/data

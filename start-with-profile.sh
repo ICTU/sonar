@@ -82,7 +82,7 @@ function createProfile {
 ###########################################################################################################################
 BASE_URL=http://127.0.0.1:9000
 
-waitForDatabase
+# waitForDatabase
 
 # Start Sonar
 ./bin/run.sh &
