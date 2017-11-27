@@ -124,3 +124,31 @@ Custom activated rules:
 - common-web:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
 - Web:ComplexityCheck - Files should not be too complex - MAJOR
 - Web:LongJavaScriptCheck - Javascript scriptlets should not have too many lines of code - MAJOR
+
+## Analysing projects
+
+### Typescript
+
+Create a file named "project.settings", on the same location as packages.json. Example:
+
+    sonar.host.url=http://mysonarqubeserver:9000
+    sonar.projectKey=myproject:master
+    onar.projectName=myproject master
+    sonar.projectVersion=master-version
+    sonar.sourceEncoding=UTF-8
+    sonar.sources=src
+    sonar.tests=src
+    sonar.exclusions=**/node_modules/**,**/*.spec.ts,**/keycloak.js
+    sonar.test.inclusions=**/*.spec.*
+    sonar.typescript.lcov.reportPaths=coverage/coverage.lcov
+    sonar.scm.disabled=true
+
+Create the unit tests coverage file on the location specified at *sonar.typescript.lcov.reportPaths*. If you are using a standard Angular CLI project, you  can do that by executing:
+
+    ng test --watch false --code-coverage
+
+Execute: 
+
+    npm i typescript
+    npm i sonar-scanner
+    ./node_modules/sonar-scanner/bin/sonar-scanner -Dproject.settings=sonar-project.properties
