@@ -89,12 +89,12 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
-createProfile "ictu-java-profile-4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
-createProfile "ictu-py-profile-1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134"
-createProfile "ictu-js-profile-3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
-createProfile "ictu-ts-profile-1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
-createProfile "ictu-web-profile-2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
+createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
+createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
+createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134"
+createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
+createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
+createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
