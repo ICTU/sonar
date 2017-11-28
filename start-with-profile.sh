@@ -53,8 +53,10 @@ function createProfile {
     local baseProfileName=$2
     local language=$3
     local rules=$4
+    local deactivateRules=$5
     echo $rules
     local ruleList=$(echo $rules | tr "," "\n")
+    local deactivateRuleList=$(echo $deactivateRules | tr "," "\n")
 
     # create profile
     curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
@@ -71,6 +73,11 @@ function createProfile {
     for rule in $ruleList
     do
         curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$key&rule=$rule"
+    done
+
+    for rule in $deactivateRuleList
+    do
+        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$key&rule=$rule"
     done
 
     # set profile as default
