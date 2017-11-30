@@ -60,7 +60,7 @@ function createProfile {
 
     # create profile
     curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
-    
+
     # set parent
     curlAdmin -X POST --data "qualityProfile=$1&parentQualityProfile=$2&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
 
@@ -68,7 +68,7 @@ function createProfile {
     json=`curl $BASE_URL/api/qualityprofiles/search?qualityProfile=$profileName`
     key=$(echo $json | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
     echo "key=[$key]"
-    
+
     # activate rules in new profile
     for rule in $ruleList
     do
@@ -98,7 +98,7 @@ waitForSonarUp
 # (Re-)create the ICTU profiles
 createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
 createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
-createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134"
+createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134,Pylint:R0915"
 createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
 createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
 createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
