@@ -1,7 +1,7 @@
-squid:MethodCyclomaticComplexity
-squid:NoSonar
-squid:S1067  # ??
-squid:S109  # ??
-squid:S138
-squid:S00107
-squid:CommentedOutCodeLine
+squid:MethodCyclomaticComplexity  # Used by HQ
+squid:NoSonar  # Used by HQ
+squid:S1067  # Expression too complex; NOT used by HQ
+squid:S109  # Magic numbers; NOT used by HQ
+squid:S138  # Methods with too many lines; used by HQ
+squid:S00107  # Too many parameters; used by HQ
+squid:CommentedOutCodeLine  # Used by HQ
