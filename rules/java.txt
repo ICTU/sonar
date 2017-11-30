@@ -1,0 +1,7 @@
+squid:MethodCyclomaticComplexity
+squid:NoSonar
+squid:S1067  # ??
+squid:S109  # ??
+squid:S138
+squid:S00107
+squid:CommentedOutCodeLine
