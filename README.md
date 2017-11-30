@@ -58,72 +58,45 @@ The parameters are:
 
 ### JAVA
 
-Inherits from : Sonar way
+Inherits from: Sonar way
 
-Custom activated rules:
-- squid:MethodCyclomaticComplexity - Methods should not be too complex - MAJOR
-- squid:NoSonar - Track uses of "NOSONAR" comments - MAJOR
-- squid:S1067 - Expressions should not be too complex - CRITICAL
-- squid:S109 - Magic numbers should not be used	- MAJOR
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/java.txt
 
 ### C#
 
-Inherits from : Sonar way
+Inherits from: Sonar way
 
-Custom activated rules:
-- common-cs:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- csharpsquid:S104 - Files should not have too many lines of code - MAJOR
-- csharpsquid:S134 - Control flow statements "if", "switch", "for", "foreach", "while", "do" and "try" should not be nested too deeply - CRITICAL
-- csharpsquid:S1067 - Expressions should not be too complex - CRITICAL
-- csharpsquid:S1541 - Methods and properties should not be too complex - CRITICAL
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/csharp.txt
 
 ### Python
 
-Inherits from : Sonar way
+Inherits from: Sonar way
 
-Custom activated rules:
-- common-py:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- python:S104 - Files should not have too many lines of code - MAJOR
-- python:S134 - Control flow statements "if", "for", "while", "try" and "with" should not be nested too deeply - CRITICAL
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/python.txt
 
-### JS
+### JavaScript
 
-Inherits from : Sonar way Recommended (upper case r in Recommended)
+Inherits from: Sonar way Recommended (upper case r in Recommended)
 
-Custom activated rules:
-- javascript:FunctionComplexity - Functions should not be too complex - CRITICAL
-- javascript:NestedIfDepth - Control flow statements "if", "for", "while", "switch" and "try" should not be nested too deeply - CRITICAL
-- javascript:S1067 - Expressions should not be too complex - CRITICAL
-- javascript:S2228 - Console logging should not be used - MINOR
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/javascript.txt
 
-### TS
+### TypeScript
 
-Inherits from : Sonar way recommended (lower case r in recommended)
+Inherits from: Sonar way recommended (lower case r in recommended)
 
-Custom activated rules:
-- common-ts:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- typescript:S109 - Magic numbers should not be used - MAJOR
-- typescript:S2228 - Console logging should not be used - MINOR
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/typescript.txt
 
-### VB
+### VB.NET
 
-Inherits from : Sonar way
+Inherits from: Sonar way
 
-Custom activated rules:
-- common-vbnet:DuplicatedBlocks - Source files should not have any duplicated blocks
-- vbnet:S104 - Files should not have too many lines of code
-- vbnet:S1067 - Expressions should not be too complex
-- vbnet:S134 - Control flow statements "If", "For", "For Each", "Do", "While", "Select" and "Try" should not be nested too deeply
-- vbnet:S1541 - Functions, procedures and properties should not be too complex
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/vbnet.txt
 
 ### Web
 
-Inherits from : Sonar way
+Inherits from: Sonar way
 
-Custom activated rules:
-- common-web:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- Web:ComplexityCheck - Files should not be too complex - MAJOR
-- Web:LongJavaScriptCheck - Javascript scriptlets should not have too many lines of code - MAJOR
+Custom added rules: https://github.com/ICTU/sonar/blob/master/rules/web.txt
 
 ## Analysing projects
 
