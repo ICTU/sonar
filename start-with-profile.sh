@@ -84,6 +84,7 @@ function createProfile {
     curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$1&language=$3"
 }
 
+
 ###########################################################################################################################
 # Main
 ###########################################################################################################################
@@ -96,8 +97,17 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
-createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
+
+# For HQ (quality reports) we need to be sure the quality profile includes a few specific rules for each language, namely:
+# - Duplication
+# - Complexity (Java: squid:MethodCyclomaticComplexity, C#: csharpsquid:S1541, csharpsquid:FunctionComplexity)
+# - Number of non-commented source statements (or something similar) (Java: squid:S138)
+# - Number of parameters (Java: squid:S00107)
+# - Commented lines of code (Java: squid:CommentedOutCodeLine)
+# - Number of NoSonar uses
+
+createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541,csharpsquid:FunctionComplexity"
+createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109,squid:S138,squid:S00107,squid:CommentedOutCodeLine"
 createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134,Pylint:R0915,Pylint:I0011"
 createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
 createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
