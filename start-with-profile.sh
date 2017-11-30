@@ -52,11 +52,7 @@ function createProfile {
     local profileName=$1
     local baseProfileName=$2
     local language=$3
-    local rules=$4
-    local deactivateRules=$5
-    echo $rules
-    local ruleList=$(echo $rules | tr "," "\n")
-    local deactivateRuleList=$(echo $deactivateRules | tr "," "\n")
+    local rulesFilename="/tmp/rules/${language}.txt"
 
     # create profile
     curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
@@ -69,17 +65,19 @@ function createProfile {
     key=$(echo $json | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
     echo "key=[$key]"
 
-    # activate rules in new profile
-    for rule in $ruleList
-    do
-        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$key&rule=$rule"
-    done
-
-    for rule in $deactivateRuleList
-    do
-        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$key&rule=$rule"
-    done
-
+    # activate and deactivate rules in new profile
+    while IFS='' read -r line || [[ -n "$rule" ]]; do
+        operationType = ${rule:0}
+        ruleId = ${rule:1}
+        if [operationType == "+"]; then
+            echo "Activating rule ${ruleId}"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$key&rule=$ruleId"
+        else
+            echo "Deactivating rule ${ruleId}"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$key&rule=$rule"
+        fi
+    done < "$rulesFilename"
+    
     # set profile as default
     curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$1&language=$3"
 }
@@ -96,12 +94,12 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs" "common-cs:DuplicatedBlocks,csharpsquid:S104,csharpsquid:S134,csharpsquid:S1067,csharpsquid:S1541"
-createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
-createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134,Pylint:R0915,Pylint:I0011"
-createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
-createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
-createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
+createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs"
+# createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
+# createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134,Pylint:R0915,Pylint:I0011"
+# createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
+# createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
+# createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin

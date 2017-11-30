@@ -13,4 +13,6 @@ WORKDIR /opt/sonarqube
 COPY ./start-with-profile.sh .
 RUN chmod +x start-with-profile.sh
 
+ADD ./rules /tmp/rules
+
 CMD ["./start-with-profile.sh"]

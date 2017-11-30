@@ -1,0 +1,5 @@
++common-cs:DuplicatedBlocks
++csharpsquid:S104
++csharpsquid:S134
++csharpsquid:S1067
++csharpsquid:S1541
