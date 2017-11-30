@@ -1,5 +1,7 @@
 common-cs:DuplicatedBlocks  # NOT used by HQ
 csharpsquid:S104  # NCSS; used by HQ
+csharpsquid:S107  # Too many parameters; used by HQ
+csharpsquid:S125  # Commented code; used by HQ
 csharpsquid:S134  # Depth of nesting; NOT used by HQ
 csharpsquid:S1067  # Too complex expression; NOT used by HQ
 csharpsquid:S1541  # Methods and properties too complex; used by HQ

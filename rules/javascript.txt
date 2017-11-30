@@ -2,4 +2,6 @@ javascript:FunctionComplexity  # Used by HQ
 javascript:NestedIfDepth  # NOT used by HQ
 javascript:S1067  # Expression too complex; NOT used by HQ
 javascript:S2228  # Console logging should not be used; NOT used by HQ
-# Missing: NoSonar, NCSS, Parameters
+javascript:ExcessiveParameterList  # Used by HQ
+javascript:CommentedCode  # Used by HQ
+# Missing: NoSonar, NCSS
