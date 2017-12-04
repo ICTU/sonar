@@ -35,7 +35,7 @@ Use the following docker-compose file:
 
 > Note: Change the passwords above to your own secret value
 
-> Note: The docker images are built automatically when the code is updated in GitHub. This behaviour is configured at: https://hub.docker.com/r/ictu/sonar/~/settings/automated-builds/
+> Note: The docker images are built automatically when the code is updated in GitHub. This behaviour is configured at: https://hub.d qocker.com/r/ictu/sonar/~/settings/automated-builds/
 
 ## Adding plugins
 Add the url of the plugin to be installed to ```plugins/plugin-list```
