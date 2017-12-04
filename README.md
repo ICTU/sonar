@@ -38,92 +38,35 @@ Use the following docker-compose file:
 > Note: The docker images are built automatically when the code is updated in GitHub. This behaviour is configured at: https://hub.docker.com/r/ictu/sonar/~/settings/automated-builds/
 
 ## Adding plugins
-Add the url of the plugin to be installed to ```./plugins/plugin-list```
+Add the url of the plugin to be installed to ```plugins/plugin-list```
 
 > Note: Starting with SonarQube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube. For this reason, the VB.Net plugin is not installed on this image.
 
-## Creating and modifying quality profiles
+## Creating a new quality profile
 
-Modify start-with-profile.sh and add a call such as
+Modify start-with-profile.sh and add a statement to the end of the script, such as:
 
-    createProfile "ictu-cs-profile-6.5" "Sonar%20way" "cs" "csharpsquid:S104,csharpsquid:S134"
+    createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs"
 
 The parameters are:
-- profile name
-- parent profile name
-- language
-- comma separated rules list (keys)
+Profile name
+Base profile name
+Language (internal SonarQube language identifier)
 
-## ICTU quality profiles customizations
+## Activating or deactivating rules in the quality profiles
 
-### JAVA
+Modify the corresponding ```rules/(language).txt``` file.
+Each line represents a rule to be activated or deactivated and has the following syntax:
+```(operation)(ruleId)#(comment)```
 
-Inherits from : Sonar way
+**operation**:
+    + activates a rule; - deactivates a rule
 
-Custom activated rules:
-- squid:MethodCyclomaticComplexity - Methods should not be too complex - MAJOR
-- squid:NoSonar - Track uses of "NOSONAR" comments - MAJOR
-- squid:S1067 - Expressions should not be too complex - CRITICAL
-- squid:S109 - Magic numbers should not be used	- MAJOR
+**ruleId**: SonarQube rule identifier
 
-### C#
+Example:
 
-Inherits from : Sonar way
-
-Custom activated rules:
-- common-cs:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- csharpsquid:S104 - Files should not have too many lines of code - MAJOR
-- csharpsquid:S134 - Control flow statements "if", "switch", "for", "foreach", "while", "do" and "try" should not be nested too deeply - CRITICAL
-- csharpsquid:S1067 - Expressions should not be too complex - CRITICAL
-- csharpsquid:S1541 - Methods and properties should not be too complex - CRITICAL
-
-### Python
-
-Inherits from : Sonar way
-
-Custom activated rules:
-- common-py:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- python:S104 - Files should not have too many lines of code - MAJOR
-- python:S134 - Control flow statements "if", "for", "while", "try" and "with" should not be nested too deeply - CRITICAL
-
-### JS
-
-Inherits from : Sonar way Recommended (upper case r in Recommended)
-
-Custom activated rules:
-- javascript:FunctionComplexity - Functions should not be too complex - CRITICAL
-- javascript:NestedIfDepth - Control flow statements "if", "for", "while", "switch" and "try" should not be nested too deeply - CRITICAL
-- javascript:S1067 - Expressions should not be too complex - CRITICAL
-- javascript:S2228 - Console logging should not be used - MINOR
-
-### TS
-
-Inherits from : Sonar way recommended (lower case r in recommended)
-
-Custom activated rules:
-- common-ts:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- typescript:S109 - Magic numbers should not be used - MAJOR
-- typescript:S2228 - Console logging should not be used - MINOR
-
-### VB
-
-Inherits from : Sonar way
-
-Custom activated rules:
-- common-vbnet:DuplicatedBlocks - Source files should not have any duplicated blocks
-- vbnet:S104 - Files should not have too many lines of code
-- vbnet:S1067 - Expressions should not be too complex
-- vbnet:S134 - Control flow statements "If", "For", "For Each", "Do", "While", "Select" and "Try" should not be nested too deeply
-- vbnet:S1541 - Functions, procedures and properties should not be too complex
-
-### Web
-
-Inherits from : Sonar way
-
-Custom activated rules:
-- common-web:DuplicatedBlocks - Source files should not have any duplicated blocks - MAJOR
-- Web:ComplexityCheck - Files should not be too complex - MAJOR
-- Web:LongJavaScriptCheck - Javascript scriptlets should not have too many lines of code - MAJOR
+    +csharpsquid:S104               # NCSS; used by HQ
 
 ## Analysing projects
 

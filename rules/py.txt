@@ -1,0 +1,5 @@
++common-py:DuplicatedBlocks     # NOT used by HQ
++python:S104                    # Too many lines of code in file; NOT used by HQ
++python:S134                    # Too deep nesting; NOT used by HQ
++Pylint:R0915                   # Too many statements; used by HQ
++Pylint:I0011                   # Locally disable message, NoSonar alternative; used by HQ

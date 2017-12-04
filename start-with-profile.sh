@@ -66,13 +66,34 @@ function createProfile {
     echo "key=[$key]"
 
     # activate and deactivate rules in new profile
-    while IFS='' read -r line || [[ -n "$rule" ]]; do
-        operationType = ${rule:0}
-        ruleId = ${rule:1}
-        if [operationType == "+"]; then
+    while read ruleLine || [ -n "$line" ]; do
+        
+        # Each line contains a line with (+|-)ruleId # comment
+        # Example: +cs:1032 # somecomment
+        IFS='#';ruleSplit=(${ruleLine});unset IFS;
+        rule=${ruleSplit[0]}
+        comment=${ruleSplit[1]}
+
+        # The first character is the operation
+        # + = activate
+        # - = deactivate
+        operationType=${rule:0:1}
+
+        # After the operation comes the SonarQube rule id
+        ruleId=${rule:1}
+
+        echo "*** Processing rule ***"
+        echo "Rule ${rule}"
+        echo "Operation ${operationType}"
+        echo "RuleId ${ruleId}"
+        echo "Comment ${comment}"    
+
+        if [ "$operationType" == "+" ]; then
             echo "Activating rule ${ruleId}"
             curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$key&rule=$ruleId"
-        else
+        fi 
+
+        if [ "$operationType" == "-" ]; then
             echo "Deactivating rule ${ruleId}"
             curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$key&rule=$rule"
         fi
@@ -81,6 +102,7 @@ function createProfile {
     # set profile as default
     curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$1&language=$3"
 }
+
 
 ###########################################################################################################################
 # Main
@@ -95,11 +117,11 @@ waitForSonarUp
 
 # (Re-)create the ICTU profiles
 createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs"
-# createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java" "squid:MethodCyclomaticComplexity,squid:NoSonar,squid:S1067,squid:S109"
-# createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py" "common-py:DuplicatedBlocks,python:S104,python:S134,Pylint:R0915,Pylint:I0011"
-# createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js" "javascript:FunctionComplexity,javascript:NestedIfDepth,javascript:S1067,javascript:S2228"
-# createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts" "common-ts:DuplicatedBlocks,typescript:S109,typescript:S104,typescript:S2228"
-# createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web" "common-web:DuplicatedBlocks,Web:ComplexityCheck,Web:LongJavaScriptCheck"
+createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py"
+createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
