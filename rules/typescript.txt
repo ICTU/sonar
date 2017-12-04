@@ -1,5 +1,0 @@
-common-ts:DuplicatedBlocks  # NOT used by HQ
-typescript:S109  # Magic number; NOT used by HQ
-typescript:S104  # File length; NOT used by HQ
-typescript:S2228  # Console logging; NOT used by HQ
-tslint:cyclomatic-complexity  # Used by HQ
