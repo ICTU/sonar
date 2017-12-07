@@ -72,7 +72,7 @@ Example:
 
 ### Typescript
 
-Create a file named "project.settings", on the same location as packages.json. Example:
+Create a file named "sonar-project.properties", on the same location as packages.json. Example:
 
     sonar.host.url=http://mysonarqubeserver:9000
     sonar.projectKey=myproject:master
@@ -88,7 +88,7 @@ Create a file named "project.settings", on the same location as packages.json. E
 
 Create the unit tests coverage file on the location specified at *sonar.typescript.lcov.reportPaths*. If you are using a standard Angular CLI project, you  can do that by executing:
 
-    ng test --watch false --code-coverage
+    ng test --single-run --code-coverage
 
 Execute: 
 
