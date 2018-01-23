@@ -68,6 +68,16 @@ Example:
 
     +csharpsquid:S104               # NCSS; used by HQ
 
+## Overriding the standard quality profiles
+
+Add the project code (it will be used as a prefix for the quality profile name) to the envionrmnet variable PROJECT_CODE.
+Add a list of comma separated rule ids to be enabled or disabled to the environment variable PROJECT_RULES.
+
+Example:
+
+    PROJECT_CODE=PROJ1
+    PROJECT_RULES=+csharpsquid:S104,-ts:S1561
+
 ## Analysing projects
 
 ### Typescript

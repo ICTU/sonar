@@ -3,12 +3,18 @@ version: '3'
 services:
   www:
       image: ictu/sonar:latest
+      # build: .
       environment:
           - SONARQUBE_JDBC_USERNAME=sonar
           - SONARQUBE_JDBC_PASSWORD=sonar
           - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+          - PROJECT_CODE=PROJ
+          - PROJECT_RULES=
       links:
           - db
+      ports:
+          - 9000:9000
+
   db:
       image: postgres:9
       environment:

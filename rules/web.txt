@@ -1,4 +1,4 @@
 +common-web:DuplicatedBlocks    # NOT used by HQ
 +Web:ComplexityCheck            # Used by HQ
 +Web:LongJavaScriptCheck        # Used by HQ
-Web:AvoidCommentedOutCodeCheck  # Used by HQ
++Web:AvoidCommentedOutCodeCheck # Used by HQ

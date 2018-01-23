@@ -42,6 +42,44 @@ function waitForSonarDown {
     done
 }
 
+# given a profile name, retrieve its key
+function getProfileKey {
+    local searchProfileName=$1
+    local searchLanguage=$2
+    local getProfileKeyUrl="$BASE_URL/api/qualityprofiles/search?qualityProfile=$searchProfileName&language=$searchLanguage"
+    local json=$(curl $getProfileKeyUrl)
+    local searchResultProfileKey=$(echo $json | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
+    echo "$searchResultProfileKey"
+}
+
+function processRule {
+    local rule=$1
+    local profileKey=$2
+
+    # The first character is the operation
+    # + = activate
+    # - = deactivate
+    local operationType=${rule:0:1}
+
+    # After the operation comes the SonarQube rule id
+    local ruleId=${rule:1}
+
+    echo "*** Processing rule ***"
+    echo "Rule ${rule}"
+    echo "Operation ${operationType}"
+    echo "RuleId ${ruleId}"    
+
+    if [ "$operationType" == "+" ]; then
+        echo "Activating rule ${ruleId}"
+        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId"
+    fi 
+
+    if [ "$operationType" == "-" ]; then
+        echo "Deactivating rule ${ruleId}"
+        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$profileKey&rule=$ruleId"
+    fi
+}
+
 # Create a new SonarQube profile with custom activated rules, inheritance and set as default
 # parameters
 # $1 = profile name (the filename must match the profile name)
@@ -55,15 +93,16 @@ function createProfile {
     local rulesFilename="/tmp/rules/${language}.txt"
 
     # create profile
-    curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
+    # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
+    # curlAdmin -X POST --data "qualityProfile=$1&parentQualityProfile=$2&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
+    echo "Copying the profile $baseProfileName $language to $profileName"
+    baseProfileKey=$(getProfileKey $baseProfileName $language)
+    copyProfileUrl="$BASE_URL/api/qualityprofiles/copy?toName=$profileName&fromKey=$baseProfileKey"
+    echo "Posting to $copyProfileUrl"
+    curlAdmin -X POST $copyProfileUrl
 
-    # set parent
-    curlAdmin -X POST --data "qualityProfile=$1&parentQualityProfile=$2&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
-
-    # retrieve profile key
-    json=`curl $BASE_URL/api/qualityprofiles/search?qualityProfile=$profileName`
-    key=$(echo $json | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
-    echo "key=[$key]"
+    profileKey=$(getProfileKey $profileName $language)
+    echo "The profile $profileName $language has the key $profileKey"
 
     # activate and deactivate rules in new profile
     while read ruleLine || [ -n "$line" ]; do
@@ -74,35 +113,42 @@ function createProfile {
         rule=${ruleSplit[0]}
         comment=${ruleSplit[1]}
 
-        # The first character is the operation
-        # + = activate
-        # - = deactivate
-        operationType=${rule:0:1}
+        processRule $rule $profileKey 
 
-        # After the operation comes the SonarQube rule id
-        ruleId=${rule:1}
-
-        echo "*** Processing rule ***"
-        echo "Rule ${rule}"
-        echo "Operation ${operationType}"
-        echo "RuleId ${ruleId}"
-        echo "Comment ${comment}"    
-
-        if [ "$operationType" == "+" ]; then
-            echo "Activating rule ${ruleId}"
-            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$key&rule=$ruleId"
-        fi 
-
-        if [ "$operationType" == "-" ]; then
-            echo "Deactivating rule ${ruleId}"
-            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$key&rule=$rule"
-        fi
     done < "$rulesFilename"
-    
-    # set profile as default
-    curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$1&language=$3"
-}
+       
+    # if the PROJECT_RULES environment variable is defined, create a custom project profile
+    echo "Project specific rules = $PROJECT_RULES"
+    if [[ -v PROJECT_RULES ]]; then
+        echo "Creating custom project profile"
 
+        local projectProfileName=$PROJECT_CODE-$profileName
+        echo "Project custom profile name is $projectProfileName"         
+
+        # create project specific profile
+        # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$projectProfileName&language=$language"
+        # curlAdmin -X POST --data "qualityProfile=$projectProfileName&parentQualityProfile=$profileName&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
+        echo "Copying the profile $baseProfileName $language to $profileName"
+        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/copy?fromKey=$profileKey&toName=$projectProfileName"
+
+        # retrieve the new profile key
+        profileKey=$(getProfileKey $projectProfileName $language)
+        echo "The profile $projectProfileName $language has the key $profileKey"
+
+        IFS=',' read -ra projrules <<< "$PROJECT_RULES"
+        for rule in "${projrules[@]}"; do
+            echo "Processing project custom rule $rule"
+            processRule $rule $profileKey
+        done
+
+        # mark this profile to be activated
+        profileName=$projectProfileName
+    fi
+
+    # set profile as default
+    echo "Setting default profile for language $3 to $profileName"
+    curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$profileName&language=$3"
+}
 
 ###########################################################################################################################
 # Main
@@ -116,11 +162,11 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v4.15" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v3.3" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-cs-profile-v6.7" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.0.1" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v4.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v1.1" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-ts-profile-v1.4.1" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
