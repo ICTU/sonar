@@ -1,4 +1,4 @@
-FROM sonarqube:6.7.1-alpine
+FROM sonarqube:6.7.3-alpine
 RUN apk update && apk add bash unzip
 
 RUN apk add --update curl && \

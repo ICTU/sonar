@@ -162,12 +162,12 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v6.7" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.0.1" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v4.0" "Sonar%20way%20Recommended" "js"
-createProfile "ictu-py-profile-v1.8" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v1.4.1" "Sonar%20way%20recommended" "ts"
-createProfile "ictu-web-profile-v2.5" "Sonar%20way" "web"
+createProfile "ictu-cs-profile-v7.0.1" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.3.0" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v4.1.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-py-profile-v1.10.0" "Sonar%20way" "py"
+createProfile "ictu-ts-profile-v1.6.0" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-web-profile-v2.6.0" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
