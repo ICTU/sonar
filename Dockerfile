@@ -5,6 +5,7 @@ RUN apk add --update curl && \
     rm -rf /var/cache/apk/*
 
 ADD ./plugins /tmp/plugins
+RUN cat /tmp/plugins/plugin-list
 RUN chmod +x /tmp/plugins/install-plugins.sh
 RUN ls /tmp/plugins -l
 RUN /tmp/plugins/install-plugins.sh
