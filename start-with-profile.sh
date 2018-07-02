@@ -166,7 +166,7 @@ createProfile "ictu-cs-profile-v7.0.1" "Sonar%20way" "cs"
 createProfile "ictu-java-profile-v5.3.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v4.1.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v1.10.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v1.6.0" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-ts-profile-v1.6.1" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v2.6.0" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
