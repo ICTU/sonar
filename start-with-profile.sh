@@ -2,7 +2,7 @@
 
 # Access SonarQube api with admin credentials
 function curlAdmin {
-    curl -v -u admin:admin $@
+    curl -v -u admin:admin "$@"
 }
 
 # Check is SonarQube is running
@@ -27,7 +27,7 @@ function waitForSonarUp {
     do
         echo "Waiting for sonar to come up"
         sleep 5
-        PING=`isUp`
+        PING=$(isUp)
     done
 }
 
@@ -38,7 +38,7 @@ function waitForSonarDown {
     do
         echo "Waiting for sonar to come down"
         sleep 5
-        PING=`isUp`
+        PING=$(isUp)
     done
 }
 
@@ -47,8 +47,8 @@ function getProfileKey {
     local searchProfileName=$1
     local searchLanguage=$2
     local getProfileKeyUrl="$BASE_URL/api/qualityprofiles/search?qualityProfile=$searchProfileName&language=$searchLanguage"
-    local json=$(curl $getProfileKeyUrl)
-    local searchResultProfileKey=$(echo $json | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
+    local json=$(curl "$getProfileKeyUrl")
+    local searchResultProfileKey=$(echo "$json" | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
     echo "$searchResultProfileKey"
 }
 
@@ -96,12 +96,12 @@ function createProfile {
     # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
     # curlAdmin -X POST --data "qualityProfile=$1&parentQualityProfile=$2&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
     echo "Copying the profile $baseProfileName $language to $profileName"
-    baseProfileKey=$(getProfileKey $baseProfileName $language)
+    baseProfileKey=$(getProfileKey "$baseProfileName" "$language")
     copyProfileUrl="$BASE_URL/api/qualityprofiles/copy?toName=$profileName&fromKey=$baseProfileKey"
     echo "Posting to $copyProfileUrl"
-    curlAdmin -X POST $copyProfileUrl
+    curlAdmin -X POST "$copyProfileUrl"
 
-    profileKey=$(getProfileKey $profileName $language)
+    profileKey=$(getProfileKey "$profileName" "$language")
     echo "The profile $profileName $language has the key $profileKey"
 
     # activate and deactivate rules in new profile
@@ -109,11 +109,11 @@ function createProfile {
         
         # Each line contains a line with (+|-)ruleId # comment
         # Example: +cs:1032 # somecomment
-        IFS='#';ruleSplit=(${ruleLine});unset IFS;
+        IFS='#';ruleSplit=("${ruleLine}");unset IFS;
         rule=${ruleSplit[0]}
         comment=${ruleSplit[1]}
 
-        processRule $rule $profileKey 
+        processRule "$rule" "$profileKey" 
 
     done < "$rulesFilename"
        
@@ -132,13 +132,13 @@ function createProfile {
         curlAdmin -X POST "$BASE_URL/api/qualityprofiles/copy?fromKey=$profileKey&toName=$projectProfileName"
 
         # retrieve the new profile key
-        profileKey=$(getProfileKey $projectProfileName $language)
+        profileKey=$(getProfileKey "$projectProfileName" "$language")
         echo "The profile $projectProfileName $language has the key $profileKey"
 
         IFS=',' read -ra projrules <<< "$PROJECT_RULES"
         for rule in "${projrules[@]}"; do
             echo "Processing project custom rule $rule"
-            processRule $rule $profileKey
+            processRule "$rule" "$profileKey"
         done
 
         # mark this profile to be activated
@@ -162,11 +162,11 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.0.1" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.3.0" "Sonar%20way" "java"
+createProfile "ictu-cs-profile-v7.3.0" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.5.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v4.1.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v1.10.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v1.6.1" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-ts-profile-v1.7.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v2.6.0" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
