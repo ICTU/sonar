@@ -117,9 +117,9 @@ function createProfile {
 
     done < "$rulesFilename"
        
-    # if the PROJECT_RULES environment variable is defined, create a custom project profile
+    # if the PROJECT_RULES environment variable is defined and not empty, create a custom project profile
     echo "Project specific rules = $PROJECT_RULES"
-    if [[ -v PROJECT_RULES ]]; then
+    if [[ -n "$PROJECT_RULES" ]]; then
         echo "Creating custom project profile"
 
         local projectProfileName=$PROJECT_CODE-$profileName
