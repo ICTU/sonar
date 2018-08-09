@@ -135,7 +135,7 @@ function createProfile {
         profileKey=$(getProfileKey "$projectProfileName" "$language")
         echo "The profile $projectProfileName $language has the key $profileKey"
 
-        IFS=',' read -ra projrules <<< "$PROJECT_RULES"
+        IFS=';' read -ra projrules <<< "$PROJECT_RULES"
         for rule in "${projrules[@]}"; do
             echo "Processing project custom rule $rule"
             processRule "$rule" "$profileKey"
@@ -177,6 +177,6 @@ createProfile "ictu-web-profile-v2.6.0" "Sonar%20way" "web"
 # echo "Restarting Sonarqube after installing vb plugin"
 # waitForSonarDown
 # waitForSonarUp
-# createProfile "ictu-vb-profile-4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks,vbnet:S104,vbnet:S1067,vbnet:S134,vbnet:S1541"
+# createProfile "ictu-vb-profile-4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks;vbnet:S104;vbnet:S1067;vbnet:S134;vbnet:S1541"
 
 wait
