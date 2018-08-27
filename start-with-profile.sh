@@ -61,17 +61,24 @@ function processRule {
     # - = deactivate
     local operationType=${rule:0:1}
 
-    # After the operation comes the SonarQube rule id
-    local ruleId=${rule:1}
+    # After the operation comes the SonarQube ruleSet which contains ruleId and ruleParams
+    local ruleSet=${rule:1}
+    IFS='|' read -r ruleId ruleParams <<< "$ruleSet"
+    ruleParams=${ruleParams/|/,}
 
     echo "*** Processing rule ***"
     echo "Rule ${rule}"
     echo "Operation ${operationType}"
-    echo "RuleId ${ruleId}"    
+    echo "RuleId ${ruleId}" 
+    echo "RuleParams ${ruleParams}"   
 
     if [ "$operationType" == "+" ]; then
         echo "Activating rule ${ruleId}"
-        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId"
+        if [ "$ruleParams" == "" ]; then
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId"
+        else
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId&params=$ruleParams"
+        fi
     fi 
 
     if [ "$operationType" == "-" ]; then
