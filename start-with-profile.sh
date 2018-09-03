@@ -69,8 +69,8 @@ function processRule {
     echo "*** Processing rule ***"
     echo "Rule ${rule}"
     echo "Operation ${operationType}"
-    echo "RuleId ${ruleId}" 
-    echo "RuleParams ${ruleParams}"   
+    echo "RuleId ${ruleId}"
+    echo "RuleParams ${ruleParams}"
 
     if [ "$operationType" == "+" ]; then
         echo "Activating rule ${ruleId}"
@@ -79,7 +79,7 @@ function processRule {
         else
             curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId&params=$ruleParams"
         fi
-    fi 
+    fi
 
     if [ "$operationType" == "-" ]; then
         echo "Deactivating rule ${ruleId}"
@@ -113,24 +113,24 @@ function createProfile {
 
     # activate and deactivate rules in new profile
     while read ruleLine || [ -n "$line" ]; do
-        
+
         # Each line contains a line with (+|-)ruleId # comment
         # Example: +cs:1032 # somecomment
         IFS='#';ruleSplit=("${ruleLine}");unset IFS;
         rule=${ruleSplit[0]}
         comment=${ruleSplit[1]}
 
-        processRule "$rule" "$profileKey" 
+        processRule "$rule" "$profileKey"
 
     done < "$rulesFilename"
-       
+
     # if the PROJECT_RULES environment variable is defined and not empty, create a custom project profile
     echo "Project specific rules = $PROJECT_RULES"
     if [[ -n "$PROJECT_RULES" ]]; then
         echo "Creating custom project profile"
 
         local projectProfileName=$PROJECT_CODE-$profileName
-        echo "Project custom profile name is $projectProfileName"         
+        echo "Project custom profile name is $projectProfileName"
 
         # create project specific profile
         # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$projectProfileName&language=$language"
@@ -169,9 +169,9 @@ BASE_URL=http://127.0.0.1:9000
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.3.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.5.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v4.1.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-cs-profile-v7.5.0" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.7.0" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v4.2.1" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v1.10.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v1.7.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v2.6.0" "Sonar%20way" "web"
