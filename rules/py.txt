@@ -5,4 +5,5 @@
 +python:S134                    # Too deep nesting; NOT used by HQ
 +Pylint:R0915                   # Too many statements; used by HQ
 +Pylint:I0011                   # Locally disable message, NoSonar alternative; used by HQ
++Pylint:I0020                   # Suppressed message, NoSonar alternative; used by HQ
 +python:FunctionComplexity      # Used by HQ
