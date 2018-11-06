@@ -164,6 +164,9 @@ BASE_URL=http://127.0.0.1:9000
 
 # waitForDatabase
 
+# explicitely set LDAP_REALM to prevent error when starting Sonar without LDAP settings
+export LDAP_REALM=${LDAP_REALM}
+
 # Start Sonar
 ./bin/run.sh &
 waitForSonarUp

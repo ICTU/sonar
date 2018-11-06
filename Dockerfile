@@ -15,5 +15,6 @@ COPY ./start-with-profile.sh .
 RUN chmod +x start-with-profile.sh
 
 ADD ./rules /tmp/rules
+ADD sonar.properties /opt/sonarqube/conf/sonar.properties
 
 CMD ["./start-with-profile.sh"]
