@@ -5,10 +5,10 @@ RUN apk add --update curl && \
     rm -rf /var/cache/apk/*
 
 ADD ./plugins /tmp/plugins
-RUN cat /tmp/plugins/plugin-list
-RUN chmod +x /tmp/plugins/install-plugins.sh
-RUN ls /tmp/plugins -l
-RUN /tmp/plugins/install-plugins.sh
+RUN cat /tmp/plugins/plugin-list && \
+    chmod +x /tmp/plugins/install-plugins.sh && \
+    ls /tmp/plugins -l && \
+    /tmp/plugins/install-plugins.sh
 
 WORKDIR /opt/sonarqube
 COPY ./start-with-profile.sh .
