@@ -172,10 +172,10 @@ export LDAP_REALM=${LDAP_REALM}
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.5.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.7.0" "Sonar%20way" "java"
+createProfile "ictu-cs-profile-v7.5.0-1" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.7.0-1" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v4.2.1" "Sonar%20way%20Recommended" "js"
-createProfile "ictu-py-profile-v1.10.0" "Sonar%20way" "py"
+createProfile "ictu-py-profile-v1.10.0-1" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v1.7.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v2.6.0" "Sonar%20way" "web"
 
