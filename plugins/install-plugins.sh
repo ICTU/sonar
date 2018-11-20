@@ -6,6 +6,11 @@ plugin_dir=/opt/sonarqube/extensions/plugins
 # Download plugins
 while read plugin; do
   wget $plugin -P $plugin_dir
+  rtn=$?
+  if [ $rtn -ne 0 ]; then
+    echo "Error downloading $plugin"
+    exit $rtn
+  fi
 done < $cwd/plugin-list
 
 # Check if unzip required
