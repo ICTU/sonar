@@ -1,20 +1,17 @@
-FROM sonarqube:7.1-alpine
-RUN apk update && apk add bash unzip
-
-RUN apk add --update curl && \
-    rm -rf /var/cache/apk/*
-
+FROM sonarqube:7.4-community
+USER root
+RUN apt-get update \
+  && rm -rf /var/lib/apt/lists/*
 ADD ./plugins /tmp/plugins
-RUN cat /tmp/plugins/plugin-list && \
+RUN rm -rf ./extensions/plugins/* && \
+    cat /tmp/plugins/plugin-list && \
     chmod +x /tmp/plugins/install-plugins.sh && \
     ls /tmp/plugins -l && \
-    /tmp/plugins/install-plugins.sh
-
+    /tmp/plugins/install-plugins.sh 
 WORKDIR /opt/sonarqube
 COPY ./start-with-profile.sh .
-RUN chmod +x start-with-profile.sh
-
 ADD ./rules /tmp/rules
 ADD sonar.properties /opt/sonarqube/conf/sonar.properties
-
+RUN chown -R sonarqube:sonarqube . && chmod +x start-with-profile.sh
+USER sonarqube
 CMD ["./start-with-profile.sh"]
