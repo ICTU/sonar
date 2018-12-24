@@ -70,13 +70,19 @@ Example:
 
 ## Overriding the standard quality profiles
 
-Add the project code (it will be used as a prefix for the quality profile name) to the envionrmnet variable PROJECT_CODE.
-Add a list of comma separated rule ids to be enabled or disabled to the environment variable PROJECT_RULES.
+Add the project code (it will be used as a prefix for the quality profile name) to the environment variable PROJECT_CODE.
+Add a list of semicolon separated rule ids to be enabled or disabled to the environment variable PROJECT_RULES.
 
 Example:
 
     PROJECT_CODE=PROJ1
-    PROJECT_RULES=+csharpsquid:S104,-ts:S1561
+    PROJECT_RULES=+csharpsquid:S104;-ts:S1561
+
+It is also possible to adjust rule parameter values:
+
+    PROJECT_CODE=PROJ1
+    PROJECT_RULES=+csharpsquid:S110|max=6;+csharpsquid:S3925&severity=INFO
+
 
 ## Analysing projects
 
@@ -100,7 +106,7 @@ Create the unit tests coverage file on the location specified at *sonar.typescri
 
     ng test --single-run --code-coverage
 
-Execute: 
+Execute:
 
     npm i typescript
     npm i sonar-scanner
