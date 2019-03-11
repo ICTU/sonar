@@ -174,12 +174,12 @@ export LDAP_REALM=${LDAP_REALM}
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.10.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.10.1" "Sonar%20way" "java"
+createProfile "ictu-cs-profile-v7.11.0" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.11.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v5.0.0" "Sonar%20way%20Recommended" "js"
-createProfile "ictu-py-profile-v1.11.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v1.8.0" "Sonar%20way%20recommended" "ts"
-createProfile "ictu-web-profile-v3.0.1" "Sonar%20way" "web"
+createProfile "ictu-py-profile-v1.12.0" "Sonar%20way" "py"
+createProfile "ictu-ts-profile-v1.9.0" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-web-profile-v3.1.0" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin

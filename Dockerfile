@@ -1,13 +1,14 @@
 FROM sonarqube:7.4-community
 USER root
 RUN apt-get update \
+  && apt-get install -y pylint \
   && rm -rf /var/lib/apt/lists/*
 ADD ./plugins /tmp/plugins
 RUN rm -rf ./extensions/plugins/* && \
     cat /tmp/plugins/plugin-list && \
     chmod +x /tmp/plugins/install-plugins.sh && \
     ls /tmp/plugins -l && \
-    /tmp/plugins/install-plugins.sh 
+    /tmp/plugins/install-plugins.sh
 WORKDIR /opt/sonarqube
 COPY ./start-with-profile.sh .
 ADD ./rules /tmp/rules
