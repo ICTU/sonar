@@ -1,10 +1,10 @@
-+squid:MethodCyclomaticComplexity   # Used by HQ
-+squid:NoSonar                      # Used by HQ to report on suppressed violations
-+squid:S1309                        # Used by HQ to report on suppressed violations
-+squid:S1310                        # Used by HQ to report on suppressed violations
-+squid:S1315                        # Used by HQ to report on suppressed violations
-+squid:S1067                        # Expression too complex; NOT used by HQ
-+squid:S109                         # Magic numbers; NOT used by HQ
-+squid:S138                         # Methods with too many lines; used by HQ
-+squid:S00107                       # Too many parameters; used by HQ
-+squid:CommentedOutCodeLine         # Used by HQ
++squid:MethodCyclomaticComplexity|Threshold=10      # Used by HQ
++squid:NoSonar                                      # Used by HQ to report on suppressed violations
++squid:S1309                                        # Used by HQ to report on suppressed violations
++squid:S1310                                        # Used by HQ to report on suppressed violations
++squid:S1315                                        # Used by HQ to report on suppressed violations
++squid:S1067                                        # Expression too complex; NOT used by HQ
++squid:S109                                         # Magic numbers; NOT used by HQ
++squid:S138|max=20                                  # Methods with too many lines; used by HQ
++squid:S00107|max=5                                 # Too many parameters; used by HQ
++squid:CommentedOutCodeLine                         # Used by HQ
