@@ -3,4 +3,4 @@
 +typescript:S104                        # File length; NOT used by HQ
 +typescript:S2228                       # Console logging; NOT used by HQ
 +typescript:S1541|Treshold=10           # Used by HQ
--typescript:S4328                       # reason: the rule does not recognize 'local' imports 
+-typescript:S4328                       # reason: the rule does not recognize 'local' imports
