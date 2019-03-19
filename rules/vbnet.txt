@@ -1,2 +1,3 @@
 +vbnet:S1541  # Too complex function, procedure or property; Used by HQ
 # Missing: method length, NoSonar, too many parameters, commented loc
+#end please ensure new line character (\r\n) 

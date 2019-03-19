@@ -59,6 +59,8 @@ Modify the corresponding ```rules/(language).txt``` file.
 Each line represents a rule to be activated or deactivated and has the following syntax:
 ```(operation)(ruleId)#(comment)```
 
+Please ensure each file ends with a new line character, otherwise the rule will not be added to the profile!
+
 **operation**:
     + activates a rule; - deactivates a rule
 

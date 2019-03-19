@@ -8,3 +8,4 @@
 +squid:S138|max=20                                  # Methods with too many lines; used by HQ
 +squid:S00107|max=5                                 # Too many parameters; used by HQ
 +squid:CommentedOutCodeLine                         # Used by HQ
+#end please ensure new line character (\r\n) 
