@@ -2,3 +2,4 @@
 +Web:ComplexityCheck            # Used by HQ
 +Web:LongJavaScriptCheck        # Used by HQ
 +Web:AvoidCommentedOutCodeCheck # Used by HQ
+#end please ensure new line character (\r\n) 

@@ -6,3 +6,5 @@
 +csharpsquid:S1067              # Too complex expression; NOT used by HQ
 +csharpsquid:S1309              # Violation suppression; used by HQ
 +csharpsquid:S1541|max=10       # Methods and properties too complex; used by HQ
+#end please ensure new line character (\r\n)
+ 
