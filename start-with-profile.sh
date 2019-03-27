@@ -180,6 +180,7 @@ createProfile "ictu-js-profile-v5.0.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v1.12.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v1.9.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v3.0.1-1" "Sonar%20way" "web"
+createProfile "ictu-ansible-profile-2.0.0" "Sonar%20way" "yaml"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
