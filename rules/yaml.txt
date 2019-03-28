@@ -45,6 +45,5 @@
 +yaml:NewLinesCheck|type=unix
 +yaml:OctalValuesCheck|forbid-implicit-octal=false;forbid-explicit-octal=false
 +yaml:ParsingErrorCheck
-+yaml:QuotedStringsCheck|quote-type=double
 +yaml:TrailingSpacesCheck
 -yaml:TruthyCheck
