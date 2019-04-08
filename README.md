@@ -112,8 +112,9 @@ Execute:
     npm i sonar-scanner
     ./node_modules/sonar-scanner/bin/sonar-scanner -Dproject.settings=sonar-project.properties
 
-## Create rules txt file from SonarQubes qualiy profile backup (xml)
+## Create rules txt file from SonarQubes quality profile backup (xml)
 
 In order to make import of existing profiles easier, there is an XSLT transformation file provided: profile_backup_transform.xslt
 
 Go to profiles page in your SonarQube, backup a profile to an xml file and transform it.
+
