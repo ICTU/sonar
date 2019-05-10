@@ -81,7 +81,12 @@ Example:
 It is also possible to adjust rule parameter values:
 
     PROJECT_CODE=PROJ1
-    PROJECT_RULES=+csharpsquid:S110|max=6;+csharpsquid:S3925&severity=INFO
+    PROJECT_RULES=+csharpsquid:S110|max=6;-ts:S1561
+
+And change severity:
+
+    PROJECT_CODE=PROJ1
+    PROJECT_RULES=-squid:S4274;+csharpsquid:S110|max=7&severity=INFO;+csharpsquid:S3925&severity=INFO
 
 
 ## Analysing projects
