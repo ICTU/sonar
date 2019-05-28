@@ -153,11 +153,12 @@ function createProfile {
     fi
 
     # get current default profile name
-    currentProfileName=$(curl -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r '.profiles[] | select(.language=="java") | .name')
-    echo Current profile is $currentProfileName
-    # set profile as default only when name does not end in -KEEP
+    currentProfileName=$(curl -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
+    echo "Current profile for language $3 is $currentProfileName"
+    # set profile as default only when name does not end in -KEEP or -keep
+    shopt -s nocasematch
     if [[ $currentProfileName =~ .*-KEEP$ ]]; then
-        echo "Keeping profile $currentProfileName"
+        echo "Keeping profile $currentProfileName for language $3"
     else
         echo "Setting default profile for language $3 to $profileName"
         curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$profileName&language=$3"
