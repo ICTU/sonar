@@ -152,8 +152,13 @@ function createProfile {
         profileName=$projectProfileName
     fi
 
-    # set profile as default
-    if [ "$updateDefault" = true ] ; then
+    # get current default profile name
+    currentProfileName=$(curl -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r '.profiles[] | select(.language=="java") | .name')
+    echo Current profile is $currentProfileName
+    # set profile as default only when name does not end in -KEEP
+    if [[ $currentProfileName =~ .*-KEEP$ ]]; then
+        echo "Keeping profile $currentProfileName"
+    else
         echo "Setting default profile for language $3 to $profileName"
         curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$profileName&language=$3"
     fi
