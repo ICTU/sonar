@@ -1,7 +1,7 @@
 FROM sonarqube:7.4-community
 USER root
 RUN apt-get update \
-  && apt-get install -y pylint \
+  && apt-get install -y pylint jq\
   && rm -rf /var/lib/apt/lists/*
 ADD ./plugins /tmp/plugins
 RUN rm -rf ./extensions/plugins/* && \
