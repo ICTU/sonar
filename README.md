@@ -53,7 +53,7 @@ Profile name
 Base profile name
 Language (internal SonarQube language identifier)
 
-The newly created profile will be set to default unless the current default profile has a name ending with "-KEEP".
+The newly created profile will be set to default unless the current default profile has a name ending with "-KEEP" (or "-keep").
 
 ## Activating or deactivating rules in the quality profiles
 
