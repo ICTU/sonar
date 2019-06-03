@@ -47,3 +47,5 @@
 +yaml:ParsingErrorCheck
 +yaml:TrailingSpacesCheck
 -yaml:TruthyCheck
+#end please ensure every rule ends with a new line character
+

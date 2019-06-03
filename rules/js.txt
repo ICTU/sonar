@@ -5,4 +5,5 @@
 +javascript:ExcessiveParameterList|maximumFunctionParameters=5          # Used by HQ
 +javascript:CommentedCode                                               # Used by HQ
 # Missing: NoSonar, NCSS, Parameters
-#end please ensure new line character (\r\n) 
+#end please ensure every rule ends with a new line character
+

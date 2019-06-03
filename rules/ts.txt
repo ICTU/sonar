@@ -4,4 +4,5 @@
 +typescript:S2228                       # Console logging; NOT used by HQ
 +typescript:S1541|Treshold=10           # Used by HQ
 -typescript:S4328                       # reason: the rule does not recognize 'local' imports
-#end please ensure new line character (\r\n) 
+#end please ensure every rule ends with a new line character
+
