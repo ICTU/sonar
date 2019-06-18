@@ -155,12 +155,12 @@ function createProfile {
     # get current default profile name
     currentProfileName=$(curl -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
     echo "Current profile for language $3 is $currentProfileName"
-    # set profile as default only when name does not end in -KEEP or -keep
+    # set profile as default only when name does not end in -DEFAULT or -default
     shopt -s nocasematch
-    if [[ $currentProfileName =~ .*-KEEP$ ]]; then
-        echo "Keeping profile $currentProfileName for language $3"
+    if [[ $currentProfileName =~ .*-DEFAULT$ ]]; then
+        echo "Keeping current default profile $currentProfileName for language $3"
     else
-        echo "Setting default profile for language $3 to $profileName"
+        echo "Setting profile $profileName for language $3 as default"
         curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$profileName&language=$3"
     fi
 }
@@ -180,13 +180,13 @@ export LDAP_REALM=${LDAP_REALM}
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.11.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.11.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v5.0.0" "Sonar%20way%20Recommended" "js"
-createProfile "ictu-py-profile-v1.12.0" "Sonar%20way" "py"
+createProfile "ictu-cs-profile-v7.14.0" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.13.0" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v5.2.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-py-profile-v1.14.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v1.9.0" "Sonar%20way%20recommended" "ts"
-createProfile "ictu-web-profile-v3.0.1-1" "Sonar%20way" "web"
-createProfile "ictu-ansible-profile-2.0.0" "Sonar%20way" "yaml"
+createProfile "ictu-web-profile-v3.1.0" "Sonar%20way" "web"
+createProfile "ictu-ansible-profile-2.2.0" "Sonar%20way" "yaml"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
