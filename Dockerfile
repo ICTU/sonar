@@ -1,4 +1,4 @@
-FROM sonarqube:7.6-community
+FROM sonarqube:7.7-community
 USER root
 RUN apt-get update \
   && apt-get install -y pylint jq\
