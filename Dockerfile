@@ -13,6 +13,7 @@ WORKDIR /opt/sonarqube
 COPY ./start-with-profile.sh .
 ADD ./rules /tmp/rules
 ADD sonar.properties /opt/sonarqube/conf/sonar.properties
+ADD elasticsearch.yml /opt/sonarqube/elasticsearch/config/elasticsearch.yml
 RUN chown -R sonarqube:sonarqube . && chmod +x start-with-profile.sh
 USER sonarqube
 CMD ["./start-with-profile.sh"]
