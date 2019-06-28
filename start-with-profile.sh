@@ -155,9 +155,9 @@ function createProfile {
     # get current default profile name
     currentProfileName=$(curl -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
     echo "Current profile for language $3 is $currentProfileName"
-    # set profile as default only when name does not end in -DEFAULT or -default
+    # set profile as default only when name does not end in DEFAULT or default
     shopt -s nocasematch
-    if [[ $currentProfileName =~ .*-DEFAULT$ ]]; then
+    if [[ $currentProfileName =~ .*DEFAULT$ ]]; then
         echo "Keeping current default profile $currentProfileName for language $3"
     else
         echo "Setting profile $profileName for language $3 as default"
@@ -180,9 +180,9 @@ export LDAP_REALM=${LDAP_REALM}
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.14.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.13.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v5.2.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-cs-profile-v7.15.0" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.13.1" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v5.2.1" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v1.14.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v1.9.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v3.1.0" "Sonar%20way" "web"
