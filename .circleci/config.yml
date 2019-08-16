@@ -3,7 +3,6 @@ version: 2
 jobs:
   build_and_push_tag:
     machine: true
-    parallelism: 4
     steps:
       - checkout
       - run:
@@ -14,7 +13,6 @@ jobs:
             docker push ictu/sonar:${CIRCLE_TAG}
   build_and_push_de_tag:
     machine: true
-    parallelism: 4
     steps:
       - checkout
       - run:
