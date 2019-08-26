@@ -7,7 +7,7 @@ A sonar image containing plugins and quality profiles used at ICTU
 
 ## Building and running locally
 
-    docker build . -t ictusonar
+    docker build -f Dockerfile-community-edition -t ictusonar .
     docker run -it -p 9000:9000 ictusonar
     browse to http://localhost:9000
 
