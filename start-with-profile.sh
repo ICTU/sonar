@@ -12,12 +12,16 @@ function isUp {
 
 # Check if the database is ready for connections
 function waitForDatabase {
-    until nc -z -v -w30 db 3306
+    # get HOST:PORT from JDBC URL
+    HOSTPORT=$(HOSTPORT=${SONARQUBE_JDBC_URL#*://}; echo ${HOSTPORT%/*})
+    echo "Waiting for database connection on ${HOSTPORT}"
+    until timeout 1 bash -c "cat < /dev/null > /dev/tcp/${HOSTPORT/:/\/}"
     do
         echo "Waiting for database connection..."
         # wait for 5 seconds before check again
         sleep 5
     done
+    echo "Database listening on ${HOSTPORT}"
 }
 
 # Wait until SonarQube is operational
@@ -171,6 +175,9 @@ function createProfile {
 BASE_URL=http://127.0.0.1:9000
 
 # waitForDatabase
+if [ "$SONARQUBE_JDBC_URL" ]; then
+  waitForDatabase
+fi
 
 # explicitely set LDAP_REALM to prevent error when starting Sonar without LDAP settings
 export LDAP_REALM=${LDAP_REALM}
@@ -180,13 +187,14 @@ export LDAP_REALM=${LDAP_REALM}
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-cs-profile-v7.15.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v5.13.1" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v5.2.1" "Sonar%20way%20Recommended" "js"
-createProfile "ictu-py-profile-v1.14.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v1.9.0" "Sonar%20way%20recommended" "ts"
-createProfile "ictu-web-profile-v3.1.0" "Sonar%20way" "web"
+createProfile "ictu-cs-profile-v8.1.0" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v5.14.0" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v6.1.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-py-profile-v2.2.0" "Sonar%20way" "py"
+createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-web-profile-v3.2.0" "Sonar%20way" "web"
 createProfile "ictu-ansible-profile-2.2.0" "Sonar%20way" "yaml"
+createProfile "ictu-vbnet-profile-2.2.0" "Sonar%20way" "vbnet"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
