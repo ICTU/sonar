@@ -13,9 +13,15 @@ function isUp {
 # Check if the database is ready for connections
 function waitForDatabase {
     # get HOST:PORT from JDBC URL
-    HOSTPORT=$(HOSTPORT=${SONARQUBE_JDBC_URL#*://}; echo ${HOSTPORT%/*})
-    echo "Waiting for database connection on ${HOSTPORT}"
-    until timeout 1 bash -c "cat < /dev/null > /dev/tcp/${HOSTPORT/:/\/}"
+    if [[ $SONARQUBE_JDBC_URL =~ postgresql://([^:/]+)(:([0-9]+))?/ ]]; then
+        local host=${BASH_REMATCH[1]}
+        local port=${BASH_REMATCH[3]:-5432}
+    else
+        echo "Only PostgreSQL databases are supported"
+        return
+    fi
+    echo "Waiting for database connection on $host:$port"
+    until timeout 1 bash -c "cat < /dev/null > /dev/tcp/$host/$port"
     do
         echo "Waiting for database connection..."
         # wait for 5 seconds before check again
