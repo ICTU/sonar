@@ -32,8 +32,10 @@ Use the following docker-compose file:
         # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
         - /db/postgresql_data:/var/lib/postgresql/data
 
-> Note: Change the passwords above to your own secret value
+> Note: Change the passwords above to your own secret value 
+
 > Note: The sonar start script waits for the database to be available only when using PostgreSQL.
+
 > Note: The docker images are built automatically with circleci and pushed to docker hub when a tag is created.
 
 ## Adding plugins
