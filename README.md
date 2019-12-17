@@ -11,36 +11,34 @@ A sonar image containing plugins and quality profiles used at ICTU
     docker run -it -p 9000:9000 ictusonar
     browse to http://localhost:9000
 
-## Running with MySQL via a docker composition
+## Running with PostgreSQL via a docker composition
 
 Use the following docker-compose file:
 
-    www:
-        image: ictu/sonar:latest
-        environment:
-            - SONARQUBE_JDBC_USERNAME=sonar
-            - SONARQUBE_JDBC_PASSWORD=sonar-password
-            - "SONARQUBE_JDBC_URL=jdbc:mysql://db/sonar?useUnicode=true&amp;characterEncoding=utf8"
-        links:
-            - db
-    db:
-        image: mysql:5.6
-        environment:
-            - MYSQL_ROOT_PASSWORD=root-password
-            - MYSQL_DATABASE=sonar
-            - MYSQL_USER=sonar
-            - MYSQL_PASSWORD=sonar-password
-        volumes:
-            - /db/var/lib/mysql:/var/lib/mysql
+  www:
+      image: ictu/sonar:7.9.1
+      environment:
+        - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+      links:
+        - db
+
+  db:
+      image: postgres:10.9
+      environment:
+        - POSTGRES_USER=sonar
+        - POSTGRES_PASSWORD=sonar
+      volumes:
+        - /db/postgresql:/var/lib/postgresql
+        # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+        - /db/postgresql_data:/var/lib/postgresql/data
 
 > Note: Change the passwords above to your own secret value
-
-> Note: The docker images are built automatically when the code is updated in GitHub. This behaviour is configured at: https://hub.docker.com/r/ictu/sonar/~/settings/automated-builds/
+> Note: The sonar start script waits for the database to be available only when using PostgreSQL.
+> Note: The docker images are built automatically with circleci and pushed to docker hub when a tag is created.
 
 ## Adding plugins
 Add the url of the plugin to be installed to ```plugins/plugin-list```
 
-> Note: Starting with SonarQube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube. For this reason, the VB.Net plugin is not installed on this image.
 
 ## Creating a new quality profile
 
