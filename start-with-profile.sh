@@ -188,8 +188,20 @@ fi
 # explicitely set LDAP_REALM to prevent error when starting Sonar without LDAP settings
 export LDAP_REALM=${LDAP_REALM}
 
+# add shutdown hook
+function shutdown {
+    echo "Shutdown"
+    if [[ -n $PID ]]; then
+        kill $PID
+        wait $PID
+    fi
+}
+trap "shutdown" EXIT
+
 # Start Sonar
 ./bin/run.sh &
+PID=$!
+
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
@@ -213,4 +225,4 @@ createProfile "ictu-web-profile-v3.2.0" "Sonar%20way" "web"
 # waitForSonarUp
 # createProfile "ictu-vb-profile-v4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks;vbnet:S104;vbnet:S1067;vbnet:S134;vbnet:S1541"
 
-wait
+wait $PID
