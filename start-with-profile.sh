@@ -199,8 +199,8 @@ createProfile "ictu-js-profile-v6.1.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-py-profile-v2.2.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-web-profile-v3.2.0" "Sonar%20way" "web"
-createProfile "ictu-ansible-profile-2.2.0" "Sonar%20way" "yaml"
-createProfile "ictu-vbnet-profile-2.2.0" "Sonar%20way" "vbnet"
+createProfile "ictu-ansible-profile-v2.2.0" "Sonar%20way" "yaml"
+createProfile "ictu-vbnet-profile-v8.1.0" "Sonar%20way" "vbnet"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
@@ -210,6 +210,6 @@ createProfile "ictu-vbnet-profile-2.2.0" "Sonar%20way" "vbnet"
 # echo "Restarting Sonarqube after installing vb plugin"
 # waitForSonarDown
 # waitForSonarUp
-# createProfile "ictu-vb-profile-4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks;vbnet:S104;vbnet:S1067;vbnet:S134;vbnet:S1541"
+# createProfile "ictu-vb-profile-v4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks;vbnet:S104;vbnet:S1067;vbnet:S134;vbnet:S1541"
 
 wait
