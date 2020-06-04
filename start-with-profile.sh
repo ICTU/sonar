@@ -187,6 +187,8 @@ fi
 
 # explicitely set LDAP_REALM to prevent error when starting Sonar without LDAP settings
 export LDAP_REALM=${LDAP_REALM}
+# explicitely set JAVA_ADDITIONAL_OPTS to prevent error when starting Sonar
+export JAVA_ADDITIONAL_OPTS="${JAVA_ADDITIONAL_OPTS}"
 
 # Start Sonar
 ./bin/run.sh &
