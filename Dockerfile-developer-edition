@@ -1,8 +1,6 @@
-FROM ictu/sonarqube:7.9.1-developer
+FROM sonarqube:8.3.1-developer
 USER root
-RUN apt-get update \
-  && apt-get install -y pylint jq\
-  && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache wget curl jq
 ADD ./plugins /tmp/plugins
 RUN rm -rf ./extensions/plugins/* && \
     cat /tmp/plugins/plugin-list && \
@@ -12,7 +10,6 @@ RUN rm -rf ./extensions/plugins/* && \
 WORKDIR /opt/sonarqube
 COPY ./start-with-profile.sh .
 ADD ./rules /tmp/rules
-ADD sonar.properties /opt/sonarqube/conf/sonar.properties
 RUN chown -R sonarqube:sonarqube . && chmod +x start-with-profile.sh
 USER sonarqube
 CMD ["./start-with-profile.sh"]
