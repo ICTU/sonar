@@ -171,7 +171,7 @@ function createProfile {
         echo "Keeping current default profile $currentProfileName for language $3"
     else
         echo "Setting profile $profileName for language $3 as default"
-        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?profileName=$profileName&language=$3"
+        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?qualityProfile=$profileName&language=$3"
     fi
 }
 
