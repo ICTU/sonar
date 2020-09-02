@@ -1,9 +1,9 @@
-+javascript:FunctionComplexity|maximumFunctionComplexityThreshold=10    # Used by HQ
-+javascript:NestedIfDepth                                               # NOT used by HQ
++javascript:S1541|maximumFunctionComplexityThreshold=10                 # Used by HQ
++javascript:S134                                                        # NOT used by HQ
 +javascript:S1067                                                       # Expression too complex; NOT used by HQ
-+javascript:S2228                                                       # Console logging should not be used; NOT used by HQ
-+javascript:ExcessiveParameterList|maximumFunctionParameters=5          # Used by HQ
-+javascript:CommentedCode                                               # Used by HQ
++javascript:S106                                                        # Console logging should not be used; NOT used by HQ
++javascript:S107|maximumFunctionParameters=5                            # Used by HQ
++javascript:S125                                                        # Used by HQ
 # Missing: NoSonar, NCSS, Parameters
 #end please ensure every rule ends with a new line character
 
