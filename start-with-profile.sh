@@ -185,9 +185,6 @@ if [ "$SONARQUBE_JDBC_URL" ]; then
   waitForDatabase
 fi
 
-# explicitely set JAVA_ADDITIONAL_OPTS to prevent error when starting Sonar
-export JAVA_ADDITIONAL_OPTS="${JAVA_ADDITIONAL_OPTS}"
-
 # add shutdown hook
 function shutdown {
     echo "Shutdown"
