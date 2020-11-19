@@ -15,24 +15,29 @@ A sonar image containing plugins and quality profiles used at ICTU
 
 Use the following docker-compose file:
 
-    www:
-      image: ictu/sonar:8.3.1
-      environment:
-        - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
-        - SONAR_JDBC_USERNAME=sonar
-        - SONAR_JDBC_PASSWORD=sonar  
-      links:
-        - db
+    version: '3'
+    services:
 
-    db:
-      image: postgres:10.9
-      environment:
-        - POSTGRES_USER=sonar
-        - POSTGRES_PASSWORD=sonar
-      volumes:
-        - /db/postgresql:/var/lib/postgresql
-        # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
-        - /db/postgresql_data:/var/lib/postgresql/data
+      www:
+        image: ictu/sonar:8.3.1
+        environment:
+          - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+          - SONAR_JDBC_USERNAME=sonar
+          - SONAR_JDBC_PASSWORD=sonar
+        ports:
+          - 9000:9000
+        links:
+          - db
+
+      db:
+        image: postgres:10.9
+        environment:
+          - POSTGRES_USER=sonar
+          - POSTGRES_PASSWORD=sonar
+        volumes:
+          - /db/postgresql:/var/lib/postgresql
+          # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+          - /db/postgresql_data:/var/lib/postgresql/data
 
 > Note: Change the passwords above to your own secret value 
 
