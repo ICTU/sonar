@@ -13,7 +13,7 @@ A sonar image containing plugins and quality profiles used at ICTU
 
 ## Running with PostgreSQL via a docker composition
 
-Use the following docker-compose file:
+Example docker-compose file:
 
     version: '3'
     services:
@@ -39,7 +39,13 @@ Use the following docker-compose file:
           # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
           - /db/postgresql_data:/var/lib/postgresql/data
 
-> Note: Change the passwords above to your own secret value 
+> Note: Change the passwords above to your own secret value
+
+> Note: The environment variables below can be used to set additional Java options, for instance to set the timezone use:
+
+      - SONAR_WEB_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
+      - SONAR_CE_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
+      - SONAR_SEARCH_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
 
 > Note: The sonar start script waits for the database to be available only when using PostgreSQL.
 
