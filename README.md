@@ -13,26 +13,39 @@ A sonar image containing plugins and quality profiles used at ICTU
 
 ## Running with PostgreSQL via a docker composition
 
-Use the following docker-compose file:
+Example docker-compose file:
 
-    www:
-      image: ictu/sonar:7.9.1
-      environment:
-        - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
-      links:
-        - db
+    version: '3'
+    services:
 
-    db:
-      image: postgres:10.9
-      environment:
-        - POSTGRES_USER=sonar
-        - POSTGRES_PASSWORD=sonar
-      volumes:
-        - /db/postgresql:/var/lib/postgresql
-        # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
-        - /db/postgresql_data:/var/lib/postgresql/data
+      www:
+        image: ictu/sonar:8.3.1
+        environment:
+          - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+          - SONAR_JDBC_USERNAME=sonar
+          - SONAR_JDBC_PASSWORD=sonar
+        ports:
+          - 9000:9000
+        links:
+          - db
 
-> Note: Change the passwords above to your own secret value 
+      db:
+        image: postgres:10.9
+        environment:
+          - POSTGRES_USER=sonar
+          - POSTGRES_PASSWORD=sonar
+        volumes:
+          - /db/postgresql:/var/lib/postgresql
+          # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+          - /db/postgresql_data:/var/lib/postgresql/data
+
+> Note: Change the passwords above to your own secret value
+
+> Note: The environment variables below can be used to set additional Java options, for instance to set the timezone use:
+
+      - SONAR_WEB_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
+      - SONAR_CE_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
+      - SONAR_SEARCH_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
 
 > Note: The sonar start script waits for the database to be available only when using PostgreSQL.
 
