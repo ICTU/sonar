@@ -16,9 +16,11 @@ A sonar image containing plugins and quality profiles used at ICTU
 Use the following docker-compose file:
 
     www:
-      image: ictu/sonar:7.9.1
+      image: ictu/sonar:8.3.1
       environment:
         - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
+        - SONAR_JDBC_USERNAME=sonar
+        - SONAR_JDBC_PASSWORD=sonar  
       links:
         - db
 
