@@ -41,6 +41,15 @@ Example docker-compose file:
 
 > Note: Change the passwords above to your own secret value
 
+> Note: If you changed the default admin password in Sonarqube than you can add these environment variables and set them to the values you need:
+
+      - SONARQUBE_TOKEN=<sonarqube_token>
+
+  or
+
+      - SONARQUBE_USERNAME=<username>
+      - SONARQUBE_PASSWORD=<password>
+
 > Note: The environment variables below can be used to set additional Java options, for instance to set the timezone use:
 
       - SONAR_WEB_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
