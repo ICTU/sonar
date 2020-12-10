@@ -1,13 +1,19 @@
 #!/bin/bash
 
+if [[ -n $SONARQUBE_TOKEN ]]; then
+    BASIC_AUTH="$SONARQUBE_TOKEN:"
+else
+    BASIC_AUTH="${SONARQUBE_USERNAME:-admin}:${SONARQUBE_PASSWORD:-admin}"
+fi
+
 # Access SonarQube api with admin credentials
 function curlAdmin {
-    curl -v -u admin:admin "$@"
+    curl -v -u "$BASIC_AUTH" "$@"
 }
 
 # Check is SonarQube is running
 function isUp {
-    curl -s -u admin:admin -f "$BASE_URL/api/system/info"
+    curl -s -u "$BASIC_AUTH" -f "$BASE_URL/api/system/info"
 }
 
 # Check if the database is ready for connections
@@ -57,7 +63,7 @@ function getProfileKey {
     local searchProfileName=$1
     local searchLanguage=$2
     local getProfileKeyUrl="$BASE_URL/api/qualityprofiles/search?qualityProfile=$searchProfileName&language=$searchLanguage"
-    local json=$(curl "$getProfileKeyUrl")
+    local json=$(curl -u "$BASIC_AUTH" "$getProfileKeyUrl")
     local searchResultProfileKey=$(echo "$json" | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
     echo "$searchResultProfileKey"
 }
@@ -163,7 +169,7 @@ function createProfile {
     fi
 
     # get current default profile name
-    currentProfileName=$(curl -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
+    currentProfileName=$(curl -u "$BASIC_AUTH" -s "$BASE_URL/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
     echo "Current profile for language $3 is $currentProfileName"
     # set profile as default only when name does not end in DEFAULT or default
     shopt -s nocasematch
