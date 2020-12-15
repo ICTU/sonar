@@ -208,14 +208,14 @@ PID=$!
 waitForSonarUp
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-ansible-profile-v2.3.0" "Sonar%20way" "yaml"
-createProfile "ictu-cs-profile-v8.8.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v6.5.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v6.2.1" "Sonar%20way%20Recommended" "js"
-createProfile "ictu-kotlin-profile-v1.7.0" "Sonar%20way" "kotlin"
-createProfile "ictu-py-profile-v2.9.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
-createProfile "ictu-vbnet-profile-v8.8.0" "Sonar%20way" "vbnet"
+createProfile "ictu-vbnet-profile-v8.13.1" "Sonar%20way" "vbnet"
+createProfile "ictu-cs-profile-v8.13" "Sonar%20way" "cs"
+createProfile "ictu-ansible-profile-v2.4.0" "Sonar%20way" "yaml"
+createProfile "ictu-java-profile-v6.8.0" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v6.5.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-kotlin-profile-v1.5.0" "Sonar%20way" "kotlin"
+createProfile "ictu-py-profile-v3.1.0" "Sonar%20way" "py"
 createProfile "ictu-web-profile-v3.2.0" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
