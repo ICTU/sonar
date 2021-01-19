@@ -19,7 +19,7 @@ Example docker-compose file:
     services:
 
       www:
-        image: ictu/sonar:8.5.1
+        image: ictu/sonar:8.6
         environment:
           - SONARQUBE_JDBC_URL=jdbc:postgresql://db:5432/sonar
           - SONAR_JDBC_USERNAME=sonar
