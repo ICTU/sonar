@@ -3,7 +3,7 @@
 if [[ -n $SONARQUBE_TOKEN ]]; then
     BASIC_AUTH="$SONARQUBE_TOKEN:"
 else
-    BASIC_AUTH="${SONARQUBE_USERNAME:-admin}:${SONARQUBE_PASSWORD:-admin123}"
+    BASIC_AUTH="${SONARQUBE_USERNAME:-admin}:${SONARQUBE_PASSWORD:-admin}"
 fi
 
 # Access SonarQube api with admin credentials
