@@ -210,13 +210,13 @@ waitForSonarUp
 # (Re-)create the ICTU profiles
 createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-vbnet-profile-v8.15.0" "Sonar%20way" "vbnet"
-createProfile "ictu-cs-profile-v8.38" "Sonar%20way" "cs"
+createProfile "ictu-cs-profile-v8.15" "Sonar%20way" "cs"
 createProfile "ictu-ansible-profile-v2.4.0" "Sonar%20way" "yaml"
 createProfile "ictu-java-profile-v6.9.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v7.0.1" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-kotlin-profile-v1.8.1" "Sonar%20way" "kotlin"
 createProfile "ictu-py-profile-v3.1.0" "Sonar%20way" "py"
-createProfile "ictu-web-profile-v3.2.0" "Sonar%20way" "web"
+createProfile "ictu-web-profile-v3.3.0" "Sonar%20way" "web"
 
 # Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
 # # Manually install the vbnet plugin
