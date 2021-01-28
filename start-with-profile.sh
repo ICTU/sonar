@@ -4,6 +4,10 @@ if [[ -n $SONARQUBE_TOKEN ]]; then
     BASIC_AUTH="$SONARQUBE_TOKEN:"
 else
     BASIC_AUTH="${SONARQUBE_USERNAME:-admin}:${SONARQUBE_PASSWORD:-admin}"
+    BASIC_AUTH_NEW="${SONARQUBE_USERNAME:-admin}:${SONARQUBE_PASSWORD:-zY6Mb98khDaD}"
+    USERNAME="${SONARQUBE_USERNAME:-admin}"
+    PASSWORD="${SONARQUBE_PASSWORD:-admin}"
+    PASSWORD_NEW=zY6Mb98khDaD
 fi
 
 # Access SonarQube api with admin credentials
@@ -206,6 +210,14 @@ trap "shutdown" EXIT
 PID=$!
 
 waitForSonarUp
+
+changePassword=`curl -s -X POST -u "$BASIC_AUTH" -f "$BASE_URL/api/users/change_password?login=${USERNAME}&password=${PASSWORD_NEW}&previousPassword=${PASSWORD}"`
+if [ -z $changePassword ]; then
+    BASIC_AUTH_NEW="${SONARQUBE_USERNAME:-admin}:${SONARQUBE_PASSWORD:-${PASSWORD_NEW}}"
+else
+    echo "Password change failed. Continuing with old password"
+fi
+
 
 # (Re-)create the ICTU profiles
 createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
