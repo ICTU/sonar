@@ -11,11 +11,6 @@ function curlAdmin {
     curl -v -u "$BASIC_AUTH" "$@"
 }
 
-# Check is SonarQube is running
-function isUp {
-    curl -s -u "$BASIC_AUTH" -f "$BASE_URL/api/system/info"
-}
-
 # Check if the database is ready for connections
 function waitForDatabase {
     # get HOST:PORT from JDBC URL
@@ -39,23 +34,31 @@ function waitForDatabase {
 # Wait until SonarQube is operational
 function waitForSonarUp {
     # Wait for server to be up
-    while [ -z "$PING" ]
+    while [ "$status" != "UP" ]
     do
-        echo "Waiting for sonar to come up"
+        status=$(curl -s -f "$BASE_URL/api/system/status" | jq -r '.status')
+        echo "Waiting for sonar to come up: $status"
         sleep 5
-        PING=$(isUp)
     done
 }
 
-# Wait until SonarQube is operational
-function waitForSonarDown {
-    # Wait for server to be up
-    while [ ! -z "$PING" ]
-    do
-        echo "Waiting for sonar to come down"
-        sleep 5
-        PING=$(isUp)
-    done
+# Try to change the default admin password to the one provided in SONARQUBE_PASSWORD
+function changeDefaultAdminPassword {
+    if [ -n "$SONARQUBE_PASSWORD" ]; then 
+        echo "Trying to change the default admin password"
+        curl -s -X POST -u "admin:admin" -f "$BASE_URL/api/users/change_password?login=admin&password=${SONARQUBE_PASSWORD}&previousPassword=admin"
+    fi
+}
+
+# Test admin credentials
+function testAdminCredentials {
+    authenticated=$(curl -s -u "$BASIC_AUTH" -f "$BASE_URL/api/system/info")
+    if [ -z "$authenticated" ]; then
+        echo "################################################################################"
+        echo "No or incorrect admin credentials provided. Shutting down Sonarqube..."
+        echo "################################################################################"
+        exit 1
+    fi
 }
 
 # given a profile name, retrieve its key
@@ -176,8 +179,13 @@ function createProfile {
     if [[ $currentProfileName =~ .*DEFAULT$ ]]; then
         echo "Keeping current default profile $currentProfileName for language $3"
     else
-        echo "Setting profile $profileName for language $3 as default"
-        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?qualityProfile=$profileName&language=$3"
+        if [[ $currentProfileName =~ .*EXTENDED$ ]]; then
+            echo "Changing parent of extended profile $currentProfileName for language $3 to $profileName"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/change_parent?qualityProfile=$currentProfileName&parentQualityProfile=$profileName&language=$3"
+        else 
+            echo "Setting profile $profileName for language $3 as default"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?qualityProfile=$profileName&language=$3"
+        fi
     fi
 }
 
@@ -207,25 +215,19 @@ PID=$!
 
 waitForSonarUp
 
+changeDefaultAdminPassword
+
+testAdminCredentials
+
 # (Re-)create the ICTU profiles
 createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-vbnet-profile-v8.15.0" "Sonar%20way" "vbnet"
-createProfile "ictu-cs-profile-v8.15" "Sonar%20way" "cs"
+createProfile "ictu-cs-profile-v8.15.0" "Sonar%20way" "cs"
 createProfile "ictu-ansible-profile-v2.4.0" "Sonar%20way" "yaml"
 createProfile "ictu-java-profile-v6.9.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v7.0.1" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-kotlin-profile-v1.8.1" "Sonar%20way" "kotlin"
 createProfile "ictu-py-profile-v3.1.0" "Sonar%20way" "py"
 createProfile "ictu-web-profile-v3.3.0" "Sonar%20way" "web"
-
-# Starting with Sonarqube 6.7, commercial plugins can only be installed on the non-free edition of SonarQube
-# # Manually install the vbnet plugin
-# # Adding it to plugin-list is not working (causint SQ initilization error "There is already a quality profile with name 'Sonar way' for language 'vb'")
-# curlAdmin -X POST "$BASE_URL/api/plugins/install?key=vbnet"
-# curlAdmin -X POST "$BASE_URL/api/system/restart"
-# echo "Restarting Sonarqube after installing vb plugin"
-# waitForSonarDown
-# waitForSonarUp
-# createProfile "ictu-vb-profile-v4.1" "Sonar%20way" "vbnet" "common-vbnet:DuplicatedBlocks;vbnet:S104;vbnet:S1067;vbnet:S134;vbnet:S1541"
 
 wait $PID
