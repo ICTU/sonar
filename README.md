@@ -41,7 +41,9 @@ Example docker-compose file:
 
 > Note: Change the passwords above to your own secret value
 
-> Note: If you changed the default admin password in Sonarqube than you can add these environment variables and set them to the values you need:
+> Note: Use the environment variables below to provide admin credentials. 
+If the default Sonarqube admin password has not yet been changed and SONARQUBE_PASSWORD is provided the startup script will try to change the Sonarqube default password to the one provided.
+Otherwise if incorrect credentials are provided Sonarqube will exit.
 
       - SONARQUBE_TOKEN=<sonarqube_token>
 
