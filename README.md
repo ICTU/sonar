@@ -58,7 +58,7 @@ Otherwise if incorrect credentials are provided Sonarqube will exit.
       - SONAR_CE_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
       - SONAR_SEARCH_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
 
-> Note: The sonar start script waits for the database to be available only when using PostgreSQL.
+> Note: The Sonar start script waits for the database to become available (only when using PostgreSQL). DB_START_TIMEOUT (default: 60 seconds) defines how long the script will wait for the database to become available before exiting. Similarly SONAR_START_TIMEOUT (default: 600 seconds) defines how long the script should wait for Sonar to start up. 
 
 > Note: The docker images are built automatically with circleci and pushed to docker hub when a tag is created.
 
