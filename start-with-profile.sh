@@ -22,24 +22,43 @@ function waitForDatabase {
         return
     fi
     echo "Waiting for database connection on $host:$port"
-    until timeout 1 bash -c "cat < /dev/null > /dev/tcp/$host/$port"
+    local count=0
+    local sleep=5
+    local timeout=${DB_START_TIMEOUT:-60}
+    until pg_isready -h "$host" -p "$port" ${SONAR_JDBC_USERNAME:+-U "$SONAR_JDBC_USERNAME"}
     do
+        if [[ count -gt timeout ]]
+        then
+            echo "ERROR: Failed to start database within $timeout seconds"
+            exit 1
+        fi
         echo "Waiting for database connection..."
         # wait for 5 seconds before check again
-        sleep 5
+        sleep $sleep
+        count=$((count+sleep))
     done
     echo "Database listening on ${HOSTPORT}"
 }
 
 # Wait until SonarQube is operational
 function waitForSonarUp {
+    local count=0
+    local sleep=5
+    local timeout=${SONAR_START_TIMEOUT:-600}
     # Wait for server to be up
-    while [ "$status" != "UP" ]
+    until [[ "$status" == "UP" ]]
     do
+        if [[ count -gt timeout ]]
+        then
+            echo "ERROR: Failed to start Sonar within $timeout seconds"
+            exit 1
+        fi
         status=$(curl -s -f "$BASE_URL/api/system/status" | jq -r '.status')
         echo "Waiting for sonar to come up: $status"
-        sleep 5
+        sleep $sleep
+        count=$((count+sleep))
     done
+    echo "Sonar is started"
 }
 
 # Try to change the default admin password to the one provided in SONARQUBE_PASSWORD
