@@ -240,7 +240,7 @@ testAdminCredentials
 
 # (Re-)create the ICTU profiles
 createProfile "ictu-ansible-profile-v2.4.0" "Sonar%20way" "yaml"
-createProfile "ictu-cs-profile-v8.40.0" "Sonar%20way" "cs"
+createProfile "ictu-cs-profile-v8.18.0" "Sonar%20way" "cs"
 createProfile "ictu-java-profile-v6.12.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v7.2.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-kotlin-profile-v1.8.2" "Sonar%20way" "kotlin"
