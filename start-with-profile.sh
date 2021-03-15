@@ -245,7 +245,7 @@ createProfile "ictu-java-profile-v6.12.0" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v7.2.0" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-kotlin-profile-v1.8.2" "Sonar%20way" "kotlin"
 createProfile "ictu-py-profile-v3.2.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v2.1.0" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-ts-profile-v7.2.0" "Sonar%20way%20recommended" "ts"
 createProfile "ictu-vbnet-profile-v8.18.0" "Sonar%20way" "vbnet"
 createProfile "ictu-web-profile-v3.3.0" "Sonar%20way" "web"
 
