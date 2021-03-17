@@ -14,7 +14,7 @@ function curlAdmin {
 # Check if the database is ready for connections
 function waitForDatabase {
     # get HOST:PORT from JDBC URL
-    if [[ $SONARQUBE_JDBC_URL =~ postgresql://([^:/]+)(:([0-9]+))?/ ]]; then
+    if [[ $SONAR_JDBC_URL =~ postgresql://([^:/]+)(:([0-9]+))?/ ]]; then
         local host=${BASH_REMATCH[1]}
         local port=${BASH_REMATCH[3]:-5432}
     else
@@ -63,7 +63,7 @@ function waitForSonarUp {
 
 # Try to change the default admin password to the one provided in SONARQUBE_PASSWORD
 function changeDefaultAdminPassword {
-    if [ -n "$SONARQUBE_PASSWORD" ]; then 
+    if [ -n "$SONARQUBE_PASSWORD" ]; then
         echo "Trying to change the default admin password"
         curl -s -X POST -u "admin:admin" -f "$BASE_URL/api/users/change_password?login=admin&password=${SONARQUBE_PASSWORD}&previousPassword=admin"
     fi
@@ -201,7 +201,7 @@ function createProfile {
         if [[ $currentProfileName =~ .*EXTENDED$ ]]; then
             echo "Changing parent of extended profile $currentProfileName for language $3 to $profileName"
             curlAdmin -X POST "$BASE_URL/api/qualityprofiles/change_parent?qualityProfile=$currentProfileName&parentQualityProfile=$profileName&language=$3"
-        else 
+        else
             echo "Setting profile $profileName for language $3 as default"
             curlAdmin -X POST "$BASE_URL/api/qualityprofiles/set_default?qualityProfile=$profileName&language=$3"
         fi
@@ -214,7 +214,7 @@ function createProfile {
 BASE_URL=http://127.0.0.1:9000
 
 # waitForDatabase
-if [ "$SONARQUBE_JDBC_URL" ]; then
+if [ "$SONAR_JDBC_URL" ]; then
   waitForDatabase
 fi
 
