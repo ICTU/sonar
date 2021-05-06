@@ -95,7 +95,7 @@ Please ensure each file ends with a new line character, otherwise the rule will 
 
 Example:
 
-    +csharpsquid:S104               # NCSS; used by HQ
+    +csharpsquid:S104               # NCSS; used by Quality-time
 
 ## Overriding the standard quality profiles
 
