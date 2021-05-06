@@ -1,6 +1,6 @@
-+common-web:DuplicatedBlocks    # NOT used by HQ
-+Web:ComplexityCheck            # Used by HQ
-+Web:LongJavaScriptCheck        # Used by HQ
-+Web:AvoidCommentedOutCodeCheck # Used by HQ
++common-web:DuplicatedBlocks     # NOT used by Quality-time
++Web:ComplexityCheck             # NOT used by Quality-time (but will be in a future version, check: https://github.com/ICTU/quality-time/issues/2137)
++Web:LongJavaScriptCheck         # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
++Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
 #end please ensure every rule ends with a new line character
 

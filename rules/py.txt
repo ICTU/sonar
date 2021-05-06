@@ -1,11 +1,11 @@
-+common-py:DuplicatedBlocks                                         # NOT used by HQ
-+python:S104                                                        # Too many lines of code in file; NOT used by HQ
-+python:S107|max=5                                                  # Too many parameters; used by HQ
-+python:S125                                                        # Commented code; used by HQ
-+python:S134                                                        # Too deep nesting; NOT used by HQ
-+Pylint:R0915                                                       # Too many statements; used by HQ
-+Pylint:I0011                                                       # Locally disable message, NoSonar alternative; used by HQ
-+Pylint:I0020                                                       # Suppressed message, NoSonar alternative; used by HQ
-+python:FunctionComplexity|maximumFunctionComplexityThreshold=10    # Used by HQ
++common-py:DuplicatedBlocks                                       # NOT used by Quality-time
++python:S104                                                      # Too many lines of code in file; NOT used by Quality-time
++python:S107|max=5                                                # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
++python:S125                                                      # Commented code; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
++python:S134                                                      # Too deep nesting; NOT used by Quality-time
++Pylint:R0915                                                     # Too many statements; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
++Pylint:I0011                                                     # Locally disable message, NoSonar alternative; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
++Pylint:I0020                                                     # Suppressed message, NoSonar alternative; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
++python:FunctionComplexity|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
 #end please ensure every rule ends with a new line character
 
