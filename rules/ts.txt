@@ -1,8 +1,8 @@
-+common-ts:DuplicatedBlocks             # NOT used by HQ
-+typescript:S109                        # Magic number; NOT used by HQ
-+typescript:S104                        # File length; NOT used by HQ
-+typescript:S106                        # Console logging; NOT used by HQ
-+typescript:S1541|Treshold=10           # Used by HQ
--typescript:S4328                       # reason: the rule does not recognize 'local' imports
++common-ts:DuplicatedBlocks    # NOT used by Quality-time
++typescript:S109               # Magic number; NOT used by Quality-time
++typescript:S104               # File length; NOT used by Quality-time
++typescript:S106               # Console logging; NOT used by Quality-time
++typescript:S1541|Treshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
+-typescript:S4328              # reason: the rule does not recognize 'local' imports
 #end please ensure every rule ends with a new line character
 

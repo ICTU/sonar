@@ -1,12 +1,12 @@
-+java:S1541|Threshold=10                            # Used by HQ
-+java:NoSonar                                       # Used by HQ to report on suppressed violations
-+java:S1309                                         # Used by HQ to report on suppressed violations
-+java:S1310                                         # Used by HQ to report on suppressed violations
-+java:S1315                                         # Used by HQ to report on suppressed violations
-+java:S1067                                         # Expression too complex; NOT used by HQ
-+java:S109                                          # Magic numbers; NOT used by HQ
-+java:S138|max=20                                   # Methods with too many lines; used by HQ
-+java:S107|max=5                                    # Too many parameters; used by HQ
-+java:S125                                          # Used by HQ
++java:S1541|Threshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
++java:NoSonar             # Used by Quality-time to report on suppressed violations (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
++java:S1309               # Used by Quality-time to report on suppressed violations (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
++java:S1310               # Used by Quality-time to report on suppressed violations (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
++java:S1315               # Used by Quality-time to report on suppressed violations (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
++java:S1067               # Expression too complex; NOT used by Quality-time
++java:S109                # Magic numbers; NOT used by Quality-time
++java:S138|max=20         # Methods with too many lines; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
++java:S107|max=5          # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
++java:S125                # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
 #end please ensure every rule ends with a new line character
 
