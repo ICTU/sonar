@@ -239,8 +239,8 @@ changeDefaultAdminPassword
 testAdminCredentials
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-ansible-profile-v2.4.0" "Sonar%20way" "yaml"
-createProfile "ictu-cs-profile-v8.32.0" "Sonar%20way" "cs"
+createProfile "ictu-ansible-profile-v2.5.1" "Sonar%20way" "yaml"
+createProfile "ictu-cs-profile-v9.2.1" "Sonar%20way" "cs"
 createProfile "ictu-java-profile-v7.5" "Sonar%20way" "java"
 createProfile "ictu-js-profile-v8.6" "Sonar%20way%20Recommended" "js"
 createProfile "ictu-kotlin-profile-v2.7.0.984" "Sonar%20way" "kotlin"
