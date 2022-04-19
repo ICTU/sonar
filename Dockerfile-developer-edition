@@ -1,4 +1,4 @@
-FROM sonarqube:9.3.0-developer
+FROM sonarqube:9.4.0-developer
 USER root
 RUN apk add --no-cache wget curl java-cacerts jq postgresql-client
 RUN ln -sf /etc/ssl/certs/java/cacerts /usr/lib/jvm/java-11-openjdk/lib/security/cacerts
