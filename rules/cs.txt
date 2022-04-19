@@ -1,4 +1,3 @@
-+common-cs:DuplicatedBlocks  # NOT used by Quality-time
 +csharpsquid:S104            # NCSS; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
 +csharpsquid:S107|max=5      # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
 +csharpsquid:S125            # Commented code; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)

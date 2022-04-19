@@ -27,7 +27,6 @@
 +ansible:E504
 +ansible:E601
 +ansible:E602
-+common-yaml:DuplicatedBlocks
 +yaml:BracesCheck|max-spaces-inside=1;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=1
 +yaml:BracketsCheck|max-spaces-inside=0;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=0
 +yaml:ColonsCheck|max-spaces-before=0;max-spaces-after=1
