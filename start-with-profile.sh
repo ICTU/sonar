@@ -94,6 +94,9 @@ function processRule {
     local rule=$1
     local profileKey=$2
 
+    echo "Optimize rule"
+    rule=$(echo $rule |tr -d ' ' | cut -d "#" -f 1)
+
     # The first character is the operation
     # + = activate
     # - = deactivate
@@ -149,18 +152,20 @@ function createProfile {
     profileKey=$(getProfileKey "$profileName" "$language")
     echo "The profile $profileName $language has the key $profileKey"
 
-    # activate and deactivate rules in new profile
-    while read ruleLine || [ -n "$line" ]; do
+    if [[ -f "$rulesFilename" ]]; then
+        # activate and deactivate rules in new profile
+        while read ruleLine || [ -n "$line" ]; do
 
-        # Each line contains a line with (+|-)ruleId # comment
-        # Example: +cs:1032 # somecomment
-        IFS='#';ruleSplit=("${ruleLine}");unset IFS;
-        rule=${ruleSplit[0]}
-        comment=${ruleSplit[1]}
+            # Each line contains a line with (+|-)ruleId # comment
+            # Example: +cs:1032 # somecomment
+            IFS='#';ruleSplit=("${ruleLine}");unset IFS;
+            rule=${ruleSplit[0]}
+            comment=${ruleSplit[1]}
 
-        processRule "$rule" "$profileKey"
+            processRule "$rule" "$profileKey"
 
-    done < "$rulesFilename"
+        done < "$rulesFilename"
+    fi
 
     # if the PROJECT_RULES environment variable is defined and not empty, create a custom project profile
     echo "Project specific rules = $PROJECT_RULES"
@@ -242,10 +247,10 @@ testAdminCredentials
 createProfile "ictu-ansible-profile-v2.5.1" "Sonar%20way" "yaml"
 createProfile "ictu-cs-profile-v8.34.0" "Sonar%20way" "cs"
 createProfile "ictu-java-profile-v7.7.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v8.8.0" "Sonar%20way%20Recommended" "js"
+createProfile "ictu-js-profile-v8.8.0" "Sonar%20way" "js"
 createProfile "ictu-kotlin-profile-v2.9.0" "Sonar%20way" "kotlin"
 createProfile "ictu-py-profile-v3.9.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v8.8.0" "Sonar%20way%20recommended" "ts"
+createProfile "ictu-ts-profile-v8.8.0" "Sonar%20way" "ts"
 createProfile "ictu-vbnet-profile-v8.34.0" "Sonar%20way" "vbnet"
 createProfile "ictu-web-profile-v3.6.0" "Sonar%20way" "web"
 
