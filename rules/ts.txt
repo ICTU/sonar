@@ -1,4 +1,3 @@
-+common-ts:DuplicatedBlocks    # NOT used by Quality-time
 +typescript:S109               # Magic number; NOT used by Quality-time
 +typescript:S104               # File length; NOT used by Quality-time
 +typescript:S106               # Console logging; NOT used by Quality-time
