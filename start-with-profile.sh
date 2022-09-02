@@ -245,13 +245,13 @@ testAdminCredentials
 
 # (Re-)create the ICTU profiles
 createProfile "ictu-ansible-profile-v2.5.1" "Sonar%20way" "yaml"
-createProfile "ictu-cs-profile-v8.36.1" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v7.11.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v9.1.0" "Sonar%20way" "js"
-createProfile "ictu-kotlin-profile-v2.9.0" "Sonar%20way" "kotlin"
-createProfile "ictu-py-profile-v3.12.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v9.1.0" "Sonar%20way" "ts"
-createProfile "ictu-vbnet-profile-v8.36.1" "Sonar%20way" "vbnet"
+createProfile "ictu-cs-profile-v8.43.1" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v7.13.0" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v9.6.0" "Sonar%20way" "js"
+createProfile "ictu-kotlin-profile-v2.10.0" "Sonar%20way" "kotlin"
+createProfile "ictu-py-profile-v3.15.0" "Sonar%20way" "py"
+createProfile "ictu-ts-profile-v9.6.0" "Sonar%20way" "ts"
+createProfile "ictu-vbnet-profile-v8.43.1" "Sonar%20way" "vbnet"
 createProfile "ictu-web-profile-v3.6.0" "Sonar%20way" "web"
 
 wait $PID
