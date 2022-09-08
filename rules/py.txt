@@ -1,7 +1,7 @@
++types=SECURITY_HOTSPOT,VULNERABILITY                             # Enable these types by default
 +python:S104                                                      # Too many lines of code in file; NOT used by Quality-time
 +python:S107|max=5                                                # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
 +python:S125                                                      # Commented code; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
 +python:S134                                                      # Too deep nesting; NOT used by Quality-time
 +python:FunctionComplexity|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
 #end please ensure every rule ends with a new line character
-

@@ -1,4 +1,4 @@
++types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
 +vbnet:S1541  # Too complex function, procedure or property; Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
 # Missing: method length, NoSonar, too many parameters, commented loc
 #end please ensure every rule ends with a new line character
-
