@@ -80,7 +80,7 @@ Language (internal SonarQube language identifier)
 **The newly created profile will be set to default unless the current default profile has a name ending with "DEFAULT" (or "default")**
 **OR unless the current default profile has a name ending with "EXTENDED" (or "extended"). In the latter case the parent of the current default profile will be changed to the newly created profile.**
 
-## Activating or deactivating rules in the quality profiles
+## Activating or deactivating individual rules in the quality profiles
 
 Modify the corresponding ```rules/(language).txt``` file.
 Each line represents a rule to be activated or deactivated and has the following syntax:
@@ -96,6 +96,21 @@ Please ensure each file ends with a new line character, otherwise the rule will 
 Example:
 
     +csharpsquid:S104               # NCSS; used by Quality-time
+
+## Activating or deactivating rule types in the quality profiles
+
+To (de)activate groups of rules by type use this syntax:
+```(operation)types=(comma,delimited,list,of,types)#(comment)```
+
+The following types are available:
+- CODE_SMELL
+- BUG
+- VULNERABILITY
+- SECURITY_HOTSPOT
+
+Example:
+
+    +types=SECURITY_HOTSPOT,VULNERABILITY        # Enable these types by default
 
 ## Overriding the standard quality profiles
 
@@ -151,4 +166,3 @@ Execute:
 In order to make import of existing profiles easier, there is an XSLT transformation file provided: profile_backup_transform.xslt
 
 Go to profiles page in your SonarQube, backup a profile to an xml file and transform it.
-

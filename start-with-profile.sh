@@ -93,6 +93,7 @@ function getProfileKey {
 function processRule {
     local rule=$1
     local profileKey=$2
+    local language=$3
 
     echo "Optimize rule"
     rule=$(echo $rule |tr -d ' ' | cut -d "#" -f 1)
@@ -104,28 +105,46 @@ function processRule {
 
     # After the operation comes the SonarQube ruleSet which contains ruleId and ruleParams
     local ruleSet=${rule:1}
-    IFS='|' read -r ruleId ruleParams <<< "$ruleSet"
-    ruleParams=${ruleParams/|/,}
 
-    echo "*** Processing rule ***"
-    echo "Rule ${rule}"
-    echo "Operation ${operationType}"
-    echo "RuleId ${ruleId}"
-    echo "RuleParams ${ruleParams}"
+    # Enable rules by group (types)
+    if [[ $ruleSet =~ types=.* ]]; then
 
-    if [ "$operationType" == "+" ]; then
-        echo "Activating rule ${ruleId}"
-        if [ "$ruleParams" == "" ]; then
-            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId"
-        else
-            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId&params=$ruleParams"
+        IFS='=' read -r typekey ruleTypes <<< "$ruleSet"
+        if [ "$operationType" == "+" ]; then
+            echo "Activating rules ${ruleTypes} for ${language}"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}&statuses=READY"
         fi
-    fi
+        if [ "$operationType" == "-" ]; then
+            echo "Deactivating rules ${ruleTypes} for ${language}"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}"
+        fi
 
-    if [ "$operationType" == "-" ]; then
-        echo "Deactivating rule ${ruleId}"
-        curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$profileKey&rule=$ruleId"
-    fi
+    else
+
+        IFS='|' read -r ruleId ruleParams <<< "$ruleSet"
+        ruleParams=${ruleParams/|/,}
+
+        echo "*** Processing rule ***"
+        echo "Rule ${rule}"
+        echo "Operation ${operationType}"
+        echo "RuleId ${ruleId}"
+        echo "RuleParams ${ruleParams}"
+
+        if [ "$operationType" == "+" ]; then
+            echo "Activating rule ${ruleId}"
+            if [ "$ruleParams" == "" ]; then
+                curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId"
+            else
+                curlAdmin -X POST "$BASE_URL/api/qualityprofiles/activate_rule?key=$profileKey&rule=$ruleId&params=$ruleParams"
+            fi
+        fi
+
+        if [ "$operationType" == "-" ]; then
+            echo "Deactivating rule ${ruleId}"
+            curlAdmin -X POST "$BASE_URL/api/qualityprofiles/deactivate_rule?key=$profileKey&rule=$ruleId"
+        fi
+
+    fi # [[ $ruleSet =~ types.* ]];
 }
 
 # Create a new SonarQube profile with custom activated rules, inheritance and set as default
@@ -156,13 +175,17 @@ function createProfile {
         # activate and deactivate rules in new profile
         while read ruleLine || [ -n "$line" ]; do
 
-            # Each line contains a line with (+|-)ruleId # comment
-            # Example: +cs:1032 # somecomment
+            # Each line contains: 
+            #     (+|-)types=comma-seperated,list-of-types # comment
+            # or: (+|-)ruleId[|parameter=value] # comment
+            # Examples: 
+            #    +cs:1032 # some comment
+            #    +types=SECURITY_HOTSPOT,VULNERABILITY # some comment
             IFS='#';ruleSplit=("${ruleLine}");unset IFS;
             rule=${ruleSplit[0]}
             comment=${ruleSplit[1]}
 
-            processRule "$rule" "$profileKey"
+            processRule "$rule" "$profileKey" "$language"
 
         done < "$rulesFilename"
     fi
@@ -188,7 +211,7 @@ function createProfile {
         IFS=';' read -ra projrules <<< "$PROJECT_RULES"
         for rule in "${projrules[@]}"; do
             echo "Processing project custom rule $rule"
-            processRule "$rule" "$profileKey"
+            processRule "$rule" "$profileKey" "$language"
         done
 
         # mark this profile to be activated

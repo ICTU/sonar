@@ -1,3 +1,4 @@
++types=SECURITY_HOTSPOT,VULNERABILITY                    # Enable these types by default
 +javascript:S1541|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
 +javascript:S134                                         # NOT used by Quality-time
 +javascript:S1067                                        # Expression too complex; NOT used by Quality-time
@@ -6,4 +7,3 @@
 +javascript:S125                                         # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
 # Missing: NoSonar, NCSS, Parameters
 #end please ensure every rule ends with a new line character
-

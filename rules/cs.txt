@@ -1,3 +1,4 @@
++types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
 +csharpsquid:S104            # NCSS; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
 +csharpsquid:S107|max=5      # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
 +csharpsquid:S125            # Commented code; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
@@ -6,4 +7,3 @@
 +csharpsquid:S1309           # Violation suppression; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
 +csharpsquid:S1541|max=10    # Methods and properties too complex; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
 #end please ensure every rule ends with a new line character
-

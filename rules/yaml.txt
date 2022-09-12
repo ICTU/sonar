@@ -1,3 +1,4 @@
++types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
 +ansible:ANSIBLE0002
 +ansible:ANSIBLE0004
 +ansible:ANSIBLE0005
@@ -47,4 +48,3 @@
 +yaml:TrailingSpacesCheck
 -yaml:TruthyCheck
 #end please ensure every rule ends with a new line character
-

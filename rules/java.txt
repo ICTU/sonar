@@ -1,3 +1,4 @@
++types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
 +java:S1541|Threshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
 +java:NoSonar             # Used by Quality-time to report on suppressed violations (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
 +java:S1309               # Used by Quality-time to report on suppressed violations (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#suppressed-violations-from-sonarqube)
@@ -9,4 +10,3 @@
 +java:S107|max=5          # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
 +java:S125                # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
 #end please ensure every rule ends with a new line character
-
