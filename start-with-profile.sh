@@ -274,7 +274,7 @@ createProfile "ictu-js-profile-v9.9.0" "Sonar%20way" "js"
 createProfile "ictu-kotlin-profile-v2.10.0" "Sonar%20way" "kotlin"
 createProfile "ictu-py-profile-v3.19.0" "Sonar%20way" "py"
 createProfile "ictu-ts-profile-v9.9.0" "Sonar%20way" "ts"
-createProfile "ictu-vbnet-profile-v8.46.1" "Sonar%20way" "vbnet"
+createProfile "ictu-vbnet-profile-v8.46.0" "Sonar%20way" "vbnet"
 createProfile "ictu-web-profile-v3.6.0" "Sonar%20way" "web"
 
 wait $PID
