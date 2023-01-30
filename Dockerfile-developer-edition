@@ -1,7 +1,7 @@
-FROM sonarqube:9.7.1-developer
+FROM sonarqube:9.9.1-developer
 USER root
-RUN apk add --no-cache wget curl java-cacerts jq postgresql-client
-RUN ln -sf /etc/ssl/certs/java/cacerts /usr/lib/jvm/java-11-openjdk/lib/security/cacerts
+RUN apt-get update && apt-get install -y wget curl ca-certificates-java jq postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
 ADD ./plugins /tmp/plugins
 RUN rm -rf ./extensions/plugins/* && \
     cat /tmp/plugins/plugin-list && \
