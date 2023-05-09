@@ -1,0 +1,1 @@
++types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
