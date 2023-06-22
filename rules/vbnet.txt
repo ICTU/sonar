@@ -1,4 +1,7 @@
 +types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
-+vbnet:S1541  # Too complex function, procedure or property; Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
++vbnet:S1541|maximumFunctionComplexityThreshold=10  # Too complex function, procedure or property; Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)
++vbnet:S1067                                        # Expression too complex; NOT used by Quality-time
++vbnet:S107|max=5                                   # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)
++vbnet:S138|max=20                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)
 # Missing: method length, NoSonar, too many parameters, commented loc
 #end please ensure every rule ends with a new line character
