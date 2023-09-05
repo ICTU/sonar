@@ -74,7 +74,7 @@ function testAdminCredentials {
     authenticated=$(curl -s -u "$BASIC_AUTH" -f "$BASE_URL/api/system/info")
     if [ -z "$authenticated" ]; then
         echo "################################################################################"
-        echo "No or incorrect admin credentials provided. Shutting down Sonarqube..."
+        echo "No or incorrect admin credentials provided. Shutting down SonarQube..."
         echo "################################################################################"
         exit 1
     fi
