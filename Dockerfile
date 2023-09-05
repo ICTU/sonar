@@ -1,4 +1,7 @@
-FROM sonarqube:9.9.1-community
+ARG IMAGE_NAME=sonarqube
+ARG IMAGE_VERSION=10.1.0
+ARG IMAGE_EDITION=community
+FROM $IMAGE_NAME:$IMAGE_VERSION-$IMAGE_EDITION
 USER root
 RUN apt-get update && apt-get install -y wget curl ca-certificates-java jq postgresql-client \
     && rm -rf /var/lib/apt/lists/*

@@ -40,7 +40,7 @@ Example docker-compose file:
     version: '3.7'
     services:
       www:
-        image: ictu/sonar:9.9.1
+        image: ictu/sonar:10.1.0
         environment:
           - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
           - SONAR_JDBC_USERNAME=sonar
