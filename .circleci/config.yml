@@ -8,7 +8,7 @@ jobs:
       - run:
           shell: /bin/bash
           command: |
-            docker build -f Dockerfile-community-edition -t ictu/sonar:${CIRCLE_TAG} .
+            docker build -t ictu/sonar:${CIRCLE_TAG} .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push ictu/sonar:${CIRCLE_TAG}
   build_and_push_de_tag:
@@ -18,7 +18,7 @@ jobs:
       - run:
           shell: /bin/bash
           command: |
-            docker build -f Dockerfile-developer-edition -t ictu/sonar:${CIRCLE_TAG} .
+            docker build --build-arg="IMAGE_EDITION=developer" -t ictu/sonar:${CIRCLE_TAG} .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push ictu/sonar:${CIRCLE_TAG}
 

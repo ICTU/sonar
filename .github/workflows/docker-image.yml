@@ -1,0 +1,35 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - env:
+              IMAGE_EDITION: community
+          - env:
+              IMAGE_EDITION: developer
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build the Docker image
+        run: docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
+
+      - name: Run the Docker image
+        run: docker run -d --name ci ci
+
+      - name: Verify the Docker image
+        # profile for language 'web' is the last; assume everything is working if we got this far
+        run: docker logs -f ci |& sed '/Current profile for language web is Sonar way/ q'
+        timeout-minutes: 3
+
+      - name: Stop the Docker image
+        run: docker stop ci
