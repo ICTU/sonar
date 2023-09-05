@@ -1,118 +1,18 @@
 # ICTU SonarQube Docker image
+
 A sonar image containing plugins and quality profiles used at ICTU
-
-## Running from docker hub
-
-    docker run -it -p 9000:9000 ictu/sonar
-
-## Building and running locally
-
-    docker build -f Dockerfile-community-edition -t ictusonar .
-    docker run -it -p 9000:9000 ictusonar
-    browse to http://localhost:9000
-
-## Running with PostgreSQL via a docker composition
-
-Example docker-compose file:
-
-    version: '3'
-    services:
-
-      www:
-        image: ictu/sonar:8.6
-        environment:
-          - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
-          - SONAR_JDBC_USERNAME=sonar
-          - SONAR_JDBC_PASSWORD=sonar
-        ports:
-          - 9000:9000
-        links:
-          - db
-
-      db:
-        image: postgres:10.9
-        environment:
-          - POSTGRES_USER=sonar
-          - POSTGRES_PASSWORD=sonar
-        volumes:
-          - /db/postgresql:/var/lib/postgresql
-          # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
-          - /db/postgresql_data:/var/lib/postgresql/data
-
-> Note: Change the passwords above to your own secret value
-
-> Note: Use the environment variables below to provide admin credentials.
-If the default Sonarqube admin password has not yet been changed and SONARQUBE_PASSWORD is provided the startup script will try to change the Sonarqube default password to the one provided.
-Otherwise if incorrect credentials are provided Sonarqube will exit.
-
-      - SONARQUBE_TOKEN=<sonarqube_token>
-
-  or
-
-      - SONARQUBE_USERNAME=<username>
-      - SONARQUBE_PASSWORD=<password>
-
-> Note: The environment variables below can be used to set additional Java options, for instance to set the timezone use:
-
-      - SONAR_WEB_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
-      - SONAR_CE_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
-      - SONAR_SEARCH_JAVAADDITIONALOPTS=-Duser.timezone=Europe/Amsterdam
-
-> Note: The Sonar start script waits for the database to become available (only when using PostgreSQL). DB_START_TIMEOUT (default: 60 seconds) defines how long the script will wait for the database to become available before exiting. Similarly SONAR_START_TIMEOUT (default: 600 seconds) defines how long the script should wait for Sonar to start up.
-
-> Note: The docker images are built automatically with circleci and pushed to docker hub when a tag is created.
-
-## Adding plugins
-Add the url of the plugin to be installed to ```plugins/plugin-list```
 
 
 ## Creating a new quality profile
 
-Modify start-with-profile.sh and add a statement to the end of the script, such as:
+When starting the SonarQube image, new quality profiles will be automatically created for [supported languages](https://github.com/ICTU/sonar/blob/master/rules).
+These newly created profiles are set to be the default profile, but can also be [extended with your own custom rules](https://docs.sonarsource.com/sonarqube/latest/instance-administration/quality-profiles/#extending-a-quality-profile).
 
-    createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs"
+Extending the default can be done by ensuring that the current profile has a name ending with `EXTENDED` (or `extended`).
+Alternatively, the automatic overriding of default profile can be avoided by ensuring that the current profile has a name ending with `DEFAULT` (or `default`).
 
-The parameters are:
-Profile name
-Base profile name
-Language (internal SonarQube language identifier)
 
-**The newly created profile will be set to default unless the current default profile has a name ending with "DEFAULT" (or "default")**
-**OR unless the current default profile has a name ending with "EXTENDED" (or "extended"). In the latter case the parent of the current default profile will be changed to the newly created profile.**
-
-## Activating or deactivating individual rules in the quality profiles
-
-Modify the corresponding ```rules/(language).txt``` file.
-Each line represents a rule to be activated or deactivated and has the following syntax:
-```(operation)(ruleId)#(comment)```
-
-Please ensure each file ends with a new line character, otherwise the rule will not be added to the profile!
-
-**operation**:
-    + activates a rule; - deactivates a rule
-
-**ruleId**: SonarQube rule identifier
-
-Example:
-
-    +csharpsquid:S104               # NCSS; used by Quality-time
-
-## Activating or deactivating rule types in the quality profiles
-
-To (de)activate groups of rules by type use this syntax:
-```(operation)types=(comma,delimited,list,of,types)#(comment)```
-
-The following types are available:
-- CODE_SMELL
-- BUG
-- VULNERABILITY
-- SECURITY_HOTSPOT
-
-Example:
-
-    +types=SECURITY_HOTSPOT,VULNERABILITY        # Enable these types by default
-
-## Overriding the standard quality profiles
+## Overriding the ICTU standard quality profiles
 
 Add the project code (it will be used as a prefix for the quality profile name) to the environment variable PROJECT_CODE.
 Add a list of semicolon separated rule ids to be enabled or disabled to the environment variable PROJECT_RULES.
@@ -133,49 +33,36 @@ And change severity:
     PROJECT_RULES=-squid:S4274;+csharpsquid:S110|max=7&severity=INFO;+csharpsquid:S3925&severity=INFO
 
 
-## Analysing projects
+## Running with PostgreSQL via a docker composition
 
-### Typescript
+Example docker-compose file:
 
-Create a file named "sonar-project.properties", on the same location as packages.json. Example:
-
-    sonar.host.url=http://mysonarqubeserver:9000
-    sonar.projectKey=myproject:master
-    sonar.projectName=myproject master
-    sonar.projectVersion=master-version
-    sonar.sourceEncoding=UTF-8
-    sonar.sources=src
-    sonar.tests=src
-    sonar.exclusions=**/node_modules/**,**/*.spec.ts,**/keycloak.js
-    sonar.test.inclusions=**/*.spec.*
-    sonar.typescript.lcov.reportPaths=coverage/lcov.info
-    sonar.scm.disabled=true
-
-Create the unit tests coverage file on the location specified at *sonar.typescript.lcov.reportPaths*. If you are using a standard Angular CLI project, you  can do that by executing:
-
-    ng test --single-run --code-coverage
-
-Execute:
-
-    npm i typescript
-    npm i sonar-scanner
-    ./node_modules/sonar-scanner/bin/sonar-scanner -Dproject.settings=sonar-project.properties
-
-## Create rules txt file from SonarQubes quality profile backup (xml)
-
-In order to make import of existing profiles easier, there is an XSLT transformation file provided: profile_backup_transform.xslt
-
-Go to profiles page in your SonarQube, backup a profile to an xml file and transform it.
+    version: '3.7'
+    services:
+      www:
+        image: ictu/sonar:10.1.0
+        environment:
+          - SONAR_JDBC_URL=jdbc:postgresql://db:5432/sonar
+          - SONAR_JDBC_USERNAME=sonar
+          - SONAR_JDBC_PASSWORD=sonar
+        ports:
+          - 9000:9000
+        depends_on:
+          - db
+      db:
+        image: postgres:15.3
+        environment:
+          - POSTGRES_USER=sonar
+          - POSTGRES_PASSWORD=sonar
+          - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+          - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+        volumes:
+          - /db/postgresql_data:/var/lib/postgresql/data
 
 
-## Version upgrade workflow
+If the default SonarQube admin password has not yet been changed and `SONARQUBE_PASSWORD` is provided, the startup script will try to change the SonarQube default password to the one provided.
+Alternatively, the `SONARQUBE_TOKEN` can be used as admin credential instead of the `SONARQUBE_USERNAME` / `SONARQUBE_PASSWORD` combination.
 
-1. Update `Dockerfile`s with the new version of SonarQube
-1. Update [external plugins](https://github.com/ICTU/sonar/blob/master/plugins/plugin-list)
-1. Create profiles based on the internal plugin versions in [start-with-profile.sh](https://github.com/ICTU/sonar/blob/rules-update/start-with-profile.sh)
-    1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
-    1. Update the profile version number `RULES_VERSION` if the rules have been changed
-1. Create new version tags on github
-    1. `MAJOR.MINOR.PATCH`
-    1. `MAJOR.MINOR.PATCH-developer`
-1. Build and push new images to docker hub with [CircleCI](https://app.circleci.com/pipelines/github/ICTU/sonar)
+The Sonar start script waits for the database to become available (only when using PostgreSQL).
+`DB_START_TIMEOUT` (default: 60 seconds) defines how long the script will wait for the database to become available before exiting.
+Similarly `SONAR_START_TIMEOUT` (default: 600 seconds) defines how long the script should wait for Sonar to start up.
