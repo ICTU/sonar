@@ -1,7 +1,11 @@
-+types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
-+typescript:S109               # Magic number; NOT used by Quality-time
-+typescript:S104               # File length; NOT used by Quality-time
-+typescript:S106               # Console logging; NOT used by Quality-time
-+typescript:S1541|Treshold=10  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)
--typescript:S4328              # reason: the rule does not recognize 'local' imports
++types=SECURITY_HOTSPOT,VULNERABILITY                   # Enable these types by default
++typescript:S109                                        # Magic number; NOT used by Quality-time
++typescript:S104                                        # File length; NOT used by Quality-time
++typescript:S106                                        # Console logging; NOT used by Quality-time
++typescript:S107|maximumFunctionParameters=5            # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)
++typescript:S1067                                       # Expression too complex; NOT used by Quality-time
++typescript:S1541|Threshold=10                          # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)
++typescript:S138|max=20                                 # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)
++typescript:S4204                                       # The "any" type should not be used; NOT used by Quality-time 
+-typescript:S4328                                       # reason: the rule does not recognize 'local' imports
 #end please ensure every rule ends with a new line character

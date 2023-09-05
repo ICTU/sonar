@@ -1,5 +1,5 @@
 +types=SECURITY_HOTSPOT,VULNERABILITY # Enable these types by default
 +Web:ComplexityCheck             # NOT used by Quality-time. Rule is deprecated, see https://rules.sonarsource.com/html/RSPEC-1908?search=complexity
-+Web:LongJavaScriptCheck         # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
-+Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
++Web:LongJavaScriptCheck         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)
++Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)
 #end please ensure every rule ends with a new line character

@@ -74,7 +74,7 @@ function testAdminCredentials {
     authenticated=$(curl -s -u "$BASIC_AUTH" -f "$BASE_URL/api/system/info")
     if [ -z "$authenticated" ]; then
         echo "################################################################################"
-        echo "No or incorrect admin credentials provided. Shutting down Sonarqube..."
+        echo "No or incorrect admin credentials provided. Shutting down SonarQube..."
         echo "################################################################################"
         exit 1
     fi
@@ -267,14 +267,15 @@ changeDefaultAdminPassword
 testAdminCredentials
 
 # (Re-)create the ICTU profiles
-createProfile "ictu-ansible-profile-v2.5.1" "Sonar%20way" "yaml"
-createProfile "ictu-cs-profile-v8.51.0" "Sonar%20way" "cs"
-createProfile "ictu-java-profile-v7.16.0" "Sonar%20way" "java"
-createProfile "ictu-js-profile-v9.13.0" "Sonar%20way" "js"
-createProfile "ictu-kotlin-profile-v2.12.0" "Sonar%20way" "kotlin"
-createProfile "ictu-py-profile-v3.24.0" "Sonar%20way" "py"
-createProfile "ictu-ts-profile-v9.13.0" "Sonar%20way" "ts"
-createProfile "ictu-vbnet-profile-v8.51.0" "Sonar%20way" "vbnet"
-createProfile "ictu-web-profile-v3.7.1" "Sonar%20way" "web"
+RULES_VERSION=20230619
+createProfile "ictu-ansible-profile-v2.5.1-${RULES_VERSION}" "Sonar%20way" "yaml"
+createProfile "ictu-cs-profile-v8.51.0-${RULES_VERSION}" "Sonar%20way" "cs"
+createProfile "ictu-java-profile-v7.16.0-${RULES_VERSION}" "Sonar%20way" "java"
+createProfile "ictu-js-profile-v9.13.0-${RULES_VERSION}" "Sonar%20way" "js"
+createProfile "ictu-kotlin-profile-v2.12.0-${RULES_VERSION}" "Sonar%20way" "kotlin"
+createProfile "ictu-py-profile-v3.24.0-${RULES_VERSION}" "Sonar%20way" "py"
+createProfile "ictu-ts-profile-v9.13.0-${RULES_VERSION}" "Sonar%20way" "ts"
+createProfile "ictu-vbnet-profile-v8.51.0-${RULES_VERSION}" "Sonar%20way" "vbnet"
+createProfile "ictu-web-profile-v3.7.1-${RULES_VERSION}" "Sonar%20way" "web"
 
 wait $PID
