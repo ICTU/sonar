@@ -166,3 +166,16 @@ Execute:
 In order to make import of existing profiles easier, there is an XSLT transformation file provided: profile_backup_transform.xslt
 
 Go to profiles page in your SonarQube, backup a profile to an xml file and transform it.
+
+
+## Version upgrade workflow
+
+1. Update `Dockerfile`s with the new version of SonarQube
+1. Update [external plugins](https://github.com/ICTU/sonar/blob/master/plugins/plugin-list)
+1. Create profiles based on the internal plugin versions in [start-with-profile.sh](https://github.com/ICTU/sonar/blob/rules-update/start-with-profile.sh)
+    1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
+    1. Update the profile version number `RULES_VERSION` if the rules have been changed
+1. Create new version tags on github
+    1. `MAJOR.MINOR.PATCH`
+    1. `MAJOR.MINOR.PATCH-developer`
+1. Build and push new images to docker hub with [CircleCI](https://app.circleci.com/pipelines/github/ICTU/sonar)
