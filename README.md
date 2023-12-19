@@ -1,6 +1,6 @@
-# ICTU SonarQube Docker image
+# ICTU SonarQube container image
 
-A sonar image containing plugins and quality profiles used at ICTU
+A sonar image containing plugins and quality profiles used at ICTU.
 
 
 ## Creating a new quality profile
@@ -66,3 +66,8 @@ Alternatively, the `SONARQUBE_TOKEN` can be used as admin credential instead of 
 The Sonar start script waits for the database to become available (only when using PostgreSQL).
 `DB_START_TIMEOUT` (default: 60 seconds) defines how long the script will wait for the database to become available before exiting.
 Similarly `SONAR_START_TIMEOUT` (default: 600 seconds) defines how long the script should wait for Sonar to start up.
+
+
+## Get in touch
+
+Point of contact for this repository is [Dennie Bouman](https://github.com/ICTU/sonar/blob/master/@denniebouman).

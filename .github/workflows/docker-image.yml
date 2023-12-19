@@ -28,7 +28,7 @@ jobs:
 
       - name: Verify the Docker image
         # profile for language 'web' is the last; assume everything is working if we got this far
-        run: docker logs -f ci |& sed '/Current profile for language web is Sonar way/ q'
+        run: docker logs -f ci |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
         timeout-minutes: 3
 
       - name: Stop the Docker image

@@ -1,0 +1,17 @@
+---
+version: "3.7"
+
+services:
+  www:
+    build:
+      args:
+        IMAGE_EDITION: "developer"
+    environment:
+      SONAR_JDBC_USERNAME: "sonar_user"
+      SONAR_JDBC_PASSWORD: "sonar_pass"
+      SONARQUBE_PASSWORD: "admin123"
+
+  db:
+    environment:
+      POSTGRES_USER: "sonar_user"
+      POSTGRES_PASSWORD: "sonar_pass"
