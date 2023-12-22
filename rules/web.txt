@@ -2,4 +2,5 @@
 +Web:ComplexityCheck             # NOT used by Quality-time. Rule is deprecated, see https://rules.sonarsource.com/html/RSPEC-1908?search=complexity
 +Web:LongJavaScriptCheck         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)
 +Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)
++Web:FileLengthCheck             # Files should not have too many lines. Used by Quality-time
 #end please ensure every rule ends with a new line character

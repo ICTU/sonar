@@ -3,5 +3,7 @@
 +vbnet:S1067                                        # Expression too complex; NOT used by Quality-time
 +vbnet:S107|max=5                                   # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)
 +vbnet:S138|max=20                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)
++vbnet:S104                                         # Files should not have too many lines of code. Used by Quality-time
++vbnet:S1151                                        # Select Case clauses should not have too many lines of code. Used by Quality-time
 # Missing: method length, NoSonar, too many parameters, commented loc
 #end please ensure every rule ends with a new line character
