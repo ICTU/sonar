@@ -4,4 +4,8 @@
 +swift:S138|max=20                     # Methods with too many lines; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)
 +swift:S107|functionMax=5              # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)
 +swift:S125                            # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)
++swift:S104                            # Files should not have too many lines of code. Used by Quality-time
++swift:S1151                           # Switch case clauses should not have too many lines of code. Used by Quality-time
++swift:S1188                           # Closures should not have too many lines. Used by Quality-time
++swift:S2042                           # Classes should not have too many lines of code. Used by Quality-time
 #end please ensure every rule ends with a new line character
