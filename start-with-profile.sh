@@ -260,18 +260,18 @@ changeDefaultAdminPassword
 testAdminCredentials
 
 # (Re-)create the ICTU profiles
-RULES_VERSION=20230619
+RULES_VERSION=20231222
 echo "*** Start processing rules for version ${RULES_VERSION} ***"
 createProfile "ictu-ansible-profile-v2.5.1-${RULES_VERSION}" "Sonar%20way" "yaml"  # custom sonar-ansible-plugin
-createProfile "ictu-cs-profile-v9.3.0-${RULES_VERSION}" "Sonar%20way" "cs"  # image csharp-plugin
-createProfile "ictu-java-profile-v7.20.0-${RULES_VERSION}" "Sonar%20way" "java"  # image java-plugin
-createProfile "ictu-js-profile-v10.3.1-${RULES_VERSION}" "Sonar%20way" "js"  # image javascript-plugin
-createProfile "ictu-kotlin-profile-v2.15.0-${RULES_VERSION}" "Sonar%20way" "kotlin"  # image kotlin-plugin
-createProfile "ictu-py-profile-v4.3.0-${RULES_VERSION}" "Sonar%20way" "py"  # image python-plugin
-createProfile "ictu-swift-profile-v4.9.0-${RULES_VERSION}" "Sonar%20way" "swift"  # image swift-plugin
-createProfile "ictu-ts-profile-v10.3.1-${RULES_VERSION}" "Sonar%20way" "ts"  # image javascript-plugin
-createProfile "ictu-vbnet-profile-v9.3.0-${RULES_VERSION}" "Sonar%20way" "vbnet"  # image vbnet-plugin
-createProfile "ictu-web-profile-v3.8.0-${RULES_VERSION}" "Sonar%20way" "web"  # image html-plugin
+createProfile "ictu-cs-profile-v9.13.0-${RULES_VERSION}" "Sonar%20way" "cs"  # image csharp-plugin
+createProfile "ictu-java-profile-v7.27.1-${RULES_VERSION}" "Sonar%20way" "java"  # image java-plugin
+createProfile "ictu-js-profile-v10.9.0-${RULES_VERSION}" "Sonar%20way" "js"  # image javascript-plugin
+createProfile "ictu-kotlin-profile-v2.18.0-${RULES_VERSION}" "Sonar%20way" "kotlin"  # image kotlin-plugin
+createProfile "ictu-py-profile-v4.10.0-${RULES_VERSION}" "Sonar%20way" "py"  # image python-plugin
+createProfile "ictu-swift-profile-v4.11.0-${RULES_VERSION}" "Sonar%20way" "swift"  # image swift-plugin
+createProfile "ictu-ts-profile-v10.9.0-${RULES_VERSION}" "Sonar%20way" "ts"  # image javascript-plugin
+createProfile "ictu-vbnet-profile-v9.13.0-${RULES_VERSION}" "Sonar%20way" "vbnet"  # image vbnet-plugin
+createProfile "ictu-web-profile-v3.11.0-${RULES_VERSION}" "Sonar%20way" "web"  # image html-plugin
 echo "*** Finished processing rules ***"
 
 echo ""
