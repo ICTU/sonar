@@ -26,7 +26,7 @@ Never made an open source contribution before? Wondering how contributions work 
 
 ## Where can I go for help?
 
-If you need help, you can ask questions by [opening a new issue in this repository](https://github.com/ICTU/sonar/issues/new).
+If you need help, you can ask questions by [opening a new issue in this repository's issue tracker](https://github.com/ICTU/sonar/issues/new).
 
 ## What does the Code of Conduct mean for me?
 

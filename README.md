@@ -14,8 +14,8 @@ Alternatively, the automatic overriding of default profile can be avoided by ens
 
 ## Overriding the ICTU standard quality profiles
 
-Add the project code (it will be used as a prefix for the quality profile name) to the environment variable PROJECT_CODE.
-Add a list of semicolon separated rule ids to be enabled or disabled to the environment variable PROJECT_RULES.
+Add the project code (it will be used as a prefix for the quality profile name) to the environment variable `PROJECT_CODE`.
+Add a list of semicolon separated rule ids to be enabled or disabled to the environment variable `PROJECT_RULES`.
 
 Example:
 
@@ -70,4 +70,4 @@ Similarly `SONAR_START_TIMEOUT` (default: 600 seconds) defines how long the scri
 
 ## Get in touch
 
-Point of contact for this repository is [Dennie Bouman](https://github.com/ICTU/sonar/blob/master/@denniebouman).
+Point of contact for this repository is [Dennie Bouman](https://github.com/denniebouman), who can be reached by [opening a new issue in this repository's issue tracker](https://github.com/ICTU/sonar/issues/new).
