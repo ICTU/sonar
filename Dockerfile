@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.documentation="https://raw.githubusercontent.com/
 LABEL org.opencontainers.image.source="https://raw.githubusercontent.com/ICTU/sonar/master/Dockerfile"
 LABEL org.opencontainers.image.vendor="ICTU"
 LABEL org.opencontainers.image.title="ICTU SonarQube"
-LABEL org.opencontainers.image.description="A SonarQube image containing plugins, profiles and config used at ICTU"
+LABEL org.opencontainers.image.description="A SonarQube container image with plugins, profiles and config used at ICTU"
 
 USER root
 
