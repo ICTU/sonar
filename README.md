@@ -1,6 +1,6 @@
 # ICTU SonarQube container image
 
-A sonar image containing plugins and quality profiles used at ICTU.
+A SonarQube container image with plugins, profiles and config used at ICTU
 
 
 ## Creating a new quality profile
@@ -17,20 +17,15 @@ Alternatively, the automatic overriding of default profile can be avoided by ens
 Add the project code (it will be used as a prefix for the quality profile name) to the environment variable `PROJECT_CODE`.
 Add a list of semicolon separated rule ids to be enabled or disabled to the environment variable `PROJECT_RULES`.
 
-Example:
+Example to explicitly enable (+) a C# rule and disable (-) a TypeScript rule:
 
     PROJECT_CODE=PROJ1
     PROJECT_RULES=+csharpsquid:S104;-ts:S1561
 
-It is also possible to adjust rule parameter values:
+It is also possible to adjust individual rule parameter values:
 
     PROJECT_CODE=PROJ1
     PROJECT_RULES=+csharpsquid:S110|max=6;-ts:S1561
-
-And change severity:
-
-    PROJECT_CODE=PROJ1
-    PROJECT_RULES=-squid:S4274;+csharpsquid:S110|max=7&severity=INFO;+csharpsquid:S3925&severity=INFO
 
 
 ## Running with PostgreSQL via a docker composition
