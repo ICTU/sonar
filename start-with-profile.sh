@@ -109,7 +109,7 @@ function processRule {
     # Enable rules by group (types)
     if [[ "${ruleSet}" =~ types=.* ]]; then
 
-        IFS='=' read -r typekey ruleTypes <<< "${ruleSet}"
+        IFS='=' read -r _ ruleTypes <<< "${ruleSet}"
         if [ "${operationType}" == "+" ]; then
             echo "Activating rules ${ruleTypes} for ${language}"
             curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}&statuses=READY"
@@ -167,7 +167,7 @@ function createProfile {
 
     if [[ -f "${rulesFilename}" ]]; then
         # activate and deactivate rules in new profile
-        while read ruleLine || [ -n "${line}" ]; do
+        while read -r ruleLine || [ -n "${line}" ]; do
 
             # Each line contains: 
             #     (+|-)types=comma-seperated,list-of-types # comment

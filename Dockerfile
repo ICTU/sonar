@@ -18,7 +18,7 @@ RUN apt-get update \
     && apt-get install -y wget curl ca-certificates-java jq postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-ADD ./plugins /tmp/plugins
+COPY ./plugins /tmp/plugins
 RUN rm -rf ./extensions/plugins/* && \
     cat /tmp/plugins/plugin-list && \
     chmod +x /tmp/plugins/install-plugins.sh && \
@@ -27,8 +27,8 @@ RUN rm -rf ./extensions/plugins/* && \
 WORKDIR /opt/sonarqube
 
 COPY ./start-with-profile.sh .
-ADD ./rules /tmp/rules
-ADD sonar.properties /opt/sonarqube/conf/sonar.properties
+COPY ./rules /tmp/rules
+COPY sonar.properties /opt/sonarqube/conf/sonar.properties
 
 RUN chown -R sonarqube:sonarqube . \
     && chmod +x start-with-profile.sh
