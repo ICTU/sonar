@@ -7,6 +7,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+env:
+  CODE: "PROJ1"
+  RULES: "+csharpsquid:S104;-ts:S1561"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +27,7 @@ jobs:
       - name: Build and run container image
         run: |
           docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
-          docker run -v $(pwd)/tests:/opt/sonarqube/test -d --name ci ci
+          docker run -e PROJECT_CODE="${{ env.CODE }}" -e PROJECT_RULES="${{ env.RULES }}" -v $(pwd)/tests:/opt/sonarqube/test -d --name ci ci
 
       - name: Wait for Sonar instance to start
         # profile for language 'web' is the last; assume everything is working if we got this far
@@ -37,7 +41,7 @@ jobs:
           docker exec -u 0:0 ci pip3 install -Ur /opt/sonarqube/test/requirements.txt
 
       - name: Run tests
-        run: docker exec ci python3 -m unittest -v
+        run: docker exec -e PROJECT_CODE="${{ env.CODE }}" -e PROJECT_RULES="${{ env.RULES }}" ci python3 -m unittest -v
 
       - name: Stop the container
         run: docker stop ci
