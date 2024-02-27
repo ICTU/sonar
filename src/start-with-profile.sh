@@ -51,7 +51,7 @@ function waitForSonarUp {
             echo "ERROR: Failed to start Sonar within ${timeout} seconds"
             exit 1
         fi
-        status=$(curl -s -f "${BASE_URL}/api/system/status" | jq -r '.status')
+        status=$(curl -s -f "${BASE_URL}/api/system/status" | jq -r ".status")
         echo "Waiting for sonar to come up: ${status}"
         sleep $sleep
         count=$((count+sleep))
@@ -151,7 +151,7 @@ function createProfile {
     local profileName=$1
     local baseProfileName=$2
     local language=$3
-    local rulesFilename="/tmp/rules/${language}.txt"
+    rules_list=$(jq -r ".rules.${language}[]?" /src/config.json)
 
     # create profile
     # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
@@ -165,23 +165,20 @@ function createProfile {
     profileKey=$(getProfileKey "${profileName}" "${language}")
     echo "The profile '${profileName}' of '${language}' has the key '${profileKey}'"
 
-    if [[ -f "${rulesFilename}" ]]; then
+    while read -r ruleLine ; do
         # activate and deactivate rules in new profile
-        while read -r ruleLine || [ -n "${line}" ]; do
 
-            # Each line contains: 
-            #     (+|-)types=comma-seperated,list-of-types # comment
-            # or: (+|-)ruleId[|parameter=value] # comment
-            # Examples: 
-            #    +cs:1032 # some comment
-            #    +types=SECURITY_HOTSPOT,VULNERABILITY # some comment
-            IFS='#';ruleSplit=("${ruleLine}");unset IFS;
-            rule="${ruleSplit[0]}"
+        # Each line contains:
+        #     (+|-)types=comma-seperated,list-of-types # comment
+        # or: (+|-)ruleId[|parameter=value] # comment
+        # Examples:
+        #    +cs:1032 # some comment
+        #    +types=SECURITY_HOTSPOT,VULNERABILITY # some comment
+        IFS='#';ruleSplit=("${ruleLine}");unset IFS;
+        rule="${ruleSplit[0]}"
 
-            processRule "${rule}" "${profileKey}" "${language}"
-
-        done < "${rulesFilename}"
-    fi
+        processRule "${rule}" "${profileKey}" "${language}"
+    done <<< "${rules_list}"
 
     # if the PROJECT_RULES environment variable is defined and not empty, create a custom project profile
     echo "Project specific rules = ${PROJECT_RULES}"
@@ -260,18 +257,14 @@ changeDefaultAdminPassword
 testAdminCredentials
 
 # (Re-)create the ICTU profiles
-RULES_VERSION=20231222
-echo "*** Start processing rules for version ${RULES_VERSION} ***"
-createProfile "ictu-ansible-profile-v2.5.1-${RULES_VERSION}" "Sonar%20way" "yaml"  # custom sonar-ansible-plugin
-createProfile "ictu-cs-profile-v9.13.0-${RULES_VERSION}" "Sonar%20way" "cs"  # image csharp-plugin
-createProfile "ictu-java-profile-v7.27.1-${RULES_VERSION}" "Sonar%20way" "java"  # image java-plugin
-createProfile "ictu-js-profile-v10.9.0-${RULES_VERSION}" "Sonar%20way" "js"  # image javascript-plugin
-createProfile "ictu-kotlin-profile-v2.18.0-${RULES_VERSION}" "Sonar%20way" "kotlin"  # image kotlin-plugin
-createProfile "ictu-py-profile-v4.10.0-${RULES_VERSION}" "Sonar%20way" "py"  # image python-plugin
-createProfile "ictu-swift-profile-v4.11.0-${RULES_VERSION}" "Sonar%20way" "swift"  # image swift-plugin
-createProfile "ictu-ts-profile-v10.9.0-${RULES_VERSION}" "Sonar%20way" "ts"  # image javascript-plugin
-createProfile "ictu-vbnet-profile-v9.13.0-${RULES_VERSION}" "Sonar%20way" "vbnet"  # image vbnet-plugin
-createProfile "ictu-web-profile-v3.11.0-${RULES_VERSION}" "Sonar%20way" "web"  # image html-plugin
+rules_version=$(jq -r ".rules_version" /src/config.json)
+echo "*** Start processing rules for version ${rules_version} ***"
+language_profiles=$(jq -r ".profiles | keys[]?" /src/config.json)
+for language_name in ${language_profiles}; do
+  profile_version=$(jq -r ".profiles.${language_name}.version" /src/config.json)
+  profile_name="ictu-${profile_version}-${rules_version}"
+  createProfile "${profile_name}" "Sonar%20way" "${language_name}"
+done
 echo "*** Finished processing rules ***"
 
 echo ""

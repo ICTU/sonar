@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+plugin_list=$(jq -r ".plugins[]?" /src/config.json)
 plugin_dir="/opt/sonarqube/extensions/plugins"
 
 # Download plugins
@@ -11,7 +11,7 @@ while read -r plugin; do
     echo "Error downloading ${plugin}"
     exit $rtn
   fi
-done < "${cwd}"/plugin-list
+done <<< "${plugin_list}"
 
 # Check if unzip required
 for file in "${plugin_dir}"/*; do
