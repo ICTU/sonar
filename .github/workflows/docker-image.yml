@@ -9,7 +9,7 @@ on:
 
 env:
   CODE: "PROJ1"
-  RULES: "+csharpsquid:S104;-ts:S1561"
+  RULES: "+csharpsquid:S104;-ts:S1561;+Web:WhiteSpaceAroundCheck"
 
 jobs:
   build:
