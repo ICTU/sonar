@@ -4,10 +4,10 @@
 ## Version upgrade workflow
 
 1. Update `Dockerfile`s with the new version of SonarQube
-1. Update [external plugins](https://github.com/ICTU/sonar/blob/master/plugins/plugin-list)
-1. Create profiles based on the internal plugin versions in [start-with-profile.sh](https://github.com/ICTU/sonar/blob/rules-update/start-with-profile.sh)
+1. Update external plugins in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
+1. Create profiles based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
     1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
-    1. Update the profile version number `RULES_VERSION` if the rules have been changed
+    1. Update the config rules version number `rules_version` if the rules have been changed
 1. Create new version tags on github
     1. `MAJOR.MINOR.PATCH`
     1. `MAJOR.MINOR.PATCH-developer`
@@ -16,22 +16,27 @@
 
 ## Adding plugins
 
-Add the url of the plugin jar-file to be installed to `plugins/plugin-list`.
+Add the url of the plugin jar-file to be installed to the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) value of `plugins`.
 
 
 ## Creating a new quality profile
 
-Modify `start-with-profile.sh` and add a statement to the end of the script, such as:
+Modify the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) value of `profiles` and add a key (language as profile name) with value dictionary, such as:
 
-    createProfile "ictu-cs-profile-v6.6" "Sonar%20way" "cs"
+    "yaml": {
+      "plugin_name": "sonar-ansible-plugin",
+      "plugin_external": true,
+      "version": "ansible-profile-v2.5.1"
+    },
 
 The parameters are:
-* Profile name
-* Base profile name
-* Language (internal SonarQube language identifier)
+* (key): language (internal SonarQube language identifier) 
+* plugin_name: name of the plugin to be used for this profile
+* plugin_external: true for external plugin, false (default) when it is contained in the base container image
+* version: profile version string (based on the plugin version)
 
 
-## Create rules txt file from SonarQubes quality profile backup (xml)
+## Create rule entries from SonarQubes quality profile backup (xml)
 
 In order to make the importing of existing profiles easier, use the transformation `profile_backup_transform.xslt`.
 Go to the profiles page in your SonarQube instance, backup a profile to an xml file and transform it.
@@ -39,9 +44,8 @@ Go to the profiles page in your SonarQube instance, backup a profile to an xml f
 
 ## Activating or deactivating individual rules in the quality profiles
 
-Modify the corresponding `rules/(language).txt` file.
-Each line represents a rule to be activated or deactivated and has the following syntax: `(operation)(ruleId)#(comment)`
-Please ensure each file ends with a new line character, otherwise the rule will not be added to the profile
+Modify the corresponding [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) value of `rules[language]`.
+Each entry represents a rule to be activated or deactivated and has the following syntax: `(operation)(ruleId)#(comment)`
 
 * **operation**: `+` activates a rule; `-` deactivates a rule
 * **ruleId**: SonarQube rule identifier

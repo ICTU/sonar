@@ -5,7 +5,7 @@ A SonarQube container image with plugins, profiles and config used at ICTU
 
 ## Creating a new quality profile
 
-When starting the SonarQube image, new quality profiles will be automatically created for [supported languages](https://github.com/ICTU/sonar/blob/master/rules).
+When starting the SonarQube image, new quality profiles will be automatically created for [supported languages](https://github.com/ICTU/sonar/blob/master/src/config.json).
 These newly created profiles are set to be the default profile, but can also be [extended with your own custom rules](https://docs.sonarsource.com/sonarqube/latest/instance-administration/quality-profiles/#extending-a-quality-profile).
 
 Extending the default can be done by ensuring that the current profile has a name ending with `EXTENDED` (or `extended`).
