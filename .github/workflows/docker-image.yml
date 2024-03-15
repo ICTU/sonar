@@ -7,6 +7,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+env:
+  CODE: "PROJ1"
+  RULES: "+csharpsquid:S104;-ts:S1561;+Web:WhiteSpaceAroundCheck"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,18 +22,26 @@ jobs:
           - env:
               IMAGE_EDITION: developer
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Build the Docker image
-        run: docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
+      - name: Build and run container image
+        run: |
+          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
+          docker run -e PROJECT_CODE="${{ env.CODE }}" -e PROJECT_RULES="${{ env.RULES }}" -v $(pwd)/tests:/opt/sonarqube/test -d --name ci ci
 
-      - name: Run the Docker image
-        run: docker run -d --name ci ci
-
-      - name: Verify the Docker image
+      - name: Wait for Sonar instance to start
         # profile for language 'web' is the last; assume everything is working if we got this far
         run: docker logs -f ci |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
         timeout-minutes: 3
 
-      - name: Stop the Docker image
+      - name: Install test requirements
+        run: |
+          docker exec -u 0:0 ci apt-get update
+          docker exec -u 0:0 ci apt-get install -y python3 python3-pip
+          docker exec -u 0:0 ci pip3 install -Ur /opt/sonarqube/test/requirements.txt
+
+      - name: Run tests
+        run: docker exec -e PROJECT_CODE="${{ env.CODE }}" -e PROJECT_RULES="${{ env.RULES }}" ci python3 -m unittest -v
+
+      - name: Stop the container
         run: docker stop ci

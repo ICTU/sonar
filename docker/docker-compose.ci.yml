@@ -10,6 +10,8 @@ services:
       SONAR_JDBC_USERNAME: "sonar_user"
       SONAR_JDBC_PASSWORD: "sonar_pass"
       SONARQUBE_PASSWORD: "admin123"
+      PROJECT_CODE: "PROJ1"
+      PROJECT_RULES: "+csharpsquid:S104;-ts:S1561;+Web:WhiteSpaceAroundCheck"
 
   db:
     environment:
