@@ -1,0 +1,56 @@
+name: Helm Chart CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - env:
+              IMAGE_EDITION: community
+          - env:
+              IMAGE_EDITION: developer
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set yaml value change dict with random generated secrets
+        run: |
+          echo "VALUE_CHANGES={\"[0].data.sonar_db_password\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\",\"[0].data.postgres_db_password\":\"$(echo ${RANDOM} | base64)\",\"[1].data.SONARQUBE_USERNAME\":\"$(echo admin | base64)\",\"[1].data.SONARQUBE_PASSWORD\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\"}" >> $GITHUB_ENV
+
+      - name: Update values.yaml
+        uses: fjogeleit/yaml-update-action@v0.15.0
+        with:
+          valueFile: "helm/deploy-ci.yaml"
+          commitChange: false
+          changes: ${{ env.VALUE_CHANGES }}
+
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
+        with:
+          driver: docker
+          container-runtime: containerd
+        timeout-minutes: 2
+
+      - name: Build and run chart
+        run: |
+          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
+          eval $(minikube -p minikube docker-env)
+          kubectl apply -f helm/deploy-ci.yaml
+          helm dependency build helm
+          helm upgrade --install --render-subchart-notes ictu-sonarqube helm
+
+      - name: Wait for Sonar instance to start
+        # profile for language 'web' is the last; assume everything is working if we got this far
+        run: |
+          eval $(minikube -p minikube docker-env)
+          kubectl wait --all pods --timeout=4m --for=condition=Ready
+          kubectl wait --all statefulsets --timeout=30s --for=jsonpath=status.availableReplicas=1
+          kubectl logs -f pod/ictu-sonarqube-sonarqube-0 |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
+        timeout-minutes: 5
