@@ -1,0 +1,55 @@
+---
+env_vars:
+  SONARQUBE_USERNAME: "admin"
+  SONARQUBE_PASSWORD: "admin123"
+
+settings:
+  sonar.core.serverBaseURL: "test.local"
+  sonar.forceAuthentication: false
+
+postgresql:
+  audit:
+    logTimezone: "Europe/Amsterdam"
+  auth:
+    username: sonar
+    database: sonar
+    existingSecret: sonarqube-postgresql-secret
+    secretKeys:
+      userPasswordKey: sonar_db_password
+      adminPasswordKey: postgres_db_password
+  primary:
+    persistence:
+      size: 1Gi
+    extraVolumes:
+      - name: tz-config
+        hostPath:
+          path: /etc/localtime
+    extraVolumeMounts:
+      - name: tz-config
+        mountPath: /etc/localtime
+
+sonarqube:
+  image:
+    repository: ictu/sonar
+    tag: "10.3.0"
+    pullPolicy: IfNotPresent
+  jdbcOverwrite:
+    enable: true
+    jdbcUrl: jdbc:postgresql://ictu-sonarqube-postgresql:5432/sonar?socketTimeout=1500
+    jdbcUsername: "sonar"
+    jdbcSecretName: sonarqube-postgresql-secret
+    jdbcSecretPasswordKey: sonar_db_password
+  nginx:
+    enabled: false
+  postgresql:
+    enabled: false
+  initSysctl:
+    enabled: false
+  initFs:
+    enabled: false
+  ingress:
+    enabled: false
+
+  extraConfig:
+    configmaps:
+      - ictu-sonarqube-sonarqube-env-vars
