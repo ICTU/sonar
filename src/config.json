@@ -92,7 +92,7 @@
       "+javascript:S109                                         # Magic numbers; NOT used by Quality-time",
       "+javascript:S125                                         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
       "+javascript:S134                                         # NOT used by Quality-time",
-      "+javascript:S138|max=20                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+javascript:S138|max=40                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
       "+javascript:S1541|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
       "# Missing: NoSonar, NCSS, Parameters"
     ],
@@ -134,7 +134,7 @@
       "+typescript:S1067                                       # Expression too complex; NOT used by Quality-time",
       "+typescript:S107|maximumFunctionParameters=5            # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
       "+typescript:S109                                        # Magic number; NOT used by Quality-time",
-      "+typescript:S138|max=20                                 # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+typescript:S138|max=40                                 # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
       "+typescript:S1541|Threshold=10                          # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
       "+typescript:S4204                                       # The 'any' type should not be used; NOT used by Quality-time",
       "-typescript:S4328                                       # reason: the rule does not recognize 'local' imports"
