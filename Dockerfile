@@ -1,5 +1,5 @@
 ARG IMAGE_NAME=sonarqube
-ARG IMAGE_VERSION=10.3.0
+ARG IMAGE_VERSION=10.5.1
 ARG IMAGE_EDITION=community
 
 FROM $IMAGE_NAME:$IMAGE_VERSION-$IMAGE_EDITION
@@ -25,7 +25,7 @@ RUN chmod +x /src/ /src/*.sh && \
     /src/install-plugins.sh
 
 WORKDIR /opt/sonarqube
-RUN chown -R sonarqube:sonarqube .
+RUN chown -R sonarqube .
 
 USER sonarqube
 
