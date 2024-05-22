@@ -61,7 +61,6 @@ class FunctionalTest(TestCase):
 
     def test_type_profile(self):
         """Check that custom profile rule type activation is applied."""
-        self.assertIn("types=", self.config_json["rules"]["web"][0])
         overridden_key = "Web:FileLengthCheck"
         self.assertFalse(next(overridden_key in rule_line for rule_line in self.config_json["rules"]["web"]))
 
@@ -109,7 +108,7 @@ class FunctionalTest(TestCase):
 
     def test_profile_rule_deactivation(self):
         """Check that custom profile rule deactivation is applied."""
-        ts_rule_lines = [rule_line for rule_line in self.config_json["rules"]["ts"] if "types=" not in rule_line]
+        ts_rule_lines = [rule_line for rule_line in self.config_json["rules"]["ts"]]
         self.assertTrue(any([rule_line.startswith("-") for rule_line in ts_rule_lines]))
         self.assertTrue(any([rule_line.startswith("+") for rule_line in ts_rule_lines]))
 

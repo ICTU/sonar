@@ -21,6 +21,7 @@
 
 - Remove sonar-ansible plugin and language rules due to clash with built-in IaC (#91).
 - Remove community edition build due to uncoupled release cycle (#91).
+- Remove deprecated types classification from rule sets in favour of software qualities (#60).
 
 ## [10.7.0](https://github.com/ICTU/sonar/releases/tag/10.7.0) - 2024-11-14
 
