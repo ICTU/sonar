@@ -92,7 +92,7 @@ function testAdminCredentials {
     fi
 }
 
-# given a profile name, retrieve its key
+# Given a profile name, retrieve its key
 function getProfileKey {
     local searchProfileName=$1
     local searchLanguage=$2
@@ -104,59 +104,34 @@ function getProfileKey {
     echo "${searchResultProfileKey}"
 }
 
+# Perform a language quality profile operation on a single rule entry
 function processRule {
     local rule=$1
     local profileKey=$2
     local language=$3
 
     rule=$(echo "${rule}" |tr -d ' ' | cut -d "#" -f 1)
-    echo "Processing rule '${rule}'"
-
-    # The first character is the operation
-    # + = activate
-    # - = deactivate
+    # The first character is the operation; + or - to activate or deactivate, respectively
     local operationType="${rule:0:1}"
-
     # After the operation comes the SonarQube ruleSet which contains ruleId and ruleParams
-    local ruleSet="${rule:1}"
+    IFS='|' read -r ruleId ruleParams <<< "${rule:1}"
+    ruleParams="${ruleParams/|/,}"
 
-    # Enable rules by group (types)
-    if [[ "${ruleSet}" =~ types=.* ]]; then
-
-        IFS='=' read -r _ ruleTypes <<< "${ruleSet}"
-        if [ "${operationType}" == "+" ]; then
-            echo "Activating rules ${ruleTypes} for ${language}"
-            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}&statuses=READY"
-        elif [ "${operationType}" == "-" ]; then
-            echo "Deactivating rules ${ruleTypes} for ${language}"
-            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}"
+    echo "Processing Rule: '${rule}', Operation: '${operationType}', RuleId: '${ruleId}', RuleParams: '${ruleParams}'"
+    if [ "${operationType}" == "+" ]; then
+        if [ "${ruleParams}" == "" ]; then
+            # Use the activate_rules if we don't need to supply params, because it allows for filtering by language only
+            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rules?targetKey=${profileKey}&languages=${language}&rule_key=${ruleId}"
+        else
+            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}&params=${ruleParams}"
         fi
-
-    else
-
-        IFS='|' read -r ruleId ruleParams <<< "${ruleSet}"
-        ruleParams="${ruleParams/|/,}"
-
-        echo "Rule: '${rule}', Operation: '${operationType}'"
-        echo "RuleId: '${ruleId}', RuleParams: '${ruleParams}'"
-
-        if [ "${operationType}" == "+" ]; then
-            echo "Activating rule ${ruleId}"
-            if [ "${ruleParams}" == "" ]; then
-                curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}"
-            else
-                curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}&params=${ruleParams}"
-            fi
-        elif [ "${operationType}" == "-" ]; then
-            echo "Deactivating rule ${ruleId}"
-            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rule?key=${profileKey}&rule=${ruleId}"
-        fi
-
+    elif [ "${operationType}" == "-" ]; then
+        curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rule?key=${profileKey}&rule=${ruleId}"
     fi
 }
 
 # Create a new SonarQube profile with custom activated rules, inheritance and set as default
-# parameters
+# parameters:
 # $1 = profile name (the filename must match the profile name)
 # $2 = parent profile name
 # $3 = language (cs | java | py | js | ts | web | ...)
@@ -167,65 +142,48 @@ function createProfile {
     local language=$3
     rules_list=$(jq -r ".rules.${language}[]?" /src/config.json)
 
-    # create profile
-    # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$profileName&language=$language"
-    # curlAdmin -X POST --data "qualityProfile=$1&parentQualityProfile=$2&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
+    # Create new profile by copying base profile
     echo "Copying the profile ${baseProfileName} ${language} to ${profileName}"
     baseProfileKey=$(getProfileKey "${baseProfileName}" "${language}")
     copyProfileUrl="${BASE_URL}/api/qualityprofiles/copy?toName=${profileName}&fromKey=${baseProfileKey}"
-    echo "Posting to ${copyProfileUrl}"
     curlAdmin -X POST "${copyProfileUrl}"
-
     profileKey=$(getProfileKey "${profileName}" "${language}")
-    echo "The profile '${profileName}' of '${language}' has the key '${profileKey}'"
 
+    # All ICTU sonar instances should run in Multi-Quality Rule (MQR) Mode (https://github.com/ICTU/sonar/issues/91)
+    # Therefore, add impactSoftwareQualities SECURITY to all profiles (https://github.com/ICTU/sonar/issues/60)
+    curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rules?targetKey=${profileKey}&languages=${language}&impactSoftwareQualities=SECURITY"
+    # Deactivate deprecated rules, including the ones marked as security software quality, before processing rule config
+    curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rules?targetKey=${profileKey}&languages=${language}&statuses=DEPRECATED"
+
+    # Activate and deactivate rules as defined by config.json
     while read -r ruleLine ; do
-        # activate and deactivate rules in new profile
-
-        # Each line contains:
-        #     (+|-)types=comma-seperated,list-of-types # comment
-        # or: (+|-)ruleId[|parameter=value] # comment
-        # Examples:
-        #    +cs:1032 # some comment
-        #    +types=SECURITY_HOTSPOT,VULNERABILITY # some comment
         IFS='#';ruleSplit=("${ruleLine}");unset IFS;
         rule="${ruleSplit[0]}"
 
         processRule "${rule}" "${profileKey}" "${language}"
     done <<< "${rules_list}"
 
-    # if the PROJECT_RULES environment variable is defined and not empty, create a custom project profile
+    # If the PROJECT_RULES environment variable is defined and not empty, create a custom project profile
     echo "Project specific rules = ${PROJECT_RULES}"
     if [[ -n "${PROJECT_RULES}" ]]; then
-        echo "Creating custom project profile"
-
         local projectProfileName="${PROJECT_CODE}-${profileName}"
-        echo "Project custom profile name is '${projectProfileName}'"
-
-        # create project specific profile
-        # curlAdmin -X POST "$BASE_URL/api/qualityprofiles/create?name=$projectProfileName&language=$language"
-        # curlAdmin -X POST --data "qualityProfile=$projectProfileName&parentQualityProfile=$profileName&language=$3" "$BASE_URL/api/qualityprofiles/change_parent"
-        echo "Copying the profile '${baseProfileName}' of '${language}' to '${profileName}'"
+        echo "Creating custom project profile for language '${language}', with name '${projectProfileName}'"
         curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/copy?fromKey=${profileKey}&toName=${projectProfileName}"
-
-        # retrieve the new profile key
         profileKey=$(getProfileKey "${projectProfileName}" "${language}")
-        echo "The profile '${projectProfileName}' of '${language}' has the key '${profileKey}'"
 
+        # Process the custom profile rules as a single line, with rules split by semicolon
         IFS=';' read -ra projrules <<< "${PROJECT_RULES}"
         for rule in "${projrules[@]}"; do
-            echo "Processing project custom rule ${rule}"
             processRule "${rule}" "${profileKey}" "${language}"
         done
 
-        # mark this profile to be activated
+        # Mark this profile to be activated
         profileName="${projectProfileName}"
     fi
 
-    # get current default profile name
+    # Set profile as default only when name does not end in DEFAULT or default
     currentProfileName=$(curl -s -u "${BASIC_AUTH}" "${BASE_URL}/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
     echo "Current profile for language '$3' is '${currentProfileName}'"
-    # set profile as default only when name does not end in DEFAULT or default
     shopt -s nocasematch
     if [[ "${currentProfileName}" =~ .*DEFAULT$ ]]; then
         echo "Keeping current default profile '${currentProfileName}' for language '$3'"
@@ -240,17 +198,16 @@ function createProfile {
     fi
 }
 
-###########################################################################################################################
-# Main
-###########################################################################################################################
+##################################
+#              Main              #
+##################################
 BASE_URL="http://127.0.0.1:9000"
 
-# waitForDatabase
 if [ "${SONAR_JDBC_URL}" ]; then
   waitForDatabase
 fi
 
-# add shutdown hook
+# Add shutdown hook
 function shutdown {
     echo "Shutdown"
     if [[ -n $PID ]]; then

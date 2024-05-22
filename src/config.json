@@ -64,11 +64,9 @@
   "rules_version": 20250204,
   "rules": {
     "ansible": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+ansible:S2260"
     ],
     "cs": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+csharpsquid:S104            # NCSS; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
       "+csharpsquid:S1067           # Too complex expression; NOT used by Quality-time",
       "+csharpsquid:S107|max=5      # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
@@ -81,7 +79,6 @@
       "+csharpsquid:S1541|maximumFunctionComplexityThreshold=10    # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
     ],
     "java": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+java:NoSonar             # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
       "+java:S104                # Files should not have too many lines of code. Used by Quality-time",
       "+java:S1067               # Expression too complex; NOT used by Quality-time",
@@ -99,7 +96,6 @@
       "+java:S5612               # Lambdas should not have too many lines. Used by Quality-time"
     ],
     "js": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+javascript:S104                                         # Files should not have too many lines of code. Used by Quality-time",
       "+javascript:S106                                         # Console logging should not be used; NOT used by Quality-time",
       "+javascript:S1067                                        # Expression too complex; NOT used by Quality-time",
@@ -108,11 +104,9 @@
       "+javascript:S125                                         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
       "+javascript:S134                                         # NOT used by Quality-time",
       "+javascript:S138|max=40                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+javascript:S1541|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
-      "# Missing: NoSonar, NCSS, Parameters"
+      "+javascript:S1541|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
     ],
     "kotlin": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+kotlin:S104                                             # Files should not have too many lines of code. Used by Quality-time",
       "+kotlin:S1067                                            # Expression too complex; NOT used by Quality-time",
       "+kotlin:S107|Max=5                                       # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
@@ -121,7 +115,6 @@
       "+kotlin:S5612                                            # Lambdas should not have too many lines. Used by Quality-time"
     ],
     "py": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+python:FunctionComplexity|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
       "+python:NoSonar                                                   # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
       "+python:S104                                                      # Too many lines of code in file; NOT used by Quality-time",
@@ -134,7 +127,6 @@
       "+community-rust:FunctionParametersCount"
     ],
     "swift": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+swift:S104                            # Files should not have too many lines of code. Used by Quality-time",
       "+swift:S1067                           # Expression too complex; NOT used by Quality-time",
       "+swift:S107|functionMax=5              # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)",
@@ -146,7 +138,6 @@
       "+swift:S2042                           # Classes should not have too many lines of code. Used by Quality-time"
     ],
     "ts": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+typescript:S104                                        # File length; NOT used by Quality-time",
       "+typescript:S106                                        # Console logging; NOT used by Quality-time",
       "+typescript:S1067                                       # Expression too complex; NOT used by Quality-time",
@@ -158,23 +149,19 @@
       "-typescript:S4328                                       # reason: the rule does not recognize 'local' imports"
     ],
     "vbnet": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+vbnet:S104                                         # Files should not have too many lines of code. Used by Quality-time",
       "+vbnet:S1067                                        # Expression too complex; NOT used by Quality-time",
       "+vbnet:S107|max=5                                   # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
       "+vbnet:S1151                                        # Select Case clauses should not have too many lines of code. Used by Quality-time",
       "+vbnet:S138|max=20                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+vbnet:S1541|maximumFunctionComplexityThreshold=10  # Too complex function, procedure or property; Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
-      "# Missing: method length, NoSonar, too many parameters, commented loc"
+      "+vbnet:S1541|maximumFunctionComplexityThreshold=10  # Too complex function, procedure or property; Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
     ],
     "web": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
       "+Web:FileLengthCheck             # Files should not have too many lines. Used by Quality-time",
       "+Web:LongJavaScriptCheck         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)"
     ],
     "yaml": [
-      "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+yaml:BracesCheck|max-spaces-inside=1;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=1",
       "+yaml:BracketsCheck|max-spaces-inside=0;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=0",
       "+yaml:ColonsCheck|max-spaces-before=0;max-spaces-after=1",
