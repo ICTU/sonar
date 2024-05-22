@@ -104,40 +104,22 @@ function processRule {
     local operationType="${rule:0:1}"
 
     # After the operation comes the SonarQube ruleSet which contains ruleId and ruleParams
-    local ruleSet="${rule:1}"
+    IFS='|' read -r ruleId ruleParams <<< "${rule:1}"
+    ruleParams="${ruleParams/|/,}"
 
-    # Enable rules by group (types)
-    if [[ "${ruleSet}" =~ types=.* ]]; then
+    echo "Rule: '${rule}', Operation: '${operationType}'"
+    echo "RuleId: '${ruleId}', RuleParams: '${ruleParams}'"
 
-        IFS='=' read -r _ ruleTypes <<< "${ruleSet}"
-        if [ "${operationType}" == "+" ]; then
-            echo "Activating rules ${ruleTypes} for ${language}"
-            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}&statuses=READY"
-        elif [ "${operationType}" == "-" ]; then
-            echo "Deactivating rules ${ruleTypes} for ${language}"
-            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rules?targetKey=${profileKey}&languages=${language}&types=${ruleTypes}"
+    if [ "${operationType}" == "+" ]; then
+        echo "Activating rule ${ruleId}"
+        if [ "${ruleParams}" == "" ]; then
+            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}"
+        else
+            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}&params=${ruleParams}"
         fi
-
-    else
-
-        IFS='|' read -r ruleId ruleParams <<< "${ruleSet}"
-        ruleParams="${ruleParams/|/,}"
-
-        echo "Rule: '${rule}', Operation: '${operationType}'"
-        echo "RuleId: '${ruleId}', RuleParams: '${ruleParams}'"
-
-        if [ "${operationType}" == "+" ]; then
-            echo "Activating rule ${ruleId}"
-            if [ "${ruleParams}" == "" ]; then
-                curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}"
-            else
-                curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/activate_rule?key=${profileKey}&rule=${ruleId}&params=${ruleParams}"
-            fi
-        elif [ "${operationType}" == "-" ]; then
-            echo "Deactivating rule ${ruleId}"
-            curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rule?key=${profileKey}&rule=${ruleId}"
-        fi
-
+    elif [ "${operationType}" == "-" ]; then
+        echo "Deactivating rule ${ruleId}"
+        curlAdmin -X POST "${BASE_URL}/api/qualityprofiles/deactivate_rule?key=${profileKey}&rule=${ruleId}"
     fi
 }
 
