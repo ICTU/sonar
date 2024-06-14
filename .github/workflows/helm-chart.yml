@@ -1,0 +1,44 @@
+name: Helm Chart CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - env:
+              IMAGE_EDITION: community
+          - env:
+              IMAGE_EDITION: developer
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
+        with:
+          driver: docker
+          container-runtime: containerd
+        timeout-minutes: 2
+
+      - name: Build and run chart
+        run: |
+          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
+          eval $(minikube -p minikube docker-env)
+          kubectl apply -f helm/deploy-ci.yaml
+          helm dependency build helm
+          helm upgrade --install --render-subchart-notes ictu-sonarqube helm
+
+      - name: Wait for Sonar instance to start
+        # profile for language 'web' is the last; assume everything is working if we got this far
+        run: |
+          eval $(minikube -p minikube docker-env)
+          kubectl wait pod/ictu-sonarqube-sonarqube-0 --timeout=4m --for=condition=Ready
+          kubectl logs -f pod/ictu-sonarqube-sonarqube-0 |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
+        timeout-minutes: 5
