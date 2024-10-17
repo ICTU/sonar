@@ -63,6 +63,11 @@ The Sonar start script waits for the database to become available (only when usi
 Similarly `SONAR_START_TIMEOUT` (default: 600 seconds) defines how long the script should wait for Sonar to start up.
 
 
+## Running on Kubernetes with the Helm chart
+
+(TBD)
+
+
 ## Get in touch
 
 Point of contact for this repository is [Dennie Bouman](https://github.com/denniebouman), who can be reached by [opening a new issue in this repository's issue tracker](https://github.com/ICTU/sonar/issues/new).
