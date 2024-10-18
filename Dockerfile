@@ -29,4 +29,6 @@ RUN chown -R sonarqube .
 
 USER sonarqube
 
+HEALTHCHECK --start-period=5m CMD /src/health-check.sh
+
 CMD ["/src/start-with-profile.sh"]
