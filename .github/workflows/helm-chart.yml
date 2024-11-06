@@ -1,3 +1,4 @@
+---
 name: Helm Chart CI
 
 on:
