@@ -8,9 +8,7 @@
 1. Update profile versions based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
     1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
     1. Update the configuration rules version number `rules_version` if the rules have been changed
-1. Create new version tags on GitHub
-    1. `MAJOR.MINOR.PATCH`
-    1. `MAJOR.MINOR.PATCH-developer`
+1. Check for any runtime errors and warnings in the container logs
 1. Build and push new images to docker hub with [CircleCI](https://app.circleci.com/pipelines/github/ICTU/sonar)
 1. Update helm `Chart.yaml` with the new chart versions, corresponding with the new `appVersion`
 1. Update the helm `values.yaml` with the new `ictu/sonar` image tag

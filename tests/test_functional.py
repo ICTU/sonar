@@ -42,7 +42,7 @@ class FunctionalTest(TestCase):
     @skipUnless(PROJECT_RULES, "PROJECT_RULES was not passed")
     def test_project_override_profile(self):
         """Check that overridden rule activation is applied."""
-        overridden_key = "Web:WhiteSpaceAroundCheck"
+        overridden_key = "Web:UnclosedTagCheck"
         self.assertTrue(any([rule_line == f"+{overridden_key}" for rule_line in PROJECT_RULES.split(";")]))
 
         version_profile = f"ictu-{self.config_json['profiles']['web']['version']}-{self.config_json['rules_version']}"
