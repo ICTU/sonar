@@ -3,7 +3,7 @@
 
 ## Version upgrade workflow
 
-1. Update `Dockerfile`s with the new version of SonarQube
+1. Update version spec in `Dockerfile`, `helm/Chart.yaml` and `helm/values.yaml` with the new version of SonarQube
 1. Update external plugins in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
 1. Create profiles based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
     1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number

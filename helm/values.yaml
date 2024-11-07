@@ -31,7 +31,7 @@ postgresql:
 sonarqube:
   image:
     repository: ictu/sonar
-    tag: "10.5.1"
+    tag: "10.7.0"
     pullPolicy: IfNotPresent
   jdbcOverwrite:
     enable: true
