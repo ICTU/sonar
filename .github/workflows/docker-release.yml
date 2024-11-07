@@ -34,4 +34,4 @@ jobs:
         run: |
           export CONTAINER_TAG="${{ steps.semver.outputs.version }}${{ matrix.env.IMAGE_SUFFIX }}"
           docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ictu/sonar:${CONTAINER_TAG} .
-          docker push ictu/sonar:${CONTAINER_TAG}
+          echo "Would run: docker push ictu/sonar:${CONTAINER_TAG}"
