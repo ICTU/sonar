@@ -12,6 +12,9 @@
     1. `MAJOR.MINOR.PATCH`
     1. `MAJOR.MINOR.PATCH-developer`
 1. Build and push new images to docker hub with [CircleCI](https://app.circleci.com/pipelines/github/ICTU/sonar)
+1. Update helm `Chart.yaml` with the new chart versions, corresponding with the new `appVersion`
+1. Update the helm `values.yaml` with the new `ictu/sonar` image tag
+1. Push the new chart as OCI artifact to docker hub `ictu/ictu-sonarqube`, with the GitHub action
 
 
 ## Adding plugins

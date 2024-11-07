@@ -63,6 +63,16 @@ The Sonar start script waits for the database to become available (only when usi
 Similarly `SONAR_START_TIMEOUT` (default: 600 seconds) defines how long the script should wait for Sonar to start up.
 
 
+## Running on Kubernetes with the Helm chart
+
+The helm chart can be pulled as [ictu/ictu-sonarqube from Docker hub](https://hub.docker.com/r/ictu/ictu-sonarqube/tags) as OCI artifact:
+```
+helm pull oci://registry-1.docker.io/ictu/ictu-sonarqube
+```
+
+As specified in the [Helm values.yaml](https://github.com/ICTU/sonar/blob/master/helm/values.yaml), two credentials `dbCredential` and `sonarCredential` can be used.
+Additional environment variables can be passed to the SonarQube container through the `env` dict.
+
 ## Get in touch
 
 Point of contact for this repository is [Dennie Bouman](https://github.com/denniebouman), who can be reached by [opening a new issue in this repository's issue tracker](https://github.com/ICTU/sonar/issues/new).

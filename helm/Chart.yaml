@@ -1,0 +1,15 @@
+---
+apiVersion: v2
+name: ictu-sonarqube
+version: 10.5.1
+appVersion: "10.5.1"
+description: A SonarQube helm chart with plugins, profiles and config used at ICTU
+type: application
+home: https://github.com/ICTU/sonar
+dependencies:
+  - name: postgresql
+    version: 15.5.38  # this corresponds with appVersion 16.4.0, upstream sonarqube helm chart uses version 10.15.0
+    repository: https://charts.bitnami.com/bitnami  # https://github.com/bitnami/charts/blob/main/bitnami/postgresql/Chart.yaml
+  - name: sonarqube
+    version: 10.5.1
+    repository: https://SonarSource.github.io/helm-chart-sonarqube  # https://github.com/SonarSource/helm-chart-sonarqube/blob/master/charts/sonarqube/Chart.yaml

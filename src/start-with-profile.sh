@@ -44,15 +44,21 @@ function waitForSonarUp {
     local count=0
     local sleep=5
     local timeout=${SONAR_START_TIMEOUT:-600}
-    # Wait for server to be up
-    until [[ "${status}" == "UP" ]]
-    do
+    # Wait for server status to be UP
+    until [[ "${status}" == "UP" ]]; do
         if [[ count -gt timeout ]]; then
             echo "ERROR: Failed to start Sonar within ${timeout} seconds"
             exit 1
         fi
-        status=$(curl -s -f "${BASE_URL}/api/system/status" | jq -r ".status")
-        echo "Waiting for sonar to come up: ${status}"
+
+        status=$(curl -sf "${BASE_URL}/api/system/status" | jq -r ".status")
+        if [[ "${status}" == "DB_MIGRATION_NEEDED" ]]; then
+          echo "Posting signal to migrate_db: ${status}"
+          curl -sf -XPOST "${BASE_URL}/api/system/migrate_db"
+        else
+          echo "Waiting for sonar to come up: ${status}"
+        fi
+
         sleep $sleep
         count=$((count+sleep))
     done
