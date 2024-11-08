@@ -21,12 +21,13 @@ function waitForDatabase {
         echo "Only PostgreSQL databases are supported"
         return
     fi
-    echo "Waiting for database connection on ${host}:${port}"
+    local pg_connect_params
+    pg_connect_params="-h ${host} -p ${port} ${SONAR_JDBC_USERNAME:+-U "$SONAR_JDBC_USERNAME"} -d $(basename "${SONAR_JDBC_URL%%\?*}")"
+    echo "Waiting for database connection with pg connect params '${pg_connect_params}'"
     local count=0
     local sleep=5
     local timeout=${DB_START_TIMEOUT:-60}
-    until pg_isready -h "${host}" -p "${port}" ${SONAR_JDBC_USERNAME:+-U "$SONAR_JDBC_USERNAME"}
-    do
+    until pg_isready ${pg_connect_params} ; do
         if [[ count -gt timeout ]]; then
             echo "ERROR: Failed to start database within ${timeout} seconds"
             exit 1
@@ -43,7 +44,7 @@ function waitForDatabase {
     #     - https://community.sonarsource.com/t/rules-not-registered-and-index-correctly-after-upgrade-to-10-7/128030
     #     - https://sonarsource.atlassian.net/browse/SONAR-23466
     echo "Forcing ElasticSearch full reindex of rules, due to bug in version 10.7.0"
-    PGPASSWORD=${SONAR_JDBC_PASSWORD} psql -h "${host}" -p "${port}" ${SONAR_JDBC_USERNAME:+-U "$SONAR_JDBC_USERNAME"} -d "$(basename "${SONAR_JDBC_URL}")" -c "UPDATE PLUGINS SET FILE_HASH = ''"
+    PGPASSWORD=${SONAR_JDBC_PASSWORD} psql ${pg_connect_params} -c "UPDATE PLUGINS SET FILE_HASH = ''"
 }
 
 # Wait until SonarQube is operational
