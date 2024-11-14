@@ -3,19 +3,17 @@
 
 ## Version upgrade workflow
 
-1. Update `Dockerfile`s with the new version of SonarQube
-1. Update external plugins in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
-1. Create profiles based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
+1. Update version spec in `Dockerfile`, `helm/Chart.yaml` and `helm/values.yaml` with the new version of SonarQube
+1. Update external plugins in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) with latest versions listed in their respective repository `/releases/` url
+1. Update profile versions based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
     1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
     1. Update the configuration rules version number `rules_version` if the rules have been changed
-1. Create new version tags on GitHub
-    1. `MAJOR.MINOR.PATCH`
-    1. `MAJOR.MINOR.PATCH-developer`
-1. Build and push new images to docker hub with [CircleCI](https://app.circleci.com/pipelines/github/ICTU/sonar)
-1. Update helm `Chart.yaml` with the new chart versions, corresponding with the new `appVersion`
-1. Update the helm `values.yaml` with the new `ictu/sonar` image tag
-1. Push the new chart as OCI artifact to docker hub `ictu/ictu-sonarqube`, with the GitHub action
-
+1. Check for any runtime errors and warnings in the container logs
+1. Create new version tag on GitHub, following semantic versioning as: `MAJOR.MINOR.PATCH`
+1. Build and push new container images to Docker Hub `ictu/sonar`, with the [docker release GitHub action](https://github.com/ICTU/sonar/actions/workflows/docker-release.yml)
+1. Push the updated helm chart as OCI artifact to Docker Hub `ictu/ictu-sonarqube`, with the [helm release GitHub action](https://github.com/ICTU/sonar/actions/workflows/helm-release.yml)
+1. Update the `CHANGELOG.md` with new version information and move `[Unreleased]` items to new version section
+1. Update the Docker Hub overview pages if `README.md` content has changed
 
 ## Adding plugins
 

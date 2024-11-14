@@ -20,12 +20,12 @@ Add a list of semicolon separated rule ids to be enabled or disabled to the envi
 Example to explicitly enable (+) a C# rule and disable (-) a TypeScript rule:
 
     PROJECT_CODE=PROJ1
-    PROJECT_RULES=+csharpsquid:S104;-ts:S1561
+    PROJECT_RULES=+csharpsquid:S104;-typescript:S1301
 
 It is also possible to adjust individual rule parameter values:
 
     PROJECT_CODE=PROJ1
-    PROJECT_RULES=+csharpsquid:S110|max=6;-ts:S1561
+    PROJECT_RULES=+csharpsquid:S110|max=6;-typescript:S1301
 
 
 ## Running with PostgreSQL via a Docker-composition

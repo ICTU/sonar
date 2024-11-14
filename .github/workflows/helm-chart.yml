@@ -41,17 +41,26 @@ jobs:
 
       - name: Build and run chart
         run: |
-          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ci .
+          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ictu/sonar:ci-latest .
           eval $(minikube -p minikube docker-env)
+          minikube image load ictu/sonar:ci-latest
           kubectl apply -f helm/deploy-ci.yaml
           helm dependency build helm
-          helm upgrade --install --render-subchart-notes ictu-sonarqube helm
+          helm upgrade --set-json='sonarqube.elasticsearch.bootstrapChecks="false"' --set-json='sonarqube.image.tag="ci-latest"' --install --render-subchart-notes ictu-sonarqube helm
+
+      - name: Disable ES disk watermark checks
+        run: |
+          eval $(minikube -p minikube docker-env)
+          kubectl wait pod/ictu-sonarqube-sonarqube-0 --timeout=1m --for=jsonpath='{.status.phase}'=Running
+          kubectl logs -f pod/ictu-sonarqube-sonarqube-0 |& sed "/app\[\]\[o.s.a.SchedulerImpl\] Process\[es\] is up/ q"
+          kubectl exec pod/ictu-sonarqube-sonarqube-0 -- curl -s -XPUT "http://localhost:9001/_cluster/settings" -H "Content-Type: application/json" -d '{"transient":{"cluster.routing.allocation.disk.threshold_enabled":false}}'
+        timeout-minutes: 2
 
       - name: Wait for Sonar instance to start
         # profile for language 'web' is the last; assume everything is working if we got this far
         run: |
           eval $(minikube -p minikube docker-env)
-          kubectl wait --all pods --timeout=4m --for=condition=Ready
+          kubectl wait --all pods --timeout=5m --for=condition=Ready
           kubectl wait --all statefulsets --timeout=30s --for=jsonpath=status.availableReplicas=1
           kubectl logs -f pod/ictu-sonarqube-sonarqube-0 |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
-        timeout-minutes: 5
+        timeout-minutes: 6
