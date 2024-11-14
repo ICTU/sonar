@@ -1,6 +1,6 @@
 # ICTU SonarQube container image
 
-A SonarQube container image with plugins, profiles and config used at ICTU
+A SonarQube container image with plugins, profiles and configuration used at ICTU
 
 
 ## Creating a new quality profile
@@ -28,7 +28,7 @@ It is also possible to adjust individual rule parameter values:
     PROJECT_RULES=+csharpsquid:S110|max=6;-ts:S1561
 
 
-## Running with PostgreSQL via a docker composition
+## Running with PostgreSQL via a Docker-composition
 
 Example docker-compose file:
 
