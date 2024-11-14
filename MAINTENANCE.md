@@ -7,8 +7,8 @@
 1. Update external plugins in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
 1. Create profiles based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
     1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
-    1. Update the config rules version number `rules_version` if the rules have been changed
-1. Create new version tags on github
+    1. Update the configuration rules version number `rules_version` if the rules have been changed
+1. Create new version tags on GitHub
     1. `MAJOR.MINOR.PATCH`
     1. `MAJOR.MINOR.PATCH-developer`
 1. Build and push new images to docker hub with [CircleCI](https://app.circleci.com/pipelines/github/ICTU/sonar)
@@ -33,10 +33,10 @@ Modify the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.js
     },
 
 The parameters are:
-* (key): language (internal SonarQube language identifier) 
-* plugin_name: name of the plugin to be used for this profile
-* plugin_external: true for external plugin, false (default) when it is contained in the base container image
-* version: profile version string (based on the plugin version)
+* `(key)`: language (internal SonarQube language identifier) 
+* `plugin_name`: name of the plugin to be used for this profile
+* `plugin_external`: true for external plugin, false (default) when it is contained in the base container image
+* `version`: profile version string (based on the plugin version)
 
 
 ## Create rule entries from SonarQubes quality profile backup (xml)
@@ -50,8 +50,8 @@ Go to the profiles page in your SonarQube instance, backup a profile to an xml f
 Modify the corresponding [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) value of `rules[language]`.
 Each entry represents a rule to be activated or deactivated and has the following syntax: `(operation)(ruleId)#(comment)`
 
-* **operation**: `+` activates a rule; `-` deactivates a rule
-* **ruleId**: SonarQube rule identifier
+* `operation`: `+` activates a rule; `-` deactivates a rule
+* `ruleId`: SonarQube rule identifier
 
 Example:
 

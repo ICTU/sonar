@@ -1,2 +1,3 @@
 python-sonarqube-api >= 2.0
 requests >= 2.31
+vale >= 3.9.0.0
