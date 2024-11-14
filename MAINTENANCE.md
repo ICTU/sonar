@@ -12,7 +12,8 @@
 1. Create new version tag on GitHub, following semantic versioning as: `MAJOR.MINOR.PATCH`
 1. Build and push new container images to Docker Hub `ictu/sonar`, with the [docker release GitHub action](https://github.com/ICTU/sonar/actions/workflows/docker-release.yml)
 1. Push the updated helm chart as OCI artifact to Docker Hub `ictu/ictu-sonarqube`, with the [helm release GitHub action](https://github.com/ICTU/sonar/actions/workflows/helm-release.yml)
-1. Update the Docker Hub overview pages if README content has changed
+1. Update the `CHANGELOG.md` with new version information and move `[Unreleased]` items to new version section
+1. Update the Docker Hub overview pages if `README.md` content has changed
 
 ## Adding plugins
 
