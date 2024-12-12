@@ -4,7 +4,10 @@
 
 ### Changed
 
-- Update readme with community and developer editions on Docker Hub
+- Changed documentation with community and developer editions on Docker Hub
+
+### Fixed
+
 - Fix broken link to sonar-findbugs
 
 ## [10.7.0](https://github.com/ICTU/sonar/releases/tag/10.7.0) - 2024-11-14
