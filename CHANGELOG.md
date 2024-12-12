@@ -4,11 +4,11 @@
 
 ### Changed
 
-- Changed documentation with community and developer editions on Docker Hub
+- Document the produced container images for Docker Hub (#89).
 
 ### Fixed
 
-- Fix broken link to sonar-findbugs
+- Fix broken link for sonar-findbugs plugin (#88).
 
 ## [10.7.0](https://github.com/ICTU/sonar/releases/tag/10.7.0) - 2024-11-14
 
@@ -16,6 +16,9 @@
 
 - Kubernetes Helm chart (#74).
 - Changelog with backdated changes (#72).
+
+### Changed
+
 - Update to [SonarQube version 10.7.0](https://www.sonarsource.com/products/sonarqube/whats-new/sonarqube-10-7/) (#80).
 - Update plugin `checkstyle/sonar-checkstyle` to [version 10.19.0](https://github.com/checkstyle/sonar-checkstyle/releases/tag/10.19.0) (#80).
 - Update plugin `spotbugs/sonar-findbugs` to [version 4.3.0](https://github.com/spotbugs/sonar-findbugs/releases/tag/4.3.0) (#80).
