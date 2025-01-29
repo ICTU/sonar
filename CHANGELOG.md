@@ -5,6 +5,7 @@
 ### Changed
 
 - Document the produced container images for Docker Hub (#89).
+- Rename TypeScript profile to ts instead of js (#85).
 
 ### Fixed
 
