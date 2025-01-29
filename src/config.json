@@ -1,38 +1,36 @@
 {
   "plugins": [
-    "https://github.com/checkstyle/sonar-checkstyle/releases/download/10.19.0/checkstyle-sonar-plugin-10.19.0.jar",
+    "https://github.com/checkstyle/sonar-checkstyle/releases/download/10.21.1/checkstyle-sonar-plugin-10.21.1.jar",
     "https://github.com/C4tWithShell/community-rust/releases/download/v0.2.5/community-rust-plugin-0.2.5.jar",
     "https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/5.0.0/sonar-dependency-check-plugin-5.0.0.jar",
-    "https://github.com/sbaudoin/sonar-ansible/releases/download/v2.5.1/sonar-ansible-plugin-2.5.1.jar",
     "https://github.com/sbaudoin/sonar-yaml/releases/download/v1.9.1/sonar-yaml-plugin-1.9.1.jar",
     "https://github.com/spotbugs/sonar-findbugs/releases/download/v4.3.0/sonar-findbugs-plugin-4.3.0.jar",
     "https://github.com/vaulttec/sonar-auth-oidc/releases/download/v2.1.1/sonar-auth-oidc-plugin-2.1.1.jar"
   ],
   "profiles": {
-    "yaml": {
-      "plugin_name": "sonar-ansible-plugin",
-      "plugin_external": true,
-      "version": "ansible-profile-v2.5.1"
+    "ansible": {
+      "plugin_name": "iac-plugin",
+      "version": "ansible-profile-v1.39.0"
     },
     "cs": {
       "plugin_name": "csharp-plugin",
-      "version": "cs-profile-v9.32.0"
+      "version": "cs-profile-v10.3.0"
     },
     "java": {
       "plugin_name": "java-plugin",
-      "version": "java-profile-v8.2.0"
+      "version": "java-profile-v8.7.0"
     },
     "js": {
       "plugin_name": "javascript-plugin",
-      "version": "js-profile-v10.16.0"
+      "version": "js-profile-v10.18.0"
     },
     "kotlin": {
       "plugin_name": "kotlin-plugin",
-      "version": "kotlin-profile-v2.20.0"
+      "version": "kotlin-profile-v2.21.0"
     },
     "py": {
       "plugin_name": "python-plugin",
-      "version": "py-profile-v4.22.0"
+      "version": "py-profile-v4.24.0"
     },
     "rust": {
       "language_profile": "Community Rust",
@@ -46,19 +44,29 @@
     },
     "ts": {
       "plugin_name": "javascript-plugin",
-      "version": "ts-profile-v10.16.0"
+      "version": "ts-profile-v10.18.0"
     },
     "vbnet": {
       "plugin_name": "vbnet-plugin",
-      "version": "vbnet-profile-v9.32.0"
+      "version": "vbnet-profile-v10.3.0"
     },
     "web": {
       "plugin_name": "html-plugin",
-      "version": "web-profile-v3.16.0"
+      "version": "web-profile-v3.17.0"
+    },
+    "yaml": {
+      "language_profile": "YAML Analyzer",
+      "plugin_name": "sonar-yaml",
+      "plugin_external": true,
+      "version": "yaml-profile-v1.9.1"
     }
   },
-  "rules_version": 20231222,
+  "rules_version": 20250204,
   "rules": {
+    "ansible": [
+      "+types=SECURITY_HOTSPOT,VULNERABILITY",
+      "+ansible:S2260"
+    ],
     "cs": [
       "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+csharpsquid:S104            # NCSS; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
@@ -162,41 +170,11 @@
     "web": [
       "+types=SECURITY_HOTSPOT,VULNERABILITY",
       "+Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
-      "+Web:ComplexityCheck             # NOT used by Quality-time. Rule is deprecated, see https://rules.sonarsource.com/html/RSPEC-1908?search=complexity",
       "+Web:FileLengthCheck             # Files should not have too many lines. Used by Quality-time",
       "+Web:LongJavaScriptCheck         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)"
     ],
     "yaml": [
       "+types=SECURITY_HOTSPOT,VULNERABILITY",
-      "+ansible:ANSIBLE0002",
-      "+ansible:ANSIBLE0004",
-      "+ansible:ANSIBLE0005",
-      "+ansible:ANSIBLE0008",
-      "+ansible:ANSIBLE0009",
-      "+ansible:ANSIBLE0010",
-      "+ansible:ANSIBLE0011",
-      "+ansible:E101",
-      "+ansible:E102",
-      "+ansible:E103",
-      "+ansible:E104",
-      "+ansible:E105",
-      "+ansible:E203",
-      "+ansible:E205",
-      "+ansible:E206",
-      "+ansible:E301",
-      "+ansible:E302",
-      "+ansible:E303",
-      "+ansible:E304",
-      "+ansible:E305",
-      "+ansible:E401",
-      "+ansible:E403",
-      "+ansible:E404",
-      "+ansible:E405",
-      "+ansible:E501",
-      "+ansible:E503",
-      "+ansible:E504",
-      "+ansible:E601",
-      "+ansible:E602",
       "+yaml:BracesCheck|max-spaces-inside=1;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=1",
       "+yaml:BracketsCheck|max-spaces-inside=0;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=0",
       "+yaml:ColonsCheck|max-spaces-before=0;max-spaces-after=1",

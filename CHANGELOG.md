@@ -10,10 +10,17 @@
 
 - Document the produced container images for Docker Hub (#89).
 - Rename TypeScript profile to ts instead of js (#85).
+- Update to [SonarQube version 10.8.1](https://www.sonarsource.com/products/sonarqube/whats-new/sonarqube-10-7/) (#91).
+- Update plugin `checkstyle/sonar-checkstyle` to [version 10.21.1](https://github.com/checkstyle/sonar-checkstyle/releases/tag/10.21.1) (#91).
 
 ### Fixed
 
 - Fix broken link for sonar-findbugs plugin (#88).
+
+### Removed
+
+- Remove sonar-ansible plugin and language rules due to clash with built-in IaC (#91).
+- Remove community edition build due to uncoupled release cycle (#91).
 
 ## [10.7.0](https://github.com/ICTU/sonar/releases/tag/10.7.0) - 2024-11-14
 

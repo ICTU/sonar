@@ -11,13 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - env:
-              IMAGE_EDITION: community
-          - env:
-              IMAGE_EDITION: developer
     steps:
       - uses: actions/checkout@v4
 
@@ -41,7 +34,7 @@ jobs:
 
       - name: Build and run chart
         run: |
-          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ictu/sonar:ci-latest .
+          docker build -t ictu/sonar:ci-latest .
           eval $(minikube -p minikube docker-env)
           minikube image load ictu/sonar:ci-latest
           kubectl apply -f helm/deploy-ci.yaml

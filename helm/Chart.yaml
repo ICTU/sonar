@@ -1,8 +1,8 @@
 ---
 apiVersion: v2
 name: ictu-sonarqube
-version: 10.7.0
-appVersion: "10.7.0"
+version: 10.8.1
+appVersion: "10.8.1"
 description: A SonarQube helm chart with plugins, profiles and config used at ICTU
 type: application
 home: https://github.com/ICTU/sonar

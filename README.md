@@ -2,10 +2,7 @@
 
 A SonarQube container image with plugins, profiles and configuration used at ICTU.
 
-This project provides two SonarQube editions on [Docker Hub](https://hub.docker.com/r/ictu/sonar/tags):
-
-* Community Edition (tagged version)
-* Developer Edition (tagged version with `-developer` suffix)
+This project provides the SonarQube Server edition on [Docker Hub](https://hub.docker.com/r/ictu/sonar/tags).
 
 
 ## Creating a new quality profile
