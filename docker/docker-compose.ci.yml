@@ -1,9 +1,6 @@
 ---
 services:
   www:
-    build:
-      args:
-        IMAGE_EDITION: "developer"
     environment:
       SONAR_JDBC_USERNAME: "sonar_user"
       SONAR_JDBC_PASSWORD: "sonar_pass"

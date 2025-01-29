@@ -6,15 +6,6 @@ on: workflow_dispatch  # Only triggered manually, must be done from a semantic v
 jobs:
   push_to_registry:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - env:
-              IMAGE_EDITION: community
-              IMAGE_SUFFIX:
-          - env:
-              IMAGE_EDITION: developer
-              IMAGE_SUFFIX: -developer
     steps:
       - uses: actions/checkout@v4
 
@@ -32,6 +23,6 @@ jobs:
       - name: Package and push container to Docker Hub
         if: ${{ github.ref_type == 'tag' }}
         run: |
-          export CONTAINER_TAG="${{ steps.semver.outputs.version }}${{ matrix.env.IMAGE_SUFFIX }}"
-          docker build --build-arg="IMAGE_EDITION=${{ matrix.env.IMAGE_EDITION }}" -t ictu/sonar:${CONTAINER_TAG} .
+          export CONTAINER_TAG="${{ steps.semver.outputs.version }}-developer"
+          docker build -t ictu/sonar:${CONTAINER_TAG} .
           docker push ictu/sonar:${CONTAINER_TAG}

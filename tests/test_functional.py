@@ -62,7 +62,7 @@ class FunctionalTest(TestCase):
     def test_type_profile(self):
         """Check that custom profile rule type activation is applied."""
         self.assertIn("types=", self.config_json["rules"]["web"][0])
-        overridden_key = "Web:ComplexityCheck"
+        overridden_key = "Web:FileLengthCheck"
         self.assertFalse(next(overridden_key in rule_line for rule_line in self.config_json["rules"]["web"]))
 
         version_profile = f"ictu-{self.config_json['profiles']['web']['version']}-{self.config_json['rules_version']}"
