@@ -70,6 +70,7 @@ cs
 js
 [Kk]otlin
 py
+[Rr]ust
 [Ss]wift
 ts
 vbnet

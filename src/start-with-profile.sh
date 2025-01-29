@@ -277,7 +277,8 @@ language_profiles=$(jq -r ".profiles | keys[]?" /src/config.json)
 for language_name in ${language_profiles}; do
   profile_version=$(jq -r ".profiles.${language_name}.version" /src/config.json)
   profile_name="ictu-${profile_version}-${rules_version}"
-  createProfile "${profile_name}" "Sonar%20way" "${language_name}"
+  copy_profile=$(jq -r ".profiles.${language_name}.language_profile // \"Sonar way\" | @uri" /src/config.json)
+  createProfile "${profile_name}" "${copy_profile}" "${language_name}"
 done
 echo "*** Finished processing rules ***"
 

@@ -24,14 +24,16 @@ Add the url of the plugin jar-file to be installed to the [config.json](https://
 
 Modify the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) value of `profiles` and add a key (language as profile name) with value dictionary, such as:
 
-    "yaml": {
-      "plugin_name": "sonar-ansible-plugin",
+    "rust": {
+      "language_profile": "Community Rust",
+      "plugin_name": "community-rust-plugin",
       "plugin_external": true,
-      "version": "ansible-profile-v2.5.1"
+      "version": "rust-profile-v0.2.5"
     },
 
 The parameters are:
-* `(key)`: language (internal SonarQube language identifier) 
+* `(key)`: language (internal SonarQube language identifier)
+* `language_profile`: name of the language profile provided by plugin, defaults to "Sonar way"
 * `plugin_name`: name of the plugin to be used for this profile
 * `plugin_external`: true for external plugin, false (default) when it is contained in the base container image
 * `version`: profile version string (based on the plugin version)
