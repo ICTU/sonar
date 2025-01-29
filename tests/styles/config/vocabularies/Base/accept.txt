@@ -64,3 +64,13 @@ Dennie
 Bouman
 Suchow
 Redistributions
+yaml
+cs
+[Jj]ava
+js
+[Kk]otlin
+py
+[Ss]wift
+ts
+vbnet
+[Ww]eb

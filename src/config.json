@@ -39,7 +39,7 @@
     },
     "ts": {
       "plugin_name": "javascript-plugin",
-      "version": "js-profile-v10.16.0"
+      "version": "ts-profile-v10.16.0"
     },
     "vbnet": {
       "plugin_name": "vbnet-plugin",
