@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Rust plugin and language profile (#90).
+
 ### Changed
 
 - Document the produced container images for Docker Hub (#89).
