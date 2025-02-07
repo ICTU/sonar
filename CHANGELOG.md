@@ -5,6 +5,7 @@
 ### Added
 
 - Rust plugin and language profile (#90).
+- PL/SQL language profile (#67).
 
 ### Changed
 
