@@ -26,7 +26,7 @@ jobs:
       - name: Wait for Sonar instance to start
         # profile for language 'web' is the last; assume everything is working if we got this far
         run: docker logs -f ci |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
-        timeout-minutes: 3
+        timeout-minutes: 4
 
       - name: Install test requirements
         run: |

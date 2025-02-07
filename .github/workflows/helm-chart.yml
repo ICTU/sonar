@@ -40,6 +40,7 @@ jobs:
           kubectl apply -f helm/deploy-ci.yaml
           helm dependency build helm
           helm upgrade --set-json='sonarqube.elasticsearch.bootstrapChecks="false"' --set-json='sonarqube.image.tag="ci-latest"' --install --render-subchart-notes ictu-sonarqube helm
+        timeout-minutes: 4
 
       - name: Disable ES disk watermark checks
         run: |
@@ -56,4 +57,4 @@ jobs:
           kubectl wait --all pods --timeout=5m --for=condition=Ready
           kubectl wait --all statefulsets --timeout=30s --for=jsonpath=status.availableReplicas=1
           kubectl logs -f pod/ictu-sonarqube-sonarqube-0 |& sed "/Current profile for language 'web' is 'Sonar way'/ q"
-        timeout-minutes: 6
+        timeout-minutes: 7

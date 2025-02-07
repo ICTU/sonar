@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [10.8.1](https://github.com/ICTU/sonar/releases/tag/10.8.1) - 2025-02-07
+
 ### Added
 
 - Rust plugin and language profile (#90).
