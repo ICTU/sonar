@@ -13,6 +13,8 @@ These newly created profiles are set to be the default profile, but can also be 
 Extending the default can be done by ensuring that the current profile has a name ending with `EXTENDED` (or `extended`).
 Alternatively, the automatic overriding of default profile can be avoided by ensuring that the current profile has a name ending with `DEFAULT` (or `default`).
 
+**Warning**: If an adjustment has been made to a rule in an `EXTENDED` profile, where the specific rule was originally disabled in the `Sonar Way` profile, this adjustment will not be retained after a restart of the SonarQube instance.
+
 
 ## Overriding the ICTU standard quality profiles
 
