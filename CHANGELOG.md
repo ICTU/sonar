@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Update db containers to latest PostgreSQL version (#99).
+
 ## [10.8.1](https://github.com/ICTU/sonar/releases/tag/10.8.1) - 2025-02-07
 
 ### Added
