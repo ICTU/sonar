@@ -16,7 +16,7 @@ jobs:
 
       - name: Set yaml value change dict with random generated secrets
         run: |
-          echo "VALUE_CHANGES={\"[0].data.sonar_db_password\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\",\"[0].data.postgres_db_password\":\"$(echo ${RANDOM} | base64)\",\"[1].data.SONARQUBE_USERNAME\":\"$(echo admin | base64)\",\"[1].data.SONARQUBE_PASSWORD\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\"}" >> $GITHUB_ENV
+          echo "VALUE_CHANGES={\"[0].data.sonar_db_password\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\",\"[0].data.postgres_db_password\":\"$(echo ${RANDOM} | base64)\",\"[1].data.currentPassword\":\"$(echo admin | base64)\",\"[1].data.password\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\"}" >> $GITHUB_ENV
 
       - name: Update values.yaml
         uses: fjogeleit/yaml-update-action@v0.15.0

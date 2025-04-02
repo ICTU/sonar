@@ -14,11 +14,11 @@ type: Opaque
 apiVersion: v1
 kind: Secret
 metadata:
-  name: sonarqube-sonarqube-secret
+  name: sonarqube-admin-password-secret
   labels:
     app: sonarqube
     release: sonarqube
 data:
-  SONARQUBE_USERNAME: ""
-  SONARQUBE_PASSWORD: ""
+  currentPassword: ""
+  password: ""
 type: Opaque
