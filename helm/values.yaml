@@ -1,7 +1,7 @@
 ---
 secrets:
   dbCredential: &dbCredential "sonarqube-postgresql-secret"
-  sonarCredential: &sonarCredential "sonarqube-sonarqube-secret"
+  sonarPassword: &sonarPassword "sonarqube-admin-password-secret"
 
 settings:
   sonar.core.serverBaseURL: "test.local"
@@ -34,11 +34,13 @@ sonarqube:
     tag: "10.8.1-developer"
     pullPolicy: IfNotPresent
   jdbcOverwrite:
-    enable: true
+    enabled: true
     jdbcUrl: jdbc:postgresql://ictu-sonarqube-postgresql:5432/sonar?socketTimeout=1500
     jdbcUsername: sonar
     jdbcSecretName: *dbCredential
     jdbcSecretPasswordKey: sonar_db_password
+  community:
+    enabled: false
   nginx:
     enabled: false
   postgresql:
@@ -50,18 +52,15 @@ sonarqube:
   ingress:
     enabled: false
 
+  setAdminPassword:
+    passwordSecretName: *sonarPassword
+
   env:
-    - name: SONARQUBE_USERNAME
-      valueFrom:
-        secretKeyRef:
-          name: *sonarCredential
-          key: SONARQUBE_USERNAME
-          optional: true
     - name: SONARQUBE_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: *sonarCredential
-          key: SONARQUBE_PASSWORD
+          name: *sonarPassword
+          key: password
           optional: true
 
   extraConfig:

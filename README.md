@@ -60,7 +60,7 @@ Example docker-compose file:
 
 
 If the default SonarQube admin password has not yet been changed and `SONARQUBE_PASSWORD` is provided, the startup script will try to change the SonarQube default password to the one provided.
-Alternatively, the `SONARQUBE_TOKEN` can be used as admin credential instead of the `SONARQUBE_USERNAME` / `SONARQUBE_PASSWORD` combination.
+Alternatively, the `SONARQUBE_TOKEN` can be used as admin credential instead of the `SONARQUBE_PASSWORD` with default admin user.
 
 The Sonar start script waits for the database to become available (only when using PostgreSQL).
 `DB_START_TIMEOUT` (default: 60 seconds) defines how long the script will wait for the database to become available before exiting.

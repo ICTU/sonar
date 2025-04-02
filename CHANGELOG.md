@@ -6,6 +6,10 @@
 
 - **BREAKING**: Update default db containers to PostgreSQL version 17.4 (#99).
 
+### Removed
+
+- Remove option to override default admin credential with `SONARQUBE_USERNAME` (#83).
+
 ## [10.8.1](https://github.com/ICTU/sonar/releases/tag/10.8.1) - 2025-02-07
 
 ### Added
