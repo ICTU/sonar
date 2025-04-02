@@ -77,6 +77,15 @@ helm pull oci://registry-1.docker.io/ictu/ictu-sonarqube
 As specified in the [Helm values.yaml](https://github.com/ICTU/sonar/blob/master/helm/values.yaml), two credentials `dbCredential` and `sonarCredential` can be used.
 Additional environment variables can be passed to the SonarQube container through the `env` dict.
 
+
+## Upgrading PostgreSQL containers
+
+Upgrading to a higher _major_ version of PostgreSQL is a breaking change requiring manual action by the operator, because the database storage format is changed.
+Be sure to consult the [PostgreSQL docs regarding upgrading](https://www.postgresql.org/docs/current/upgrading.html) in order to decide your upgrade strategy.
+Although these changes are marked as breaking change in the changelog, accidentally upgrading does not harm your data because the database will refuse to start.
+Pinning the PostgreSQL version in either helm or docker-compose will prevent the change, allowing the operator more freedom in choosing when to upgrade. 
+
+
 ## Get in touch
 
 Point of contact for this repository is [Dennie Bouman](https://github.com/denniebouman), who can be reached by [opening a new issue in this repository's issue tracker](https://github.com/ICTU/sonar/issues/new).

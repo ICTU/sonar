@@ -38,13 +38,6 @@ function waitForDatabase {
         count=$((count+sleep))
     done
     echo "Database listening on ${host}:${port}"
-
-    # Reset all plugin hashes to trigger a full reindex of ElasticSearch data, so coding_rules are indexed correctly
-    # Underlying bug should be fixed in 10.8 release, see also:
-    #     - https://community.sonarsource.com/t/rules-not-registered-and-index-correctly-after-upgrade-to-10-7/128030
-    #     - https://sonarsource.atlassian.net/browse/SONAR-23466
-    echo "Forcing ElasticSearch full reindex of rules, due to bug in version 10.7.0"
-    PGPASSWORD=${SONAR_JDBC_PASSWORD} psql ${pg_connect_params} -c "UPDATE PLUGINS SET FILE_HASH = ''"
 }
 
 # Wait until SonarQube is operational
