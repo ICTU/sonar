@@ -9,7 +9,7 @@ home: https://github.com/ICTU/sonar
 dependencies:
   - name: postgresql
     version: 16.6.0  # this corresponds with appVersion 17.4.0, upstream sonarqube helm chart uses version 10.15.0
-    repository: https://charts.bitnami.com/bitnami  # https://github.com/bitnami/charts/blob/main/bitnami/postgresql/Chart.yaml
+    repository: oci://registry-1.docker.io/bitnamicharts  # https://github.com/bitnami/charts/blob/main/bitnami/postgresql/Chart.yaml
   - name: sonarqube
-    version: 10.6.0
+    version: 10.8.1
     repository: https://SonarSource.github.io/helm-chart-sonarqube  # https://github.com/SonarSource/helm-chart-sonarqube/blob/master/charts/sonarqube/Chart.yaml
