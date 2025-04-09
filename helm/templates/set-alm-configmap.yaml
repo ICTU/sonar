@@ -1,0 +1,41 @@
+{{- if .Values.alm.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-alm-script
+  labels:
+    app: sonarqube
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  configure-alm.sh: |
+    #!/bin/sh
+
+    set -e
+
+    credential="--user admin:${SONARQUBE_PASSWORD}"
+    internal_url="http://{{ .Release.Name }}-sonarqube:{{ default 9000 .Values.sonarqube.service.internalPort }}{{ default "" .Values.sonarqube.sonarWebContext }}"
+
+    until curl -sS "${internal_url}/api/system/status" | grep -w UP &>/dev/null; do
+      echo "SonarQube is not up ..."
+      sleep 2;
+    done;
+    echo "SonarQube is up"
+
+    {{ if .Values.alm.gitlab -}}
+    {{- $key := .Values.alm.gitlab.key -}}
+    {{- $personalAccessToken := .Values.alm.gitlab.personalAccessToken -}}
+    {{- $url := urlquery .Values.alm.gitlab.url -}}
+    echo "Configuring GitLab ALM Integration with key '{{ $key }}'"
+    if curl -sS ${credential} "${internal_url}/api/alm_settings/list_definitions" | grep -w '"key":"{{ $key }}"' &>/dev/null; then
+      curl -XPOST -sS ${credential} "${internal_url}/api/alm_settings/update_gitlab?key={{ $key }}&personalAccessToken={{ $personalAccessToken }}&url={{ $url }}"
+    else
+      curl -XPOST -sS ${credential} "${internal_url}/api/alm_settings/create_gitlab?key={{ $key }}&personalAccessToken={{ $personalAccessToken }}&url={{ $url }}"
+    fi;
+
+    echo "Validating GitLab ALM Integration with key '{{ $key }}'"
+    curl -sS ${credential} "${internal_url}/api/alm_settings/validate?key={{ $key }}"
+    {{- end }}
+{{- end -}}

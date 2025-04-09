@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Job hooks to automatically configure settings in Helm chart (#86).
+
 ### Changed
 
 - **BREAKING**: Update default db containers to PostgreSQL version 17.4 (#99).

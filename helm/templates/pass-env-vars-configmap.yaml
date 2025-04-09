@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-sonarqube-env-vars
+  name: {{ .Release.Name }}-env-vars
   labels:
     app: sonarqube
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}

@@ -1,0 +1,33 @@
+{{- if .Values.settings.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-settings-script
+  labels:
+    app: sonarqube
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  configure-settings.sh: |
+    #!/bin/sh
+
+    set -e
+
+    credential="--user admin:${SONARQUBE_PASSWORD}"
+    internal_url="http://{{ .Release.Name }}-sonarqube:{{ default 9000 .Values.sonarqube.service.internalPort }}{{ default "" .Values.sonarqube.sonarWebContext }}"
+
+    until curl -sS "${internal_url}/api/system/status" | grep -w UP &>/dev/null; do
+      echo "SonarQube is not up ..."
+      sleep 2;
+    done;
+    echo "SonarQube is up"
+
+    {{ range $key, $value := .Values.settings }}
+    {{- if ne $key "enabled" }}
+    echo "Configuring instance setting with key '{{ $key }}'"
+    curl -XPOST -sS ${credential} "${internal_url}/api/settings/set?key={{ $key }}&value={{ $value }}"
+    {{- end }}
+    {{- end }}
+{{- end -}}

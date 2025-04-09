@@ -1,0 +1,46 @@
+{{- if .Values.license.enabled -}}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-license-hook
+  labels:
+    app: sonarqube
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-weight": "1"
+spec:
+  template:
+    metadata:
+      name: {{ .Release.Name }}-license-hook
+      labels:
+        app: sonarqube
+        chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-license-job
+          image: alpine/curl:8.12.1
+          command: ["sh", "-c", "/configure-license.sh"]
+          env:
+            - name: SONARQUBE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.sonarPassword }}
+                  key: password
+          volumeMounts:
+            - name: configure-license-volume
+              mountPath: /configure-license.sh
+              subPath: configure-license.sh
+      volumes:
+        - name: configure-license-volume
+          configMap:
+            defaultMode: 0755
+            name: {{ .Release.Name }}-license-script
+{{- end -}}

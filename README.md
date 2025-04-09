@@ -69,13 +69,15 @@ Similarly `SONAR_START_TIMEOUT` (default: 600 seconds) defines how long the scri
 
 ## Running on Kubernetes with the Helm chart
 
-The helm chart can be pulled as [ictu/ictu-sonarqube from Docker hub](https://hub.docker.com/r/ictu/ictu-sonarqube/tags) as OCI artifact:
+The Helm chart can be pulled as [ictu/ictu-sonarqube from Docker hub](https://hub.docker.com/r/ictu/ictu-sonarqube/tags) as OCI artifact:
 ```
 helm pull oci://registry-1.docker.io/ictu/ictu-sonarqube
 ```
 
-As specified in the [Helm values.yaml](https://github.com/ICTU/sonar/blob/master/helm/values.yaml), two credentials `dbCredential` and `sonarCredential` can be used.
-Additional environment variables can be passed to the SonarQube container through the `env` dict.
+As specified in the [Helm values.yaml](https://github.com/ICTU/sonar/blob/master/helm/values.yaml), two credentials `dbCredential` and `sonarPassword` can be used.
+Additional environment variables can be passed to the SonarQube container as a list of key-value pairs in `env_vars`, specified in the Helm values.
+Note that the default value specified in `sonarqube.extraConfig.configmaps` assumes the release name `ictu-sonarqube`, which you may need to override.
+Alternatively, environment variables can be passed directly through the `sonarqube.env` dict in the Helm values (i.e. for secrets).
 
 
 ## Upgrading PostgreSQL containers
@@ -83,7 +85,7 @@ Additional environment variables can be passed to the SonarQube container throug
 Upgrading to a higher _major_ version of PostgreSQL is a breaking change requiring manual action by the operator, because the database storage format is changed.
 Be sure to consult the [PostgreSQL docs regarding upgrading](https://www.postgresql.org/docs/current/upgrading.html) in order to decide your upgrade strategy.
 Although these changes are marked as breaking change in the changelog, accidentally upgrading does not harm your data because the database will refuse to start.
-Pinning the PostgreSQL version in either helm or docker-compose will prevent the change, allowing the operator more freedom in choosing when to upgrade. 
+Pinning the PostgreSQL version in either Helm or docker-compose will prevent the change, allowing the operator more freedom in choosing when to upgrade. 
 
 
 ## Get in touch
