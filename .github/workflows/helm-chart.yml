@@ -14,17 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set yaml value change dict with random generated secrets
-        run: |
-          echo "VALUE_CHANGES={\"[0].data.sonar_db_password\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\",\"[0].data.postgres_db_password\":\"$(echo ${RANDOM} | base64)\",\"[1].data.SONARQUBE_USERNAME\":\"$(echo admin | base64)\",\"[1].data.SONARQUBE_PASSWORD\":\"$(echo ${RANDOM} | md5sum | head -c 16 | base64)\"}" >> $GITHUB_ENV
-
-      - name: Update values.yaml
-        uses: fjogeleit/yaml-update-action@v0.15.0
-        with:
-          valueFile: "helm/deploy-ci.yaml"
-          commitChange: false
-          changes: ${{ env.VALUE_CHANGES }}
-
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
         with:
@@ -37,10 +26,11 @@ jobs:
           docker build -t ictu/sonar:ci-latest .
           eval $(minikube -p minikube docker-env)
           minikube image load ictu/sonar:ci-latest
-          kubectl apply -f helm/deploy-ci.yaml
+          kubectl create secret generic sonarqube-postgresql-secret --from-literal=sonar_db_password=$(echo ${RANDOM} | md5sum | head -c 12) --from-literal=postgres_db_password=$(echo ${RANDOM} | md5sum | head -c 12)
+          kubectl create secret generic sonarqube-admin-password-secret --from-literal=password=$(echo ${RANDOM} | md5sum | head -c 12) --from-literal=currentPassword=admin
           helm dependency build helm
           helm upgrade --set-json='sonarqube.elasticsearch.bootstrapChecks="false"' --set-json='sonarqube.image.tag="ci-latest"' --install --render-subchart-notes ictu-sonarqube helm
-        timeout-minutes: 4
+        timeout-minutes: 6
 
       - name: Disable ES disk watermark checks
         run: |
