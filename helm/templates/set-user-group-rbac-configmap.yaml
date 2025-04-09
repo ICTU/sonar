@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-sonarqube-user-group-rbac-script
+  labels:
+    app: sonarqube
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  configure-rbac.sh: |
+    #!/bin/sh
+
+    set -e
+
+    credential="--user admin:${SONARQUBE_PASSWORD}"
+    internal_url={{ template "sonarqube.fullname" . }}:{{ default 9000 .Values.service.internalPort }}{{ .Values.account.sonarWebContext | default (include "sonarqube.webcontext" .) }}
+
+    echo "Check if sonarqube is up"
+    until curl -sS "${internal_url}/api/system/status" | grep -w UP &>/dev/null; do
+      echo "Sonarqube is not up ..."
+      sleep 10;
+    done;
+    echo "Sonarqube is up"
+
+    {{ range $.Values.rbac.user_groups }}
+    {{ $group := . }}
+    # {{ $group.name | upper }}
+    if curl -sS ${credential} "${internal_url}/api/user_groups/search?q={{ $group.name }}" | grep -w '"total":0' &>/dev/null; then
+      echo "[{{ $group.name }}] Creating user group"
+      curl -XPOST -sS ${credential} "${internal_url}/api/user_groups/create?name={{ $group.name }}"
+    fi;
+
+    {{- /* Remove unapproved global permissions */}}
+    {{- range $.Values.rbac.all_global_permissions }}
+    {{- $global_permission := . }}
+    {{- if not (has . $group.global_permissions)  }}
+    echo "[{{ $group.name }}] Deleting unapproved global permission '{{ $global_permission }}'"
+    curl -XPOST -sS ${credential} "${internal_url}/api/permissions/remove_group?groupName={{ $group.name }}&permission={{ $global_permission }}"
+    {{- else }}
+    echo "[{{ $group.name }}] Adding approved global permission '{{ $global_permission }}'"
+    curl -XPOST -sS ${credential} "${internal_url}/api/permissions/add_group?groupName={{ $group.name }}&permission={{ $global_permission }}"
+    {{- end }}
+    {{- end }}
+
+    {{- /* Removed unapproved permissions from default template */}}
+    {{- range $.Values.rbac.all_project_permissions }}
+    {{- $project_permission := . }}
+    {{- if not (has . $group.project_permissions) }}
+    echo "[{{ $group.name }}] Deleting unapproved permission '{{ $project_permission }}' from default project permissions template"
+    curl -XPOST -sS ${credential} "${internal_url}/api/permissions/remove_group_from_template?templateName=Default%20template&groupName={{ $group.name }}&permission={{ $project_permission }}"
+    {{- else }}
+    echo "[{{ $group.name }}] Adding approved permission '{{ $project_permission }}' to default project permissions template"
+    curl -XPOST -sS ${credential} "${internal_url}/api/permissions/add_group_to_template?templateName=Default%20template&groupName={{ $group.name }}&permission={{ $project_permission }}"
+    {{- end }}
+    {{- end }}
+
+    {{- /* Adding users */}}
+    {{- if $group.users }}
+    {{- range $group.users }}
+    {{- $user := . }}
+    echo "[{{ $group.name }}] Create user '{{ $user }}'"
+    curl -XPOST -sS ${credential} "${internal_url}/api/users/create?local=false&login={{ $user }}&name={{ $user }}"
+    echo "[{{ $group.name }}] Add user '{{ $user }}'"
+    curl -XPOST -sS ${credential} "${internal_url}/api/user_groups/add_user?login={{ $user }}&name={{ $group.name }}"
+    {{- end }}
+    {{- end }}
+
+    {{- end }}

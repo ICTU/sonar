@@ -1,0 +1,43 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-sonarqube-user-group-rbac-hook
+  labels:
+    app: sonarqube
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": post-install, post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: {{ .Release.Name }}-sonarqube-user-group-rbac-hook
+      labels:
+        app: sonarqube
+        chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-sonarqube-user-group-rbac
+          image: alpine/curl:8.12.1
+          command: ["sh", "-c", "/configure-rbac.sh"]
+          env:
+            - name: SONARQUBE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sonarqube-admin-password-secret
+                  key: password
+          volumeMounts:
+            - name: configure-rbac-volume
+              mountPath: /configure-rbac.sh
+              subPath: configure-rbac.sh
+      volumes:
+        - name: configure-rbac-volume
+          configMap:
+            defaultMode: 0755
+            name: {{ .Release.Name }}-sonarqube-user-group-rbac-script
