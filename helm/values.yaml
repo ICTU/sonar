@@ -3,9 +3,35 @@ secrets:
   dbCredential: &dbCredential "sonarqube-postgresql-secret"
   sonarPassword: &sonarPassword "sonarqube-admin-password-secret"
 
+env_vars: []
+
 settings:
+  enabled: false
   sonar.core.serverBaseURL: "test.local"
   sonar.forceAuthentication: false
+
+alm:
+  enabled: false
+  gitlab:
+    key: ""
+    personalAccessToken: ""
+    url: ""
+
+license:
+  enabled: false
+  key: ""
+
+rbac:
+  enabled: true
+  all_global_permissions: ["admin", "profileadmin", "gateadmin", "scan", "provisioning"]
+  all_project_permissions: ["admin", "codeviewer", "issueadmin", "securityhotspotadmin", "scan", "user"]
+  user_groups:
+    - name: "group-administrators"
+      global_permissions: ["admin", "profileadmin", "gateadmin", "scan", "provisioning"]
+      project_permissions: ["user", "codeviewer", "scan", "admin", "issueadmin", "securityhotspotadmin"]
+    - name: "group-developers"
+      global_permissions: ["gateadmin", "scan"]
+      project_permissions: ["user", "codeviewer"]
 
 postgresql:
   audit:
@@ -65,4 +91,4 @@ sonarqube:
 
   extraConfig:
     configmaps:
-      - ictu-sonarqube-sonarqube-env-vars
+      - ictu-sonarqube-env-vars
