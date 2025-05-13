@@ -4,8 +4,7 @@
     "https://github.com/C4tWithShell/community-rust/releases/download/v0.2.5/community-rust-plugin-0.2.5.jar",
     "https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/5.0.0/sonar-dependency-check-plugin-5.0.0.jar",
     "https://github.com/sbaudoin/sonar-yaml/releases/download/v1.9.1/sonar-yaml-plugin-1.9.1.jar",
-    "https://github.com/spotbugs/sonar-findbugs/releases/download/v4.3.0/sonar-findbugs-plugin-4.3.0.jar",
-    "https://github.com/vaulttec/sonar-auth-oidc/releases/download/v2.1.1/sonar-auth-oidc-plugin-2.1.1.jar"
+    "https://github.com/spotbugs/sonar-findbugs/releases/download/v4.3.0/sonar-findbugs-plugin-4.3.0.jar"
   ],
   "profiles": {
     "ansible": {

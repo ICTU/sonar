@@ -57,7 +57,7 @@ postgresql:
 sonarqube:
   image:
     repository: ictu/sonar
-    tag: "10.8.1-developer"
+    tag: "2025.2.0-developer"
     pullPolicy: IfNotPresent
   jdbcOverwrite:
     enabled: true
