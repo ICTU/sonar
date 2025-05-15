@@ -4,7 +4,7 @@ services:
     environment:
       SONAR_JDBC_USERNAME: "sonar_user"
       SONAR_JDBC_PASSWORD: "sonar_pass"
-      SONARQUBE_PASSWORD: "admin123"
+      SONARQUBE_PASSWORD: "Admin1234..."
       PROJECT_CODE: "PROJ1"
       PROJECT_RULES: "+csharpsquid:S104;-typescript:S1301;+Web:UnclosedTagCheck"
 
