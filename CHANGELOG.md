@@ -9,10 +9,14 @@
 ### Changed
 
 - **BREAKING**: Update default db containers to PostgreSQL version 17.4 (#99).
+- Update to [SonarQube version 2025.2](https://www.sonarsource.com/products/sonarqube/whats-new/2025-2/) (#103).
+- Update plugin `checkstyle/sonar-checkstyle` to [version 10.23.0](https://github.com/checkstyle/sonar-checkstyle/releases/tag/10.23.0) (#103).
+- Update plugin `spotbugs/sonar-findbugs` to [version 4.4.2](https://github.com/spotbugs/sonar-findbugs/releases/tag/4.4.2) (#103).
 
 ### Removed
 
 - Remove option to override default admin credential with `SONARQUBE_USERNAME` (#83).
+- **BREAKING**: Remove plugin sonar-auth-oidc due to blocking bug, disabling OpenID support (#103).
 
 ## [10.8.1](https://github.com/ICTU/sonar/releases/tag/10.8.1) - 2025-02-07
 

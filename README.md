@@ -74,7 +74,7 @@ The Helm chart can be pulled as [ictu/ictu-sonarqube from Docker hub](https://hu
 helm pull oci://registry-1.docker.io/ictu/ictu-sonarqube
 ```
 
-As specified in the [Helm values.yaml](https://github.com/ICTU/sonar/blob/master/helm/values.yaml), two credentials `dbCredential` and `sonarPassword` can be used.
+As specified in the [Helm values.yaml](https://github.com/ICTU/sonar/blob/master/helm/values.yaml), the credentials `monitoringCredential`, `postgresqlCredential` and `sonarAdminCredential` can be used.
 Additional environment variables can be passed to the SonarQube container as a list of key-value pairs in `env_vars`, specified in the Helm values.
 Note that the default value specified in `sonarqube.extraConfig.configmaps` assumes the release name `ictu-sonarqube`, which you may need to override.
 Alternatively, environment variables can be passed directly through the `sonarqube.env` dict in the Helm values (i.e. for secrets).
