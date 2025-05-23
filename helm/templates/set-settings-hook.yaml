@@ -32,7 +32,7 @@ spec:
             - name: SONARQUBE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.sonarPassword }}
+                  name: {{ .Values.secrets.sonarAdminCredential }}
                   key: password
           volumeMounts:
             - name: configure-settings-volume

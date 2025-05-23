@@ -1,13 +1,14 @@
 ---
 secrets:
-  dbCredential: &dbCredential "sonarqube-postgresql-secret"
-  sonarPassword: &sonarPassword "sonarqube-admin-password-secret"
+  monitoringCredential: &monitoringCredential "sonarqube-monitoring-secret"
+  postgresqlCredential: &postgresqlCredential "sonarqube-postgresql-secret"
+  sonarAdminCredential: &sonarAdminCredential "sonarqube-admin-password-secret"
 
 env_vars: []
 
 settings:
   enabled: false
-  sonar.core.serverBaseURL: "test.local"
+  sonar.core.serverBaseURL: test.local
   sonar.forceAuthentication: false
 
 alm:
@@ -34,12 +35,14 @@ rbac:
       project_permissions: ["user", "codeviewer"]
 
 postgresql:
+# https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md
+# https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
   audit:
-    logTimezone: "Europe/Amsterdam"
+    logTimezone: Europe/Amsterdam
   auth:
     username: sonar
     database: sonar
-    existingSecret: *dbCredential
+    existingSecret: *postgresqlCredential
     secretKeys:
       userPasswordKey: sonar_db_password
       adminPasswordKey: postgres_db_password
@@ -55,16 +58,19 @@ postgresql:
         mountPath: /etc/localtime
 
 sonarqube:
+# https://github.com/SonarSource/helm-chart-sonarqube/blob/master/charts/sonarqube/README.md
+# https://github.com/SonarSource/helm-chart-sonarqube/blob/master/charts/sonarqube/values.yaml
   image:
     repository: ictu/sonar
-    tag: "10.8.1-developer"
+    tag: 2025.2.0-developer
     pullPolicy: IfNotPresent
   jdbcOverwrite:
     enabled: true
     jdbcUrl: jdbc:postgresql://ictu-sonarqube-postgresql:5432/sonar?socketTimeout=1500
     jdbcUsername: sonar
-    jdbcSecretName: *dbCredential
+    jdbcSecretName: *postgresqlCredential
     jdbcSecretPasswordKey: sonar_db_password
+  edition: developer
   community:
     enabled: false
   nginx:
@@ -78,14 +84,17 @@ sonarqube:
   ingress:
     enabled: false
 
+  monitoringPasscodeSecretName: *monitoringCredential
+  monitoringPasscodeSecretKey: monitoring_password
+
   setAdminPassword:
-    passwordSecretName: *sonarPassword
+    passwordSecretName: *sonarAdminCredential
 
   env:
     - name: SONARQUBE_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: *sonarPassword
+          name: *sonarAdminCredential
           key: password
           optional: true
 

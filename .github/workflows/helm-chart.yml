@@ -26,8 +26,9 @@ jobs:
           docker build -t ictu/sonar:ci-latest .
           eval $(minikube -p minikube docker-env)
           minikube image load ictu/sonar:ci-latest
+          kubectl create secret generic sonarqube-monitoring-secret --from-literal=monitoring_password=$(echo ${RANDOM} | md5sum | head -c 12)
           kubectl create secret generic sonarqube-postgresql-secret --from-literal=sonar_db_password=$(echo ${RANDOM} | md5sum | head -c 12) --from-literal=postgres_db_password=$(echo ${RANDOM} | md5sum | head -c 12)
-          kubectl create secret generic sonarqube-admin-password-secret --from-literal=password=$(echo ${RANDOM} | md5sum | head -c 12) --from-literal=currentPassword=admin
+          kubectl create secret generic sonarqube-admin-password-secret --from-literal=password=$(echo ${RANDOM} | md5sum | head -c 9)1A. --from-literal=currentPassword=admin
           helm dependency build helm
           helm upgrade --set-json='sonarqube.elasticsearch.bootstrapChecks="false"' --set-json='sonarqube.image.tag="ci-latest"' --install --render-subchart-notes ictu-sonarqube helm
         timeout-minutes: 9
