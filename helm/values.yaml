@@ -62,7 +62,7 @@ sonarqube:
 # https://github.com/SonarSource/helm-chart-sonarqube/blob/master/charts/sonarqube/values.yaml
   image:
     repository: ictu/sonar
-    tag: 2025.2.0-developer
+    tag: 2025.3.0-developer
     pullPolicy: IfNotPresent
   jdbcOverwrite:
     enabled: true

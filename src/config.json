@@ -1,10 +1,10 @@
 {
   "plugins": [
     "https://github.com/checkstyle/sonar-checkstyle/releases/download/10.23.0/checkstyle-sonar-plugin-10.23.0.jar",
-    "https://github.com/C4tWithShell/community-rust/releases/download/v0.2.6/community-rust-plugin-0.2.6.jar",
     "https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/5.0.0/sonar-dependency-check-plugin-5.0.0.jar",
     "https://github.com/sbaudoin/sonar-yaml/releases/download/v1.9.1/sonar-yaml-plugin-1.9.1.jar",
-    "https://github.com/spotbugs/sonar-findbugs/releases/download/4.4.2/sonar-findbugs-plugin-4.4.2.jar"
+    "https://github.com/spotbugs/sonar-findbugs/releases/download/4.5.1/sonar-findbugs-plugin.jar",
+    "https://github.com/vaulttec/sonar-auth-oidc/releases/download/v3.0.0/sonar-auth-oidc-plugin-3.0.0.jar"
   ],
   "profiles": {
     "ansible": {
@@ -36,10 +36,8 @@
       "version": "py-profile-v5.2.0"
     },
     "rust": {
-      "language_profile": "Community Rust",
-      "plugin_name": "community-rust-plugin",
-      "plugin_external": true,
-      "version": "rust-profile-v0.2.6"
+      "plugin_name": "rust-plugin",
+      "version": "rust-profile-v1.0.3"
     },
     "swift": {
       "plugin_name": "swift-plugin",
@@ -70,106 +68,106 @@
       "+ansible:S2260"
     ],
     "cs": [
-      "+csharpsquid:S104            # NCSS; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+csharpsquid:S1067           # Too complex expression; NOT used by Quality-time",
-      "+csharpsquid:S107|max=5      # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+csharpsquid:S109            # Magic numbers; NOT used by Quality-time",
-      "+csharpsquid:S1151           # Switch case clauses should not have too many lines of code. Used by Quality-time",
-      "+csharpsquid:S125            # Commented code; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
-      "+csharpsquid:S1309           # Violation suppression; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
-      "+csharpsquid:S134            # Depth of nesting; NOT used by Quality-time",
-      "+csharpsquid:S138|max=20     # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+csharpsquid:S104                                           # NCSS; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+csharpsquid:S1067                                          # Too complex expression; NOT used by Quality-time",
+      "+csharpsquid:S107|max=5                                     # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+csharpsquid:S109                                           # Magic numbers; NOT used by Quality-time",
+      "+csharpsquid:S1151                                          # Switch case clauses should not have too many lines of code. Used by Quality-time",
+      "+csharpsquid:S125                                           # Commented code; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
+      "+csharpsquid:S1309                                          # Violation suppression; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
+      "+csharpsquid:S134                                           # Depth of nesting; NOT used by Quality-time",
+      "+csharpsquid:S138|max=20                                    # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
       "+csharpsquid:S1541|maximumFunctionComplexityThreshold=10    # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
     ],
     "java": [
-      "+java:NoSonar             # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
-      "+java:S104                # Files should not have too many lines of code. Used by Quality-time",
-      "+java:S1067               # Expression too complex; NOT used by Quality-time",
-      "+java:S107|max=5          # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+java:S109                # Magic numbers; NOT used by Quality-time",
-      "+java:S1151               # Switch case clauses should not have too many lines of code. Used by Quality-time",
-      "+java:S1188               # Anonymous classes should not have too many lines. Used by Quality-time",
-      "+java:S125                # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
-      "+java:S1309               # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
-      "+java:S1310               # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
-      "+java:S1315               # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
-      "+java:S138|max=20         # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+java:S1541|Threshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
-      "+java:S2972               # Inner classes should not have too many lines of code. Used by Quality-time",
-      "+java:S5612               # Lambdas should not have too many lines. Used by Quality-time"
+      "+java:NoSonar                                               # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
+      "+java:S104                                                  # Files should not have too many lines of code. Used by Quality-time",
+      "+java:S1067                                                 # Expression too complex; NOT used by Quality-time",
+      "+java:S107|max=5                                            # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+java:S109                                                  # Magic numbers; NOT used by Quality-time",
+      "+java:S1151                                                 # Switch case clauses should not have too many lines of code. Used by Quality-time",
+      "+java:S1188                                                 # Anonymous classes should not have too many lines. Used by Quality-time",
+      "+java:S125                                                  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
+      "+java:S1309                                                 # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
+      "+java:S1310                                                 # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
+      "+java:S1315                                                 # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
+      "+java:S138|max=20                                           # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+java:S1541|Threshold=10                                    # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
+      "+java:S2972                                                 # Inner classes should not have too many lines of code. Used by Quality-time",
+      "+java:S5612                                                 # Lambdas should not have too many lines. Used by Quality-time"
     ],
     "js": [
-      "+javascript:S104                                         # Files should not have too many lines of code. Used by Quality-time",
-      "+javascript:S106                                         # Console logging should not be used; NOT used by Quality-time",
-      "+javascript:S1067                                        # Expression too complex; NOT used by Quality-time",
-      "+javascript:S107|maximumFunctionParameters=5             # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+javascript:S109                                         # Magic numbers; NOT used by Quality-time",
-      "+javascript:S125                                         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
-      "+javascript:S134                                         # NOT used by Quality-time",
-      "+javascript:S138|max=40                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+javascript:S1541|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
+      "+javascript:S104                                            # Files should not have too many lines of code. Used by Quality-time",
+      "+javascript:S106                                            # Console logging should not be used; NOT used by Quality-time",
+      "+javascript:S1067                                           # Expression too complex; NOT used by Quality-time",
+      "+javascript:S107|maximumFunctionParameters=5                # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+javascript:S109                                            # Magic numbers; NOT used by Quality-time",
+      "+javascript:S125                                            # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
+      "+javascript:S134                                            # NOT used by Quality-time",
+      "+javascript:S138|max=40                                     # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+javascript:S1541|maximumFunctionComplexityThreshold=10     # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
     ],
     "kotlin": [
-      "+kotlin:S104                                             # Files should not have too many lines of code. Used by Quality-time",
-      "+kotlin:S1067                                            # Expression too complex; NOT used by Quality-time",
-      "+kotlin:S107|Max=5                                       # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+kotlin:S1151                                            # When clauses should not have too many lines of code. Used by Quality-time",
-      "+kotlin:S138|max=20                                      # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+kotlin:S5612                                            # Lambdas should not have too many lines. Used by Quality-time"
+      "+kotlin:S104                                                # Files should not have too many lines of code. Used by Quality-time",
+      "+kotlin:S1067                                               # Expression too complex; NOT used by Quality-time",
+      "+kotlin:S107|Max=5                                          # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+kotlin:S1151                                               # When clauses should not have too many lines of code. Used by Quality-time",
+      "+kotlin:S138|max=20                                         # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+kotlin:S5612                                               # Lambdas should not have too many lines. Used by Quality-time"
     ],
     "plsql": [
-      "+plsql:S125                                              # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)",
-      "+plsql:PlSql.FunctionAndProcedureComplexity              # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
-      "+plsql:S104                                              # Files should not have too many lines of code. Used by Quality-time",
-      "+plsql:S1151                                             # WHEN clauses should not have too many lines. Used by Quality-time",
-      "+plsql:NoSonarCheck                                      # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)"
+      "+plsql:S125                                                 # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube)",
+      "+plsql:PlSql.FunctionAndProcedureComplexity                 # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
+      "+plsql:S104                                                 # Files should not have too many lines of code. Used by Quality-time",
+      "+plsql:S1151                                                # WHEN clauses should not have too many lines. Used by Quality-time",
+      "+plsql:NoSonarCheck                                         # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)"
     ],
     "py": [
       "+python:FunctionComplexity|maximumFunctionComplexityThreshold=10  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
-      "+python:NoSonar                                                   # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
-      "+python:S104                                                      # Too many lines of code in file; NOT used by Quality-time",
-      "+python:S107|max=5                                                # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+python:S125                                                      # Commented code; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
-      "+python:S134                                                      # Too deep nesting; NOT used by Quality-time",
-      "+python:S138|max=20                                               # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)"
+      "+python:NoSonar                                             # Used by Quality-time to report on suppressed violations (https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations)",
+      "+python:S104                                                # Too many lines of code in file; NOT used by Quality-time",
+      "+python:S107|max=5                                          # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+python:S125                                                # Commented code; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
+      "+python:S134                                                # Too deep nesting; NOT used by Quality-time",
+      "+python:S138|max=20                                         # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)"
     ],
     "rust": [
-      "+community-rust:FunctionParametersCount"
+      "+rust:S107                                                  # Functions should not have too many parameters"
     ],
     "swift": [
-      "+swift:S104                            # Files should not have too many lines of code. Used by Quality-time",
-      "+swift:S1067                           # Expression too complex; NOT used by Quality-time",
-      "+swift:S107|functionMax=5              # Too many parameters; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#many-parameters-from-sonarqube)",
-      "+swift:S1151                           # Switch case clauses should not have too many lines of code. Used by Quality-time",
-      "+swift:S1188                           # Closures should not have too many lines. Used by Quality-time",
-      "+swift:S125                            # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#commented-out-code-from-sonarqube)",
-      "+swift:S138|max=20                     # Methods with too many lines; used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#long-units-from-sonarqube)",
-      "+swift:S1541|Threshold=10              # Used by Quality-time (https://github.com/ICTU/quality-time/blob/master/docs/METRICS_AND_SOURCES.md#complex-units-from-sonarqube)",
-      "+swift:S2042                           # Classes should not have too many lines of code. Used by Quality-time"
+      "+swift:S104                                                 # Files should not have too many lines of code. Used by Quality-time",
+      "+swift:S1067                                                # Expression too complex; NOT used by Quality-time",
+      "+swift:S107|functionMax=5                                   # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+swift:S1151                                                # Switch case clauses should not have too many lines of code. Used by Quality-time",
+      "+swift:S1188                                                # Closures should not have too many lines. Used by Quality-time",
+      "+swift:S125                                                 # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube)",
+      "+swift:S138|max=20                                          # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube)",
+      "+swift:S1541|Threshold=10                                   # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube)",
+      "+swift:S2042                                                # Classes should not have too many lines of code. Used by Quality-time"
     ],
     "ts": [
-      "+typescript:S104                                        # File length; NOT used by Quality-time",
-      "+typescript:S106                                        # Console logging; NOT used by Quality-time",
-      "+typescript:S1067                                       # Expression too complex; NOT used by Quality-time",
-      "+typescript:S107|maximumFunctionParameters=5            # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+typescript:S109                                        # Magic number; NOT used by Quality-time",
-      "+typescript:S138|max=40                                 # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+typescript:S1541|Threshold=10                          # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
-      "+typescript:S4204                                       # The 'any' type should not be used; NOT used by Quality-time",
-      "-typescript:S4328                                       # reason: the rule does not recognize 'local' imports"
+      "+typescript:S104                                            # File length; NOT used by Quality-time",
+      "+typescript:S106                                            # Console logging; NOT used by Quality-time",
+      "+typescript:S1067                                           # Expression too complex; NOT used by Quality-time",
+      "+typescript:S107|maximumFunctionParameters=5                # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+typescript:S109                                            # Magic number; NOT used by Quality-time",
+      "+typescript:S138|max=40                                     # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+typescript:S1541|Threshold=10                              # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)",
+      "+typescript:S4204                                           # The 'any' type should not be used; NOT used by Quality-time",
+      "-typescript:S4328                                           # reason: the rule does not recognize 'local' imports"
     ],
     "vbnet": [
-      "+vbnet:S104                                         # Files should not have too many lines of code. Used by Quality-time",
-      "+vbnet:S1067                                        # Expression too complex; NOT used by Quality-time",
-      "+vbnet:S107|max=5                                   # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters)",
-      "+vbnet:S1151                                        # Select Case clauses should not have too many lines of code. Used by Quality-time",
-      "+vbnet:S138|max=20                                  # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
-      "+vbnet:S1541|maximumFunctionComplexityThreshold=10  # Too complex function, procedure or property; Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
+      "+vbnet:S104                                                 # Files should not have too many lines of code. Used by Quality-time",
+      "+vbnet:S1067                                                # Expression too complex; NOT used by Quality-time",
+      "+vbnet:S107|max=5                                           # Too many parameters; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube)",
+      "+vbnet:S1151                                                # Select Case clauses should not have too many lines of code. Used by Quality-time",
+      "+vbnet:S138|max=20                                          # Methods with too many lines; used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)",
+      "+vbnet:S1541|maximumFunctionComplexityThreshold=10          # Too complex function, procedure or property; Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#complex-units)"
     ],
     "web": [
-      "+Web:AvoidCommentedOutCodeCheck  # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
-      "+Web:FileLengthCheck             # Files should not have too many lines. Used by Quality-time",
-      "+Web:LongJavaScriptCheck         # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)"
+      "+Web:AvoidCommentedOutCodeCheck                             # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code)",
+      "+Web:FileLengthCheck                                        # Files should not have too many lines. Used by Quality-time",
+      "+Web:LongJavaScriptCheck                                    # Used by Quality-time (https://quality-time.readthedocs.io/en/latest/reference.html#long-units)"
     ],
     "yaml": [
       "+yaml:BracesCheck|max-spaces-inside=1;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=1",
