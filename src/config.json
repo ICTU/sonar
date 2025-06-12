@@ -62,7 +62,7 @@
       "version": "yaml-profile-v1.9.1"
     }
   },
-  "rules_version": 20250204,
+  "rules_version": 20250612,
   "rules": {
     "ansible": [
       "+ansible:S1135                                              # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
@@ -73,13 +73,16 @@
       "+csharpsquid:S1067                                          # Expressions should not be too complex; NOT used by Quality-time",
       "+csharpsquid:S107|max=5                                     # Methods should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
       "+csharpsquid:S109                                           # Magic numbers should not be used; NOT used by Quality-time",
+      "+csharpsquid:S1134                                          # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+csharpsquid:S1135                                          # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+csharpsquid:S1151                                          # Switch case clauses should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+csharpsquid:S125                                           # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
       "+csharpsquid:S1309                                          # Track uses of in-source issue suppressions; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
       "+csharpsquid:S134                                           # Control flow statements should not be nested too deeply; NOT used by Quality-time",
       "+csharpsquid:S138|max=20                                    # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+csharpsquid:S1541|maximumFunctionComplexityThreshold=10    # Methods and properties should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
-      "+csharpsquid:S2436                                          # Types and methods should not have too many generic parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube"
+      "+csharpsquid:S2436                                          # Types and methods should not have too many generic parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
+      "+csharpsquid:S3776                                          # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
     ],
     "java": [
       "+java:NoSonar                                               # Track uses of NOSONAR comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
@@ -87,6 +90,8 @@
       "+java:S1067                                                 # Expressions should not be too complex; NOT used by Quality-time",
       "+java:S107|max=5                                            # Methods should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
       "+java:S109                                                  # Magic numbers should not be used; NOT used by Quality-time",
+      "+java:S1134                                                 # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+java:S1135                                                 # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+java:S1151                                                 # Switch case clauses should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+java:S1188                                                 # Anonymous classes should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+java:S125                                                  # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
@@ -96,6 +101,7 @@
       "+java:S138|max=20                                           # Methods should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+java:S1541|Threshold=10                                    # Methods should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+java:S2972                                                 # Inner classes should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
+      "+java:S3776                                                 # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+java:S5612                                                 # Lambdas should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube"
     ],
     "js": [
@@ -104,23 +110,33 @@
       "+javascript:S1067                                           # Expressions should not be too complex; NOT used by Quality-time",
       "+javascript:S107|maximumFunctionParameters=5                # Functions should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
       "+javascript:S109                                            # Magic numbers should not be used; NOT used by Quality-time",
+      "+javascript:S1134                                           # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+javascript:S1135                                           # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+javascript:S125                                            # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
+      "+javascript:S1291                                           # Track uses of NOSONAR comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
       "+javascript:S134                                            # Control flow statements should not be nested too deeply; NOT used by Quality-time",
       "+javascript:S138|max=40                                     # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
-      "+javascript:S1541|maximumFunctionComplexityThreshold=10     # Cyclomatic Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
+      "+javascript:S1541|maximumFunctionComplexityThreshold=10     # Cyclomatic Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
+      "+javascript:S3776                                           # Cognitive Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
     ],
     "kotlin": [
       "+kotlin:S104                                                # Files should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+kotlin:S1067                                               # Expressions should not be too complex; NOT used by Quality-time",
       "+kotlin:S107|Max=5                                          # Functions should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
+      "+kotlin:S1134                                               # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+kotlin:S1135                                               # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+kotlin:S1151                                               # When clauses should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
+      "+kotlin:S125                                                # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
       "+kotlin:S138|max=20                                         # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
+      "+kotlin:S3776                                               # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+kotlin:S5612                                               # Lambdas should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube"
     ],
     "plsql": [
       "+plsql:NoSonarCheck                                         # Track uses of NOSONAR comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
       "+plsql:PlSql.FunctionAndProcedureComplexity                 # Functions and procedures should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+plsql:S104                                                 # Files should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
+      "+plsql:S1134                                                # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+plsql:S1135                                                # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+plsql:S1151                                                # WHEN clauses should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+plsql:S125                                                 # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube"
     ],
@@ -129,9 +145,12 @@
       "+python:NoSonar                                             # Track uses of NOSONAR comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
       "+python:S104                                                # Files should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+python:S107|max=5                                          # Functions, methods and lambdas should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
+      "+python:S1134                                               # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+python:S1135                                               # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+python:S125                                                # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
       "+python:S134                                                # Control flow statements should not be nested too deeply; NOT used by Quality-time",
-      "+python:S138|max=20                                         # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube)"
+      "+python:S138|max=20                                         # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube)",
+      "+python:S3776                                               # Cognitive Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
     ],
     "rust": [
       "+rust:S107                                                  # Functions should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
@@ -141,12 +160,15 @@
       "+swift:S104                                                 # Files should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+swift:S1067                                                # Expressions should not be too complex; NOT used by Quality-time",
       "+swift:S107|functionMax=5                                   # Functions should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
+      "+swift:S1134                                                # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+swift:S1135                                                # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+swift:S1151                                                # Switch case clauses should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+swift:S1188                                                # Closures should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+swift:S125                                                 # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
       "+swift:S138|max=20                                          # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+swift:S1541|Threshold=10                                   # Cyclomatic Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
-      "+swift:S2042                                                # Classes should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube"
+      "+swift:S2042                                                # Classes should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
+      "+swift:S3776                                                # Cognitive Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
     ],
     "ts": [
       "+typescript:S104                                            # Files should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
@@ -154,8 +176,13 @@
       "+typescript:S1067                                           # Expressions should not be too complex; NOT used by Quality-time",
       "+typescript:S107|maximumFunctionParameters=5                # Functions should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
       "+typescript:S109                                            # Magic numbers should not be used; NOT used by Quality-time",
+      "+typescript:S1134                                           # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+typescript:S1135                                           # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+typescript:S125                                            # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
+      "+typescript:S1291                                           # Track uses of NOSONAR comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
       "+typescript:S138|max=40                                     # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+typescript:S1541|Threshold=10                              # Cyclomatic Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
+      "+typescript:S3776                                           # Cognitive Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+typescript:S4204                                           # The any type should not be used; NOT used by Quality-time",
       "-typescript:S4328                                           # Dependencies should be explicit; reason for disabling: the rule does not recognize 'local' imports"
     ],
@@ -163,14 +190,19 @@
       "+vbnet:S104                                                 # Files should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+vbnet:S1067                                                # Expressions should not be too complex; NOT used by Quality-time",
       "+vbnet:S107|max=5                                           # Procedures should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
+      "+vbnet:S1134                                                # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+vbnet:S1135                                                # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+vbnet:S1151                                                # Select...Case clauses should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+vbnet:S138|max=20                                          # Procedures should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
-      "+vbnet:S1541|maximumFunctionComplexityThreshold=10          # Functions, procedures and properties should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
+      "+vbnet:S1541|maximumFunctionComplexityThreshold=10          # Functions, procedures and properties should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
+      "+vbnet:S3776                                                # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
     ],
     "web": [
       "+Web:AvoidCommentedOutCodeCheck                             # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
       "+Web:FileLengthCheck                                        # Files should not have too many lines; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
-      "+Web:LongJavaScriptCheck                                    # JavaScript scriptlets should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube"
+      "+Web:LongJavaScriptCheck                                    # JavaScript scriptlets should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
+      "+Web:S1134                                                  # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+Web:S1135                                                  # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube"
     ],
     "yaml": [
       "+yaml:BracesCheck|max-spaces-inside=1;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=1           # For readability braces should have a fixed number of spaces before and after",
