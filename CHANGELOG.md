@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [2025.3.0](https://github.com/ICTU/sonar/releases/tag/2025.3.0) - 2025-06-13
+
+### Added
+
+- Re-add plugin `vaulttec/sonar-auth-oidc` [version 3.0.0](https://github.com/vaulttec/sonar-auth-oidc/releases/tag/3.0.0) (#106).
+- Add language profile rules not explicitly defined, but used by Quality-time (#106).
+
+### Changed
+
+- Update to [SonarQube version 2025.3](https://www.sonarsource.com/products/sonarqube/whats-new/2025-3/) (#106).
+- Update plugin `spotbugs/sonar-findbugs` to [version 4.5.1](https://github.com/spotbugs/sonar-findbugs/releases/tag/4.5.1) (#106).
+
+### Removed
+
+- Remove plugin `C4tWithShell/community-rust` due to native SonarQube support (#106).
+
 ## [2025.2.0](https://github.com/ICTU/sonar/releases/tag/2025.2.0) - 2025-05-23
 
 ### Added
@@ -18,13 +34,13 @@
 ### Removed
 
 - Remove option to override default admin credential with `SONARQUBE_USERNAME` (#83).
-- **BREAKING**: Remove plugin sonar-auth-oidc due to blocking bug, disabling OpenID support (#103).
+- **BREAKING**: Remove plugin `vaulttec/sonar-auth-oidc` due to blocking bug, disabling OpenID support (#103). _NOTE: Plugin was re-added in version 2025.3.0_.
 
 ## [10.8.1](https://github.com/ICTU/sonar/releases/tag/10.8.1) - 2025-02-07
 
 ### Added
 
-- Rust plugin and language profile (#90).
+- Rust plugin `C4tWithShell/community-rust` and language profile (#90).
 - PL/SQL language profile (#67).
 
 ### Changed
@@ -36,11 +52,11 @@
 
 ### Fixed
 
-- Fix broken link for sonar-findbugs plugin (#88).
+- Fix broken link for plugin `spotbugs/sonar-findbugs` (#88).
 
 ### Removed
 
-- Remove sonar-ansible plugin and language rules due to clash with built-in IaC (#91).
+- Remove plugin `sbaudoin/sonar-ansible` and language rules due to clash with built-in IaC (#91).
 - Remove community edition build due to uncoupled release cycle (#91).
 - Remove deprecated types classification from rule sets in favour of software qualities (#60).
 
