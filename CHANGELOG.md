@@ -6,6 +6,7 @@
 
 - Dart language profile (#108).
 - CSS language profile (#109).
+- XML language profile (#110).
 
 ## [2025.3.0](https://github.com/ICTU/sonar/releases/tag/2025.3.0) - 2025-06-13
 

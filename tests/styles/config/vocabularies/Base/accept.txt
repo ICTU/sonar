@@ -60,7 +60,7 @@ unicode
 unmerged
 upvotes
 url
-xml
+(xml|XML)
 Dennie
 Bouman
 yaml
