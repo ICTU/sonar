@@ -63,6 +63,10 @@
       "plugin_name": "html-plugin",
       "version": "web-profile-v3.19.0"
     },
+    "xml": {
+      "plugin_name": "xml-plugin",
+      "version": "xml-profile-v2.13.0"
+    },
     "yaml": {
       "language_profile": "YAML Analyzer",
       "plugin_name": "sonar-yaml",
@@ -93,7 +97,7 @@
       "+csharpsquid:S3776                                          # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
     ],
     "css": [
-      "+css:S125                                                   # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube\""
+      "+css:S125                                                   # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube"
     ],
     "dart": [
       "+dart:S107|max=5                                            # Methods should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
@@ -221,6 +225,11 @@
       "+Web:LongJavaScriptCheck                                    # JavaScript scriptlets should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube",
       "+Web:S1134                                                  # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+Web:S1135                                                  # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube"
+    ],
+    "xml": [
+      "+xml:S125                                                   # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
+      "+xml:S1134                                                  # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
+      "+xml:S1135                                                  # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube"
     ],
     "yaml": [
       "+yaml:BracesCheck|max-spaces-inside=1;max-spaces-inside-empty=-1;min-spaces-inside-empty=-1;min-spaces-inside=1           # For readability braces should have a fixed number of spaces before and after",
