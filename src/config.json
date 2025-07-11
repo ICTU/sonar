@@ -23,6 +23,10 @@
       "plugin_name": "dart-plugin",
       "version": "dart-profile-v1.2.0"
     },
+    "docker": {
+      "plugin_name": "iac-plugin",
+      "version": "docker-profile-v1.44.0"
+    },
     "java": {
       "plugin_name": "java-plugin",
       "version": "java-profile-v8.11.0"
@@ -105,6 +109,9 @@
       "+dart:S1135                                                 # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+dart:S1541|threshold=10                                    # Methods and properties should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+dart:S3776                                                 # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
+    ],
+    "docker": [
+      "+docker:S1135                                               # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube"
     ],
     "java": [
       "+java:NoSonar                                               # Track uses of NOSONAR comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
