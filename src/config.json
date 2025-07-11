@@ -15,6 +15,10 @@
       "plugin_name": "csharp-plugin",
       "version": "cs-profile-v10.7.0"
     },
+    "css": {
+      "plugin_name": "javascript-plugin",
+      "version": "css-profile-v10.21.1"
+    },
     "dart": {
       "plugin_name": "dart-plugin",
       "version": "dart-profile-v1.2.0"
@@ -87,6 +91,9 @@
       "+csharpsquid:S1541|maximumFunctionComplexityThreshold=10    # Methods and properties should not be too complex; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube",
       "+csharpsquid:S2436                                          # Types and methods should not have too many generic parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
       "+csharpsquid:S3776                                          # Cognitive Complexity of methods should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
+    ],
+    "css": [
+      "+css:S125                                                   # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube\""
     ],
     "dart": [
       "+dart:S107|max=5                                            # Methods should not have too many parameters; https://quality-time.readthedocs.io/en/latest/reference.html#many-parameters-from-sonarqube",
