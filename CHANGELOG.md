@@ -9,6 +9,10 @@
 - XML language profile (#110).
 - Docker language profile (#111).
 
+### Changed
+
+- Disable autodetect AI-generated code (#116).
+
 ## [2025.3.0](https://github.com/ICTU/sonar/releases/tag/2025.3.0) - 2025-06-13
 
 ### Added

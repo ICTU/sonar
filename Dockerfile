@@ -18,9 +18,9 @@ RUN apt-get update \
     && apt-get install -y wget curl ca-certificates-java jq postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-COPY sonar.properties /opt/sonarqube/conf/sonar.properties
 COPY ./src /src
-RUN chmod +x /src/ /src/*.sh && \
+RUN mv /src/sonar.properties /opt/sonarqube/conf/sonar.properties && \
+    chmod +x /src/ /src/*.sh && \
     rm -rf ./extensions/plugins/* && \
     /src/install-plugins.sh
 
