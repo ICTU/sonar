@@ -74,3 +74,4 @@ py
 ts
 vbnet
 [Ww]eb
+autodetect

@@ -70,19 +70,24 @@ function waitForSonarUp {
 function changeDefaultAdminPassword {
     if [ -n "${SONARQUBE_PASSWORD}" ]; then
         echo "Trying to change the default admin password"
-        curl -s -X POST -u "admin:admin" -f "${BASE_URL}/api/users/change_password?login=admin&password=${SONARQUBE_PASSWORD}&previousPassword=admin"
+        curl -s -X POST -u "admin:admin" --fail "${BASE_URL}/api/users/change_password?login=admin&password=${SONARQUBE_PASSWORD}&previousPassword=admin"
     fi
 }
 
 # Test admin credentials
 function testAdminCredentials {
-    authenticated=$(curl -s -u "${BASIC_AUTH}" -f "${BASE_URL}/api/system/info")
+    authenticated=$(curlAdmin --fail "${BASE_URL}/api/system/info")
     if [ -z "${authenticated}" ]; then
         echo "################################################################################"
         echo "No or incorrect admin credentials provided. Shutting down SonarQube..."
         echo "################################################################################"
         exit 1
     fi
+}
+
+# Configure settings which cannot be set in conf/sonar.properties
+function configureAdditionalSettings {
+    curlAdmin -X POST "${BASE_URL}/api/settings/set?key=sonar.autodetect.ai.code&value=false"
 }
 
 # Given a profile name, retrieve its key
@@ -92,7 +97,7 @@ function getProfileKey {
     local getProfileKeyUrl json searchResultProfileKey
 
     getProfileKeyUrl="${BASE_URL}/api/qualityprofiles/search?qualityProfile=${searchProfileName}&language=${searchLanguage}"
-    json=$(curl -s -u "${BASIC_AUTH}" "${getProfileKeyUrl}")
+    json=$(curlAdmin "${getProfileKeyUrl}")
     searchResultProfileKey=$(echo "${json}" | grep -Eo '"key":"([_A-Z0-9a-z-]*)"' | cut -d: -f2 | sed -r 's/"//g')
     echo "${searchResultProfileKey}"
 }
@@ -175,7 +180,7 @@ function createProfile {
     fi
 
     # Set profile as default only when name does not end in DEFAULT or default
-    currentProfileName=$(curl -s -u "${BASIC_AUTH}" "${BASE_URL}/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
+    currentProfileName=$(curlAdmin "${BASE_URL}/api/qualityprofiles/search?defaults=true" | jq -r --arg LANGUAGE "$3" '.profiles[] | select(.language==$LANGUAGE) | .name')
     echo "Current profile for language '$3' is '${currentProfileName}'"
     shopt -s nocasematch
     if [[ "${currentProfileName}" =~ .*DEFAULT$ ]]; then
@@ -219,6 +224,8 @@ waitForSonarUp
 changeDefaultAdminPassword
 
 testAdminCredentials
+
+configureAdditionalSettings
 
 # (Re-)create the ICTU profiles
 rules_version=$(jq -r ".rules_version" /src/config.json)
