@@ -12,6 +12,10 @@
 ### Changed
 
 - Disable autodetect AI-generated code (#116).
+- Update to [SonarQube version 2025.4](https://www.sonarsource.com/products/sonarqube/whats-new/2025-4/) (#118).
+- Update plugin `checkstyle/sonar-checkstyle` to [version 10.26.1](https://github.com/checkstyle/sonar-checkstyle/releases/tag/10.26.1) (#118).
+- Update plugin `dependency-check/dependency-check-sonar-plugin` to [version 6.0.0](https://github.com/dependency-check/dependency-check-sonar-plugin/releases/tag/6.0.0) (#118).
+- Update plugin `spotbugs/sonar-findbugs` to [version 4.5.2](https://github.com/spotbugs/sonar-findbugs/releases/tag/4.5.2) (#118).
 
 ## [2025.3.0](https://github.com/ICTU/sonar/releases/tag/2025.3.0) - 2025-06-13
 

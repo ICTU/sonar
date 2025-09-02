@@ -1,8 +1,8 @@
 ---
 apiVersion: v2
 name: ictu-sonarqube
-version: 2025.3.0
-appVersion: "2025.3.0"
+version: 2025.4.2
+appVersion: "2025.4.2"
 description: A SonarQube helm chart with plugins, profiles and config used at ICTU
 type: application
 home: https://github.com/ICTU/sonar
@@ -11,5 +11,5 @@ dependencies:
     version: 16.6.0  # this corresponds with appVersion 17.4.0, upstream sonarqube helm chart uses version 10.15.0
     repository: oci://registry-1.docker.io/bitnamicharts  # https://github.com/bitnami/charts/blob/main/bitnami/postgresql/Chart.yaml
   - name: sonarqube
-    version: 2025.3.0
+    version: 2025.4.2
     repository: https://SonarSource.github.io/helm-chart-sonarqube  # https://github.com/SonarSource/helm-chart-sonarqube/blob/master/charts/sonarqube/Chart.yaml
