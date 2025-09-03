@@ -1,51 +1,51 @@
 {
   "plugins": [
-    "https://github.com/checkstyle/sonar-checkstyle/releases/download/10.23.0/checkstyle-sonar-plugin-10.23.0.jar",
-    "https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/5.0.0/sonar-dependency-check-plugin-5.0.0.jar",
+    "https://github.com/checkstyle/sonar-checkstyle/releases/download/10.26.1/checkstyle-sonar-plugin-10.26.1.jar",
+    "https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/6.0.0/sonar-dependency-check-plugin-6.0.0.jar",
     "https://github.com/sbaudoin/sonar-yaml/releases/download/v1.9.1/sonar-yaml-plugin-1.9.1.jar",
-    "https://github.com/spotbugs/sonar-findbugs/releases/download/4.5.1/sonar-findbugs-plugin.jar",
+    "https://github.com/spotbugs/sonar-findbugs/releases/download/4.5.2/sonar-findbugs-plugin-4.5.2.jar",
     "https://github.com/vaulttec/sonar-auth-oidc/releases/download/v3.0.0/sonar-auth-oidc-plugin-3.0.0.jar"
   ],
   "profiles": {
     "ansible": {
       "plugin_name": "iac-plugin",
-      "version": "ansible-profile-v1.44.0"
+      "version": "ansible-profile-v1.48.0"
     },
     "cs": {
       "plugin_name": "csharp-plugin",
-      "version": "cs-profile-v10.7.0"
+      "version": "cs-profile-v10.15.0"
     },
     "css": {
       "plugin_name": "javascript-plugin",
-      "version": "css-profile-v10.21.1"
+      "version": "css-profile-v10.25.0"
     },
     "dart": {
       "plugin_name": "dart-plugin",
-      "version": "dart-profile-v1.2.0"
+      "version": "dart-profile-v1.3.0"
     },
     "docker": {
       "plugin_name": "iac-plugin",
-      "version": "docker-profile-v1.44.0"
+      "version": "docker-profile-v1.48.0"
     },
     "java": {
       "plugin_name": "java-plugin",
-      "version": "java-profile-v8.11.0"
+      "version": "java-profile-v8.18.0"
     },
     "js": {
       "plugin_name": "javascript-plugin",
-      "version": "js-profile-v10.21.1"
+      "version": "js-profile-v10.25.0"
     },
     "kotlin": {
       "plugin_name": "kotlin-plugin",
-      "version": "kotlin-profile-v3.0.1"
+      "version": "kotlin-profile-v3.3.0"
     },
     "plsql": {
       "plugin_name": "plsql-plugin",
-      "version": "plsql-profile-v3.15.0"
+      "version": "plsql-profile-v3.17.0"
     },
     "py": {
       "plugin_name": "python-plugin",
-      "version": "py-profile-v5.2.0"
+      "version": "py-profile-v5.7.0"
     },
     "rust": {
       "plugin_name": "rust-plugin",
@@ -53,15 +53,15 @@
     },
     "swift": {
       "plugin_name": "swift-plugin",
-      "version": "swift-profile-v4.13.1"
+      "version": "swift-profile-v4.14.0"
     },
     "ts": {
       "plugin_name": "javascript-plugin",
-      "version": "ts-profile-v10.21.1"
+      "version": "ts-profile-v10.25.0"
     },
     "vbnet": {
       "plugin_name": "vbnet-plugin",
-      "version": "vbnet-profile-v10.7.0"
+      "version": "vbnet-profile-v10.15.0"
     },
     "web": {
       "plugin_name": "html-plugin",
@@ -78,7 +78,7 @@
       "version": "yaml-profile-v1.9.1"
     }
   },
-  "rules_version": 20250612,
+  "rules_version": 20250902,
   "rules": {
     "ansible": [
       "+ansible:S1135                                              # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
@@ -177,6 +177,7 @@
       "+python:S1134                                               # Track uses of FIXME tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+python:S1135                                               # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
       "+python:S125                                                # Sections of code should not be commented out; https://quality-time.readthedocs.io/en/latest/reference.html#commented-out-code-from-sonarqube",
+      "+python:S1309                                               # Track uses of noqa comments; https://quality-time.readthedocs.io/en/latest/reference.html#suppressed-violations-from-sonarqube",
       "+python:S134                                                # Control flow statements should not be nested too deeply; NOT used by Quality-time",
       "+python:S138|max=20                                         # Functions should not have too many lines of code; https://quality-time.readthedocs.io/en/latest/reference.html#long-units-from-sonarqube)",
       "+python:S3776                                               # Cognitive Complexity of functions should not be too high; https://quality-time.readthedocs.io/en/latest/reference.html#complex-units-from-sonarqube"
