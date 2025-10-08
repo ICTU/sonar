@@ -79,6 +79,10 @@ Additional environment variables can be passed to the SonarQube container as a l
 Note that the default value specified in `sonarqube.extraConfig.configmaps` assumes the release name `ictu-sonarqube`, which you may need to override.
 Alternatively, environment variables can be passed directly through the `sonarqube.env` dict in the Helm values (i.e. for secrets).
 
+Note that the Helm chart does not deploy a PostgreSQL database by default, because the upstream SonarQube chart is shipped with a legacy Bitnami version.
+Because the Bitnami charts are [no longer](https://github.com/bitnami/charts/issues/35164) [publicly maintained](https://www.docker.com/blog/broadcoms-new-bitnami-restrictions-migrate-easily-with-docker/), (security) patches are not available and a new deployment is already insecure.
+This means that a production deployment with this Helm chart should come with a separately managed db, configured in the `sonarqube.jdbcOverwrite` values.
+
 
 ## Upgrading PostgreSQL containers
 

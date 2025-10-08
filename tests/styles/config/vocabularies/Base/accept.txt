@@ -75,3 +75,4 @@ ts
 vbnet
 [Ww]eb
 autodetect
+Bitnami
