@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 
+## [2025.5.0](https://github.com/ICTU/sonar/releases/tag/2025.5.0) - 2025-10-09
+
 ### Added
 
 - Option in Helm chart to disable deployment of Bitnami PostgreSQL (#122).
+
+### Changed
+
+- Update to [SonarQube version 2025.5](https://www.sonarsource.com/products/sonarqube/whats-new/2025-5/) (#124).
 
 ## [2025.4.2](https://github.com/ICTU/sonar/releases/tag/2025.4.2) - 2025-09-05
 

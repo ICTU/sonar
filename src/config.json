@@ -9,7 +9,7 @@
   "profiles": {
     "ansible": {
       "plugin_name": "iac-plugin",
-      "version": "ansible-profile-v1.48.0"
+      "version": "ansible-profile-v1.50.0"
     },
     "cs": {
       "plugin_name": "csharp-plugin",
@@ -17,7 +17,7 @@
     },
     "css": {
       "plugin_name": "javascript-plugin",
-      "version": "css-profile-v10.25.0"
+      "version": "css-profile-v11.4.0"
     },
     "dart": {
       "plugin_name": "dart-plugin",
@@ -25,7 +25,7 @@
     },
     "docker": {
       "plugin_name": "iac-plugin",
-      "version": "docker-profile-v1.48.0"
+      "version": "docker-profile-v1.50.0"
     },
     "java": {
       "plugin_name": "java-plugin",
@@ -33,7 +33,7 @@
     },
     "js": {
       "plugin_name": "javascript-plugin",
-      "version": "js-profile-v10.25.0"
+      "version": "js-profile-v11.4.0"
     },
     "kotlin": {
       "plugin_name": "kotlin-plugin",
@@ -45,11 +45,11 @@
     },
     "py": {
       "plugin_name": "python-plugin",
-      "version": "py-profile-v5.7.0"
+      "version": "py-profile-v5.10.0"
     },
     "rust": {
       "plugin_name": "rust-plugin",
-      "version": "rust-profile-v1.0.3"
+      "version": "rust-profile-v1.1.0"
     },
     "swift": {
       "plugin_name": "swift-plugin",
@@ -57,7 +57,7 @@
     },
     "ts": {
       "plugin_name": "javascript-plugin",
-      "version": "ts-profile-v10.25.0"
+      "version": "ts-profile-v11.4.0"
     },
     "vbnet": {
       "plugin_name": "vbnet-plugin",
@@ -78,7 +78,7 @@
       "version": "yaml-profile-v1.9.1"
     }
   },
-  "rules_version": 20250902,
+  "rules_version": 20251009,
   "rules": {
     "ansible": [
       "+ansible:S1135                                              # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
