@@ -30,7 +30,7 @@ jobs:
           kubectl create secret generic sonarqube-postgresql-secret --from-literal=sonar_db_password=$(echo ${RANDOM} | md5sum | head -c 12) --from-literal=postgres_db_password=$(echo ${RANDOM} | md5sum | head -c 12)
           kubectl create secret generic sonarqube-admin-password-secret --from-literal=password=$(echo ${RANDOM} | md5sum | head -c 9)1A. --from-literal=currentPassword=admin
           helm dependency build helm
-          helm upgrade --set-json='sonarqube.elasticsearch.bootstrapChecks="false"' --set-json='sonarqube.image.tag="ci-latest"' --install --render-subchart-notes ictu-sonarqube helm
+          helm upgrade --set-json='sonarqube.elasticsearch.bootstrapChecks="false"' --set-json='sonarqube.image.tag="ci-latest"' --set-json='postgresql.enabled="true"' --set-json='global.security.allowInsecureImages="true"' --install --render-subchart-notes ictu-sonarqube helm
         timeout-minutes: 9
 
       - name: Disable ES disk watermark checks

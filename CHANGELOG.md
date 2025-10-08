@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Option in Helm chart to disable deployment of Bitnami PostgreSQL (#122).
+
 ## [2025.4.2](https://github.com/ICTU/sonar/releases/tag/2025.4.2) - 2025-09-05
 
 ### Added
