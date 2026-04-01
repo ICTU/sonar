@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [2026.2.1](https://github.com/ICTU/sonar/releases/tag/2026.2.1) - 2026-04-01
+
+### Changed
+
+- Update to [SonarQube version 2026.2](https://www.sonarsource.com/products/sonarqube/whats-new/2026-2/) (#128).
+- Update plugin `spotbugs/sonar-findbugs` to [version 4.6.0](https://github.com/spotbugs/sonar-findbugs/releases/tag/v4.6.0) (#128).
+
 ## [2025.5.0](https://github.com/ICTU/sonar/releases/tag/2025.5.0) - 2025-10-09
 
 ### Added
