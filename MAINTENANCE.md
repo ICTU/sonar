@@ -3,6 +3,7 @@
 
 ## Version upgrade workflow
 
+1. Verify upgrade path with the [SonarQube Update Calculator](https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/update/determine-path#update-path-calculator)
 1. Update version spec in `Dockerfile`, `helm/Chart.yaml`, `helm/values.yaml` and `sonar-project.properties` with the new version of SonarQube
 1. Update external plugins in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json) with latest versions listed in their respective repository `/releases/` url
 1. Update profile versions based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
