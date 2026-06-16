@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
 
       - name: Build and run container image
         run: |

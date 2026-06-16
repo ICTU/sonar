@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.0.3
+        with:
+          persist-credentials: false
 
       - id: semver
         name: Ensure that selected tag is a semantic version
@@ -23,6 +25,8 @@ jobs:
       - name: Package and push container to Docker Hub
         if: ${{ github.ref_type == 'tag' }}
         run: |
-          export CONTAINER_TAG="${{ steps.semver.outputs.version }}-developer"
+          export CONTAINER_TAG="${STEPS_SEMVER_OUTPUTS_VERSION}-developer"
           docker build -t ictu/sonar:${CONTAINER_TAG} .
           docker push ictu/sonar:${CONTAINER_TAG}
+        env:
+          STEPS_SEMVER_OUTPUTS_VERSION: ${{ steps.semver.outputs.version }}
