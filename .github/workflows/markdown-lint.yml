@@ -12,9 +12,9 @@ jobs:
   vale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6.0.3
 
-      - uses: errata-ai/vale-action@v2.1.1
+      - uses: vale-cli/vale-action@v2.1.1
         with:
           fail_on_error: true
           filter_mode: nofilter
