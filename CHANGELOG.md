@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [2026.3.1](https://github.com/ICTU/sonar/releases/tag/2026.3.1) - 2026-06-16
+
+### Changed
+
+- Update to [SonarQube version 2026.3](https://www.sonarsource.com/products/sonarqube/whats-new/2026-3/) (#134).
+- Update plugin `checkstyle/sonar-checkstyle` to [version 13.4.1](https://github.com/checkstyle/sonar-checkstyle/releases/13.4.1/) (#134).
+
 ## [2026.2.1](https://github.com/ICTU/sonar/releases/tag/2026.2.1) - 2026-04-01
 
 ### Changed
