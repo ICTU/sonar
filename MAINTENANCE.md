@@ -9,11 +9,11 @@
 1. Update profile versions based on the internal plugin versions in the [config.json](https://github.com/ICTU/sonar/blob/master/src/config.json)
     1. Obtain the base version numbers from the vanilla SonarQube image directory `/opt/sonarqube/lib/extensions`, excluding build number
     1. Update the configuration rules version number `rules_version` if the rules have been changed
+1. Update the `CHANGELOG.md` with new version information and move `[Unreleased]` items to new version section
 1. Check for any runtime errors and warnings in the container logs
 1. Create new version tag on GitHub, following semantic versioning as: `MAJOR.MINOR.PATCH`
 1. Build and push new container images to Docker Hub `ictu/sonar`, with the [docker release GitHub action](https://github.com/ICTU/sonar/actions/workflows/docker-release.yml)
 1. Push the updated Helm chart as OCI artifact to Docker Hub `ictu/ictu-sonarqube`, with the [Helm release GitHub action](https://github.com/ICTU/sonar/actions/workflows/helm-release.yml)
-1. Update the `CHANGELOG.md` with new version information and move `[Unreleased]` items to new version section
 1. Update the Docker Hub overview pages if `README.md` content has changed
 
 ## Adding plugins
