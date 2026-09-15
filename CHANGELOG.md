@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [2026.4.1](https://github.com/ICTU/sonar/releases/tag/2026.4.1) - 2026-09-15
+
+### Changed
+
+- Update to [SonarQube version 2026.4](https://www.sonarsource.com/products/sonarqube/whats-new/2026-4/) (#139).
+- Update plugin `checkstyle/sonar-checkstyle` to [version 13.7.0](https://github.com/checkstyle/sonar-checkstyle/releases/tag/checkstyle-sonar-plugin-13.7.0) (#139).
+- Update plugin `spotbugs/sonar-findbugs` to [version 4.7.0](https://github.com/spotbugs/sonar-findbugs/releases/tag/4.7.0) (#139).
+
 ## [2026.3.1](https://github.com/ICTU/sonar/releases/tag/2026.3.1) - 2026-06-16
 
 ### Changed
