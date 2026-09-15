@@ -1,75 +1,75 @@
 {
   "plugins": [
-    "https://github.com/checkstyle/sonar-checkstyle/releases/download/13.4.1/checkstyle-sonar-plugin-13.4.1.jar",
+    "https://github.com/checkstyle/sonar-checkstyle/releases/download/checkstyle-sonar-plugin-13.7.0/checkstyle-sonar-plugin-13.7.0.jar",
     "https://github.com/dependency-check/dependency-check-sonar-plugin/releases/download/6.0.0/sonar-dependency-check-plugin-6.0.0.jar",
     "https://github.com/sbaudoin/sonar-yaml/releases/download/v1.9.1/sonar-yaml-plugin-1.9.1.jar",
-    "https://github.com/spotbugs/sonar-findbugs/releases/download/v4.6.0/sonar-findbugs-plugin-v4.6.0.jar",
+    "https://github.com/spotbugs/sonar-findbugs/releases/download/4.7.0/sonar-findbugs-plugin-4.7.0.jar",
     "https://github.com/vaulttec/sonar-auth-oidc/releases/download/v3.0.0/sonar-auth-oidc-plugin-3.0.0.jar"
   ],
   "profiles": {
     "ansible": {
       "plugin_name": "iac-plugin",
-      "version": "ansible-profile-v2.10.0"
+      "version": "ansible-profile-v2.12.0"
     },
     "cs": {
       "plugin_name": "csharp-plugin",
-      "version": "cs-profile-v10.25.0"
+      "version": "cs-profile-v10.29.0"
     },
     "css": {
       "plugin_name": "javascript-plugin",
-      "version": "css-profile-v12.4.0"
+      "version": "css-profile-v13.3.0"
     },
     "dart": {
       "plugin_name": "dart-plugin",
-      "version": "dart-profile-v1.5.0"
+      "version": "dart-profile-v1.7.0"
     },
     "docker": {
       "plugin_name": "iac-plugin",
-      "version": "docker-profile-v2.10.0"
+      "version": "docker-profile-v2.12.0"
     },
     "java": {
       "plugin_name": "java-plugin",
-      "version": "java-profile-v8.29.0"
+      "version": "java-profile-v8.35.0"
     },
     "js": {
       "plugin_name": "javascript-plugin",
-      "version": "js-profile-v12.4.0"
+      "version": "js-profile-v13.3.0"
     },
     "kotlin": {
       "plugin_name": "kotlin-plugin",
-      "version": "kotlin-profile-v3.6.0"
+      "version": "kotlin-profile-v3.7.0"
     },
     "plsql": {
       "plugin_name": "plsql-plugin",
-      "version": "plsql-profile-v3.19.0"
+      "version": "plsql-profile-v3.22.0"
     },
     "py": {
       "plugin_name": "python-plugin",
-      "version": "py-profile-v5.22.0"
+      "version": "py-profile-v5.25.0"
     },
     "rust": {
       "plugin_name": "rust-plugin",
-      "version": "rust-profile-v1.5.0"
+      "version": "rust-profile-v1.7.0"
     },
     "swift": {
       "plugin_name": "swift-plugin",
-      "version": "swift-profile-v5.3.0"
+      "version": "swift-profile-v5.5.0"
     },
     "ts": {
       "plugin_name": "javascript-plugin",
-      "version": "ts-profile-v12.4.0"
+      "version": "ts-profile-v13.3.0"
     },
     "vbnet": {
       "plugin_name": "vbnet-plugin",
-      "version": "vbnet-profile-v10.25.0"
+      "version": "vbnet-profile-v10.29.0"
     },
     "web": {
       "plugin_name": "html-plugin",
-      "version": "web-profile-v3.26.0"
+      "version": "web-profile-v3.28.0"
     },
     "xml": {
       "plugin_name": "xml-plugin",
-      "version": "xml-profile-v2.17.0"
+      "version": "xml-profile-v2.18.0"
     },
     "yaml": {
       "language_profile": "YAML Analyzer",
@@ -78,7 +78,7 @@
       "version": "yaml-profile-v1.9.1"
     }
   },
-  "rules_version": 20260616,
+  "rules_version": 20260915,
   "rules": {
     "ansible": [
       "+ansible:S1135                                              # Track uses of TODO tags; https://quality-time.readthedocs.io/en/latest/reference.html#todo-and-fixme-comments-from-sonarqube",
