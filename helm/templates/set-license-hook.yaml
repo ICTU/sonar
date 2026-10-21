@@ -26,7 +26,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: {{ .Release.Name }}-license-job
-          image: alpine/curl:8.12.1
+          image: alpine/curl:8.21.0@sha256:a1c44bab54d88e18ea9a6a4ecefab7f2d230b968567b78960fcaff8d51b7f067
           command: ["sh", "-c", "/configure-license.sh"]
           env:
             - name: SONARQUBE_PASSWORD
